@@ -423,7 +423,7 @@ a.topbar-brand:hover { color: var(--accent); }
 
 <!-- Oben-Leiste mit Inhaltsverzeichnis -->
 <nav class="topbar">
-  <a class="topbar-brand" href="#" title="Zum Anfang">OpenBot Guide</a>
+  <a class="topbar-brand" href="#" title="Zum Anfang">OpenBot Docs</a>
   <a class="toc-link active" href="#was">Was ist OpenBot?</a>
   <a class="toc-link" href="#install">Installation</a>
   <a class="toc-link" href="#config">Konfiguration</a>
@@ -440,7 +440,7 @@ a.topbar-brand:hover { color: var(--accent); }
   <h1 class="article-title">OpenBot – Technische Dokumentation</h1>
   <p class="article-lead">Referenz aus dem offiziellen GitHub-Repository: Installation auf allen Plattformen, Konfigurationsoptionen, Architektur, Datenablage und Entwicklungs-Setup.</p>
   <div class="article-meta">
-    <span class="tag green">Referenz</span>
+    <span class="tag green">Doku</span>
     <span class="tag blue">Technik</span>
     <span class="tag">Installation</span>
     <span class="tag">Umgebungsvariablen</span>
@@ -466,7 +466,7 @@ a.topbar-brand:hover { color: var(--accent); }
     <p>Jeder Provider nutzt seine eigene lokale CLI-Installation. OpenBot kopiert keine Credentials; jeder Provider verwaltet seinen eigenen Login-State.</p>
 
     <div class="callout warn">
-      <strong>Wichtig:</strong> Agents laufen mit <code>danger-full-access</code> und <code>approvalPolicy: never</code>. Sie können Dateien ändern, Befehle ausführen, das Netzwerk nutzen und den Browser steuern, ohne Bestätigung pro Aktion. Das ist eine bewusste Produktentscheidung, keine Sicherheitslücke. Wie du das mit Zugriffsstufen eingrenzt, zeigt der <a href="OpenBot_Komplett_Setup_mehrere_Firmen.html#sicherheit">Komplett-Setup-Guide</a>.
+      <strong>Wichtig:</strong> Agents laufen mit <code>danger-full-access</code> und <code>approvalPolicy: never</code>. Sie können Dateien ändern, Befehle ausführen, das Netzwerk nutzen und den Browser steuern, ohne Bestätigung pro Aktion. Das ist eine bewusste Produktentscheidung, keine Sicherheitslücke. Wie du das mit Zugriffsstufen eingrenzt, zeigt der <a href="../guides/OpenBot_Komplett_Setup_mehrere_Firmen.html#sicherheit">Komplett-Setup-Guide</a>.
     </div>
 
     <h3>Lizenz</h3>
@@ -521,7 +521,7 @@ openbot login</div>
 
     <h3>Provider-CLIs einrichten</h3>
     <p>OpenBot lädt die meisten Provider-CLIs selbst herunter und pinnt sie. Alternativ gibst du bereits installierte CLIs über Umgebungsvariablen an (siehe <a href="#config">Konfiguration</a>). Jeder Provider braucht einen eigenen Sign-in; OpenBot überträgt keine Credentials zwischen Providern.</p>
-    <div class="callout tip">Eine Schritt-für-Schritt-Anleitung für Ubuntu und Docker auf einem VPS steht in Guide 04 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g4">offiziellen Guides</a>.</div>
+    <div class="callout tip">Eine Schritt-für-Schritt-Anleitung für Ubuntu und Docker auf einem VPS steht in Guide 04 der <a href="../guides/OpenBot_Guides_14_offizielle_Guides_DE.html#g4">offiziellen Guides</a>.</div>
   </section>
 
   <div class="part-divider"><span class="part-label">Teil 2 · Konfiguration</span></div>
@@ -651,7 +651,7 @@ openbot login</div>
     <p>OpenBot exportiert anonymisierte Diagnosedaten nur mit ausdrücklicher Zustimmung. Chats, Dateien und Befehle verlassen den lokalen Server nicht über Cloudflare. Die vollständige Datenschutzrichtlinie steht in <code>PRIVACY.md</code> im Repository.</p>
 
     <h3>Agent-Import</h3>
-    <p>Agents lassen sich aus einem Grok-Bot-Export (<code>.zip</code>) importieren. Übernommen werden Skills, Routinen, Memories und Workspace-Dateien, aber <strong>kein Chat-Verlauf</strong>. Schritte in Guide 06 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g6">offiziellen Guides</a>.</p>
+    <p>Agents lassen sich aus einem Grok-Bot-Export (<code>.zip</code>) importieren. Übernommen werden Skills, Routinen, Memories und Workspace-Dateien, aber <strong>kein Chat-Verlauf</strong>. Schritte in Guide 06 der <a href="../guides/OpenBot_Guides_14_offizielle_Guides_DE.html#g6">offiziellen Guides</a>.</p>
   </section>
 
   <div class="part-divider"><span class="part-label">Teil 5 · Entwicklung</span></div>

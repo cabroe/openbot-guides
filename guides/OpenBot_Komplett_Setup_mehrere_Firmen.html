@@ -489,7 +489,7 @@ a.topbar-brand:hover { color: var(--accent); }
     </div>
 
     <div class="callout info">
-      <strong>Einordnung in die Guide-Sammlung:</strong> Dieser Guide beschreibt das eigene Setup und ist der Standard. Für strikte Datentrennung zwischen Firmen gibt es das Modell mit eigenen Agents pro Firma aus <a href="OpenBot_Firmen_und_Projekte.html">Firmen &amp; Projekte</a>; den Vergleich findest du unter <a href="#firmen">Mehrere Firmen</a>. Grundlagen stehen in den <a href="OpenBot_Guides_14_offizielle_Guides_DE.html">14 offiziellen Guides</a>, technische Details in der <a href="OpenBot_Dokumentation.html">Dokumentation</a>.
+      <strong>Einordnung in die Guide-Sammlung:</strong> Dieser Guide beschreibt das eigene Setup und ist der Standard. Für strikte Datentrennung zwischen Firmen gibt es das Modell mit eigenen Agents pro Firma aus <a href="OpenBot_Firmen_und_Projekte.html">Firmen &amp; Projekte</a>; den Vergleich findest du unter <a href="#firmen">Mehrere Firmen</a>. Grundlagen stehen in den <a href="OpenBot_Guides_14_offizielle_Guides_DE.html">14 offiziellen Guides</a>. Zum Nachschlagen gibt es die Docs: <a href="../docs/OpenBot_Dokumentation.html">Dokumentation</a>, <a href="../docs/OpenBot_Apps.html">Apps</a> und <a href="../docs/OpenBot_Changelog.html">Changelog</a>.
     </div>
   </section>
 
@@ -539,7 +539,7 @@ a.topbar-brand:hover { color: var(--accent); }
     <h3>Anlegen</h3>
     <ul>
       <li><strong>Per Prompt:</strong> „Erstelle einen Agenten für …“ an Dr. Eggbot (Skill <em>Agent Designer</em>) oder an jeden Agenten (<code>create_agent</code>). Ohne Angabe erbt der neue Agent Anbieter und Modell des Aufrufers.</li>
-      <li><strong>Marketplace → Agenten:</strong> 27 fertige Agenten, jeder mit 1–3 Rollen-Skills. Mehr dazu in <a href="OpenBot_Apps.html">Apps</a> und Guide 11 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g11">offiziellen Guides</a>.</li>
+      <li><strong>Marketplace → Agenten:</strong> 27 fertige Agenten, jeder mit 1–3 Rollen-Skills. Mehr dazu in der Doku <a href="../docs/OpenBot_Apps.html">Apps</a> und Guide 11 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g11">offiziellen Guides</a>.</li>
       <li><strong>Duplizieren:</strong> Agentenmenü → „Agenten duplizieren“.</li>
       <li><strong>Importieren:</strong> Server-Einstellungen → Importieren nimmt ein <code>.zip</code>, z. B. aus Grok Bot. Gruppenchats werden zu Kanälen.</li>
       <li><strong>Vorlage teilen:</strong> „Publish“ im Chat-Kopf erzeugt <code>openbot.run/agents/&lt;id&gt;</code> mit Anweisungen, Avatar, Routinen und Skills, aber ohne Dateien und Erinnerungen. Höchstens 5 pro Konto. Wenn ein Feld wie ein Geheimnis aussieht, bricht Publish ab.</li>
@@ -1158,7 +1158,7 @@ PHASE 3 – BERICHT
   <section id="apps">
     <h2><span class="section-num">Teil 4</span>Apps: nur für die Agenten, die sie brauchen</h2>
 
-    <p>Eine App ist ein MCP-Server aus dem Marketplace. Standardmäßig bekommt <strong>jeder Agent jede App</strong>, auch neue Agenten. Beschränke deshalb jede App auf die Agenten, die sie brauchen. Einen Überblick über den Katalog gibt der Guide <a href="OpenBot_Apps.html">Apps</a>.</p>
+    <p>Eine App ist ein MCP-Server aus dem Marketplace. Standardmäßig bekommt <strong>jeder Agent jede App</strong>, auch neue Agenten. Beschränke deshalb jede App auf die Agenten, die sie brauchen. Einen Überblick über den Katalog gibt die Doku <a href="../docs/OpenBot_Apps.html">Apps</a>.</p>
 
     <div class="compare-table-wrap">
       <table>
@@ -1278,7 +1278,7 @@ PHASE 3 – BERICHT
       <li><strong>Versionen:</strong> bis zu 50, automatisch vor jedem Lauf und jeder Wiederherstellung.</li>
       <li><strong>Bearbeiten darf</strong> nur, wer auf jedem beteiligten Agenten <em>Can manage</em> hat.</li>
       <li><strong>Zeitplan-Auslöser</strong> überspringen einen Termin, solange ein Lauf noch offen ist.</li>
-      <li>Bild-, Video- und Datei-Ausgaben sowie Nachrichten-Auslöser sind noch nicht lauffähig (<code>nodeUnsupported</code>). <em>Unbestätigt:</em> Discord-Auslöser könnten schon gehen. Der <a href="OpenBot_Changelog.html">Changelog</a> listet für 0.70.0 neue Bild- und Video-Schritte; prüfe den aktuellen Stand in deiner Version.</li>
+      <li>Bild-, Video- und Datei-Ausgaben sowie Nachrichten-Auslöser sind noch nicht lauffähig (<code>nodeUnsupported</code>). <em>Unbestätigt:</em> Discord-Auslöser könnten schon gehen. Der <a href="../docs/OpenBot_Changelog.html">Changelog</a> listet für 0.70.0 neue Bild- und Video-Schritte; prüfe den aktuellen Stand in deiner Version.</li>
     </ul>
 
     <h3>Beispiele für das Team</h3>
@@ -1442,7 +1442,7 @@ PHASE 3 – BERICHT
     <h3>Vault, Browser, Websites</h3>
     <ul>
       <li><strong>Vault:</strong> Logins (mit TOTP), Karten, Kontaktdaten und API-Keys, je Eintrag für alle oder ausgewählte Agenten. Passwörter und Kartennummern tippt OpenBot selbst in die Seite; der Agent sieht sie nie. Verschlüsselt über den Schlüsselbund des Systems.</li>
-      <li><strong>Achtung bei API-Keys:</strong> Sie erreichen Agenten als Datei oder Umgebungsvariable. Da alle Agenten als derselbe Systembenutzer laufen, kann ein Agent die Key-Datei eines anderen lesen. Darauf weist seit 0.71.0 auch der Vault selbst hin (<a href="OpenBot_Changelog.html#november">Changelog</a>).</li>
+      <li><strong>Achtung bei API-Keys:</strong> Sie erreichen Agenten als Datei oder Umgebungsvariable. Da alle Agenten als derselbe Systembenutzer laufen, kann ein Agent die Key-Datei eines anderen lesen. Darauf weist seit 0.71.0 auch der Vault selbst hin (<a href="../docs/OpenBot_Changelog.html#november">Changelog</a>).</li>
       <li><strong>Browser-Profile:</strong> Jedes Profil hat eigene Logins und Cookies. Agenten können ihr Profil nicht selbst wechseln. Lege ein Profil pro Vertrauenszone an.</li>
       <li><strong>Websites:</strong> Seiten, die Agenten öffentlich auf openbot.run veröffentlichen. Bei Voller Zugriff geschieht das ohne Rückfrage.</li>
     </ul>
@@ -1485,7 +1485,7 @@ PHASE 3 – BERICHT
       <li><strong>Eigene MCP-Server auf einem VPS/Server:</strong> <code>127.0.0.1</code> zeigt auf den OpenBot-Host, nicht auf deinen Laptop.</li>
       <li><strong>Tokens sichtbar</strong> für Server-Mitglieder, die MCP-Einstellungen sehen dürfen.</li>
       <li><strong>Keine Geheimnisse in Erinnerungen</strong> speichern.</li>
-      <li><strong>Lizenz:</strong> OpenBot steht unter PolyForm Noncommercial 1.0.0. Kommerzielle Nutzung braucht eine eigene Lizenz; laut <a href="OpenBot_Dokumentation.html#was">Dokumentation</a> ist sie bis 1. Dezember 2026 kostenlos.</li>
+      <li><strong>Lizenz:</strong> OpenBot steht unter PolyForm Noncommercial 1.0.0. Kommerzielle Nutzung braucht eine eigene Lizenz; laut <a href="../docs/OpenBot_Dokumentation.html#was">Dokumentation</a> ist sie bis 1. Dezember 2026 kostenlos.</li>
       <li><strong>Everyone = Can manage</strong> auf jeden neuen Agenten: in <em>Permissions</em> schließen.</li>
       <li><strong>Apps gehen an alle Agenten</strong>, solange du sie nicht unter <em>Agents</em> beschränkst.</li>
       <li><strong>Routinen ohne <code>[[no-update]]</code> und ohne eigenen Thread</strong> füllen deinen Chat und kosten an ruhigen Tagen trotzdem Tokens.</li>

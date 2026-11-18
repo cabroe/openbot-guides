@@ -1,21 +1,33 @@
-# OpenBot Guides (Deutsch)
+# OpenBot Guides und Docs (Deutsch)
 
-Sammlung deutschsprachiger Guides zu [OpenBot](https://openbot.run). Alle Guides sind eigenständige HTML-Seiten und lassen sich direkt im Browser öffnen. Sie verlinken untereinander.
+Deutschsprachige Sammlung zu [OpenBot](https://openbot.run). Alle Seiten sind eigenständige HTML-Dateien, lassen sich direkt im Browser öffnen und verlinken untereinander.
+
+Die Sammlung ist in zwei Arten geteilt:
+
+- **Guides** (`guides/`) sind Anleitungen: Sie erklären, *wie* du etwas einrichtest oder machst, Schritt für Schritt und mit Empfehlungen.
+- **Docs** (`docs/`) sind zum Nachschlagen: Sie beschreiben, *was es gibt*, also Technik, Kataloge und Versionen, ohne bestimmten Weg vorzugeben.
+
+## Guides
 
 | Datei | Inhalt |
 | --- | --- |
 | [OpenBot_Komplett_Setup_mehrere_Firmen.html](guides/OpenBot_Komplett_Setup_mehrere_Firmen.html) | Eigener Gesamt-Guide: Agenten, AGENTS.md, Ordner, Kanäle, Bibliothek, Gedächtnis, Skills, Apps, Routinen, Workflows, Projekte, mehrere Firmen, Sicherheit |
-| [OpenBot_Guides_14_offizielle_Guides_DE.html](guides/OpenBot_Guides_14_offizielle_Guides_DE.html) | Die 14 offiziellen Guides von openbot.run, ins Deutsche übersetzt |
-| [OpenBot_Dokumentation.html](guides/OpenBot_Dokumentation.html) | Technische Dokumentation: Installation, Konfiguration, Architektur, Daten, Entwicklung |
 | [OpenBot_Firmen_und_Projekte.html](guides/OpenBot_Firmen_und_Projekte.html) | Mehrere Firmen und Team-Projekte mit eigenen Agents pro Firma |
 | [OpenBot_Teams.html](guides/OpenBot_Teams.html) | OpenBot für Teams: Setups, Team-Features, erste Schritte |
 | [OpenBot_Bots.html](guides/OpenBot_Bots.html) | Bots im Chat nutzen, das + Menü erklärt |
-| [OpenBot_Apps.html](guides/OpenBot_Apps.html) | Apps im Marketplace, Kategorien, Zapier und Composio |
-| [OpenBot_Changelog.html](guides/OpenBot_Changelog.html) | Release-Übersicht 0.50.0 bis 0.72.0 (Okt.–Nov. 2026) |
+| [OpenBot_Guides_14_offizielle_Guides_DE.html](guides/OpenBot_Guides_14_offizielle_Guides_DE.html) | Die 14 offiziellen Guides von openbot.run, ins Deutsche übersetzt |
+
+## Docs
+
+| Datei | Inhalt |
+| --- | --- |
+| [OpenBot_Dokumentation.html](docs/OpenBot_Dokumentation.html) | Technische Dokumentation: Installation, Konfiguration, Architektur, Daten, Entwicklung |
+| [OpenBot_Apps.html](docs/OpenBot_Apps.html) | App-Katalog im Marketplace: Kategorien, wichtige Apps, Zapier und Composio |
+| [OpenBot_Changelog.html](docs/OpenBot_Changelog.html) | Release-Übersicht 0.50.0 bis 0.72.0 (Okt.–Nov. 2026) |
 
 ## Design
 
-Alle Guides folgen dem Design von [Firmen & Projekte](guides/OpenBot_Firmen_und_Projekte.html): gleiches Layout, gleiche Schriften, gleiche Bausteine (Kopfleiste mit Inhaltsverzeichnis, Teil-Trenner, Hinweis-Boxen, Tabellen, Schritte, Karten), Hell- und Dunkelmodus. Jeder Guide hat nur eine eigene Akzentfarbe. Ein Klick auf „OpenBot Guide“ oben links springt zum Seitenanfang.
+Alle Seiten folgen dem Design von [Firmen & Projekte](guides/OpenBot_Firmen_und_Projekte.html): gleiches Layout, gleiche Schriften, gleiche Bausteine (Kopfleiste mit Inhaltsverzeichnis, Teil-Trenner, Hinweis-Boxen, Tabellen, Schritte, Karten), Hell- und Dunkelmodus. Jede Seite hat nur eine eigene Akzentfarbe. Oben links steht „OpenBot Guide“ oder „OpenBot Docs“; ein Klick darauf springt zum Seitenanfang.
 
 ## Mehrere Firmen: zwei Ansätze
 
