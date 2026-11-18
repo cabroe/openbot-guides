@@ -1,0 +1,928 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!----><title>OpenBot Changelog</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+<style>
+/*
+  Layout: Sticky Topbar + zentrierter Changelog-Stream (760 px).
+  Palette: Tiefrot/Crimson als Akzent — passend für Versionsnummern und Breaking-Changes.
+*/
+:root {
+  --bg:       #faf4f4;
+  --surface:  #ffffff;
+  --surface2: #f3eaea;
+  --fg:       #1a1010;
+  --fg-muted: #6b4f4f;
+  --border:   #e8d8d8;
+  --accent:   #b91c1c;
+  --accent-bg:#fff1f2;
+  --code-bg:  #f0e8e8;
+  --new:      #15803d;
+  --new-bg:   #f0fdf4;
+  --fix:      #0369a1;
+  --fix-bg:   #eff6ff;
+  --warn:     #b45309;
+  --warn-bg:  #fffbeb;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:       #120a0a;
+    --surface:  #1e1010;
+    --surface2: #2a1818;
+    --fg:       #f0dede;
+    --fg-muted: #a07070;
+    --border:   #3a2020;
+    --accent:   #f87171;
+    --accent-bg:#3b0f0f;
+    --code-bg:  #2a1818;
+    --new:      #4ade80;
+    --new-bg:   #052e16;
+    --fix:      #60a5fa;
+    --fix-bg:   #0c1a2e;
+    --warn:     #fbbf24;
+    --warn-bg:  #1c0f00;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:       #120a0a;
+  --surface:  #1e1010;
+  --surface2: #2a1818;
+  --fg:       #f0dede;
+  --fg-muted: #a07070;
+  --border:   #3a2020;
+  --accent:   #f87171;
+  --accent-bg:#3b0f0f;
+  --code-bg:  #2a1818;
+  --new:      #4ade80;
+  --new-bg:   #052e16;
+  --fix:      #60a5fa;
+  --fix-bg:   #0c1a2e;
+  --warn:     #fbbf24;
+  --warn-bg:  #1c0f00;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.72;
+  padding-left:  max(0px, env(safe-area-inset-left,  0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+}
+
+/* ── Topbar ── */
+.topbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 max(20px, env(safe-area-inset-left, 0px));
+  gap: 2px;
+  white-space: nowrap;
+}
+.topbar::-webkit-scrollbar { display: none; }
+.topbar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  padding: 13px 16px 13px 0;
+  border-right: 1px solid var(--border);
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.toc-link {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  transition: color .12s, background .12s;
+  border-bottom: 2px solid transparent;
+  margin: 7px 1px;
+}
+.toc-link:hover { color: var(--fg); background: var(--surface2); }
+.toc-link.active {
+  color: var(--accent);
+  background: var(--accent-bg);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+.theme-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--fg-muted);
+  font-family: 'Inter', sans-serif;
+  transition: background .12s, color .12s;
+  margin-left: 10px;
+}
+.theme-btn:hover { background: var(--surface2); color: var(--fg); }
+
+/* ── Wrapper ── */
+.wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 52px max(28px, env(safe-area-inset-right, 0px)) 100px max(28px, env(safe-area-inset-left, 0px));
+}
+
+/* ── Header ── */
+.page-header { margin-bottom: 44px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+.sec-eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.page-header h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 700;
+  margin: 0 0 12px;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+.page-header p { color: var(--fg-muted); margin: 0; font-size: 15.5px; }
+.stat-row { display: flex; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+.stat {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label { font-size: 12px; color: var(--fg-muted); }
+
+/* ── Sections ── */
+section { scroll-margin-top: 56px; margin-bottom: 44px; }
+section > h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 700;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-num {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+section p  { margin: 0 0 12px; }
+section ul { margin: 0 0 12px; padding-left: 20px; }
+section li { margin-bottom: 4px; }
+section strong { font-weight: 600; }
+section code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* ── Callouts ── */
+.callout {
+  padding: 13px 17px;
+  border-radius: 8px;
+  margin: 14px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.callout.warn { background: var(--warn-bg); border-left: 3px solid var(--warn); }
+.callout.info { background: var(--accent-bg); border-left: 3px solid var(--accent); }
+.callout strong { font-weight: 600; color: var(--fg); }
+
+/* ── Release-Einträge ── */
+.release-stream { display: flex; flex-direction: column; gap: 0; }
+
+.release {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 0 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  align-items: start;
+}
+.release:first-child { border-top: none; padding-top: 0; }
+
+.release-meta { padding-top: 2px; }
+.ver-badge {
+  display: inline-block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 4px;
+}
+.release-date {
+  font-size: 12px;
+  color: var(--fg-muted);
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+.release-body {}
+.release-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--fg);
+  line-height: 1.3;
+}
+.release-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+.tag {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.tag.new  { background: var(--new-bg);  color: var(--new); }
+.tag.fix  { background: var(--fix-bg);  color: var(--fix); }
+.tag.warn { background: var(--warn-bg); color: var(--warn); }
+.tag.break { background: var(--accent-bg); color: var(--accent); }
+
+.release-items {
+  font-size: 13.5px;
+  color: var(--fg-muted);
+  line-height: 1.55;
+  padding-left: 16px;
+  margin: 0;
+}
+.release-items li { margin-bottom: 4px; }
+.release-items li strong { color: var(--fg); font-weight: 500; }
+
+/* ── Themen-Grid ── */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.theme-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.theme-icon { font-size: 20px; margin-bottom: 8px; }
+.theme-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.theme-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.5; }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+.month-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.original-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 12.5px;
+  margin-top: 20px;
+  padding: 6px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 6px;
+  transition: background .12s;
+}
+.original-link:hover { background: var(--accent-bg); }
+
+@media (max-width: 600px) {
+  .wrapper { padding: 24px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
+  .release { grid-template-columns: 1fr; gap: 4px; }
+  .release-meta { display: flex; align-items: center; gap: 10px; }
+  .release-date { margin: 0; }
+  .theme-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<!-- Topbar -->
+<nav class="topbar" aria-label="Seitennavigation">
+  <span class="topbar-brand">OpenBot</span>
+  <a class="toc-link active" href="#aktuell">Aktuell</a>
+  <a class="toc-link" href="#november">November</a>
+  <a class="toc-link" href="#oktober">Oktober</a>
+  <a class="toc-link" href="#themen">Entwicklungstrends</a>
+  <button class="theme-btn" id="themeBtn">☾ Dunkel</button>
+</nav>
+
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="sec-eyebrow">openbot.run/changelog</div>
+    <h1>OpenBot Changelog</h1>
+    <p>Release-Übersicht von 0.50.0 (Okt 2026) bis 0.72.0 (Nov 2026) — was sich geändert hat, was neu ist und welche Breaking Changes beim Upgrade beachtet werden müssen.</p>
+    <div class="stat-row">
+      <div class="stat"><span class="stat-num">0.72.0</span><span class="stat-label">Aktuelle Version</span></div>
+      <div class="stat"><span class="stat-num">126</span><span class="stat-label">Releases total</span></div>
+      <div class="stat"><span class="stat-num">Aug 2026</span><span class="stat-label">Erster Release</span></div>
+    </div>
+  </div>
+
+  <!-- 1 · Aktuell -->
+  <section id="aktuell">
+    <h2><span class="sec-num">Neu</span>Version 0.72.0 — 16. November 2026</h2>
+
+    <div class="callout warn">
+      <strong>Aktion erforderlich:</strong> Phone-App und alle verbundenen Server müssen auf 0.72.0 aktualisiert werden, damit Bug-Reports Versionsinfos enthalten. Wenn eine Website wie X einen Server-Sign-in ablehnt, erscheint jetzt eine Aufforderung, sich stattdessen über die Desktop-App anzumelden.
+    </div>
+
+    <p>Das bisher umfangreichste Release: 58 neue Features, 43 Verbesserungen, 259 Bugfixes — plus zwei Entfernungen.</p>
+
+    <div class="release-stream">
+      <div class="release" style="border-top:none; padding-top:0;">
+        <div class="release-meta">
+          <span class="ver-badge">Highlights</span>
+          <span class="release-date">New (Auswahl)</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <ul class="release-items">
+            <li><strong>Geteilte Browser-Profile</strong> für Agents mit Freigabe-Karten</li>
+            <li><strong>Connectors</strong> für AppSignal, Cloud 66, HubSpot und Stripe CRM</li>
+            <li><strong>WhatsApp</strong>: 90-Tage-Nachrichtenverlauf + Dateisuche</li>
+            <li><strong>CRM-Seite</strong> für Owners und Admins (experimentell, standardmäßig aus)</li>
+            <li><strong>Bibliothek</strong> mit Favoriten, Ordner-Kacheln und „Zuletzt geöffnet"</li>
+            <li><strong>Animierte Hintergründe</strong>, auch agent-generiert</li>
+            <li><strong>Sprachnachrichten</strong> per Enter absenden</li>
+            <li><strong>Umbrel-Installationspfad</strong> und Setup-Seite für Docker-Images</li>
+            <li><strong>Chat-Blasenfarben</strong> folgen dem Agent-Avatar</li>
+            <li>Größere VPS-Storage-Tiers verfügbar</li>
+          </ul>
+        </div>
+      </div>
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">Verbessert</span>
+          <span class="release-date">Improved (Auswahl)</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag fix">Improved</span></div>
+          <ul class="release-items">
+            <li>Remote Desktop auf Cloud- und Docker-Servern zeigt OpenBot-Desktop</li>
+            <li>macOS nutzt die SF Pro Systemschrift</li>
+            <li>Neu strukturierte Settings-Seite mit einem eigenen Memory-Bereich</li>
+            <li>Agents probieren eigene Tools, bevor sie nach einer App-Verbindung fragen</li>
+            <li>Code-Blöcke und breite Tabellen scrollen jetzt horizontal</li>
+            <li>Tempo-Markierungen an Plan-Limit-Balken</li>
+          </ul>
+        </div>
+      </div>
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">Entfernt</span>
+          <span class="release-date">Removed</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag break">Breaking</span></div>
+          <ul class="release-items">
+            <li>Plan eines gehosteten Servers lässt sich nicht mehr ändern</li>
+            <li>MCP-Sign-in auf verbundenen Servern, die keine Sign-in-Seiten weiterleiten, entfernt</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <a class="original-link" href="https://openbot.run/changelog" target="_blank">↗ Vollständigen Changelog lesen</a>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 2 · November -->
+  <section id="november">
+    <h2><span class="sec-num">Nov 2026</span>November-Releases im Überblick</h2>
+
+    <p>Im November 2026 erschienen 17 Releases (0.58 bis 0.72). Die wichtigsten Einträge:</p>
+
+    <div class="month-label">November 2026 · 0.58.0 → 0.72.0</div>
+    <div class="release-stream">
+
+      <div class="release" style="border-top:none; padding-top:0;">
+        <div class="release-meta">
+          <span class="ver-badge">0.71.0</span>
+          <span class="release-date">14. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span><span class="tag warn">Security</span></div>
+          <div class="release-title">Pinch-to-Zoom, Starter-Server zurück</div>
+          <ul class="release-items">
+            <li>Pinch to Zoom auf Touchpads und Touchscreens in allen Fenstern</li>
+            <li>Starter-gehosteter Server wieder verfügbar (25 GB Storage)</li>
+            <li>Antigravity-Nachrichten steuern laufende Turns (ab CLI 1.5.0)</li>
+            <li>MongoDB Atlas entfernt — MongoDB erlaubt keine OpenBot-Anmeldung mehr</li>
+            <li><strong>Security:</strong> Vault gibt jetzt Hinweis, dass Agents auf gleichem System-User API-Key-Dateien gegenseitig lesen können</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.70.0</span>
+          <span class="release-date">13. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span><span class="tag break">Breaking</span></div>
+          <div class="release-title">Vault-Zugriff per Agent, Bild/Video-Workflows</div>
+          <ul class="release-items">
+            <li>Vault-Zugriff auf Logins, Karten, Kontakte und API-Keys pro Agent konfigurierbar</li>
+            <li>Bild- und Video-Workflow-Schritte mit GPT Image, Grok Imagine und Sunra</li>
+            <li>Thread-Parallelitätslimits pro Server und pro Agent</li>
+            <li>Neue Apps: Sunra, TryPost, Adobe Analytics</li>
+            <li>Mehrere Cursor-Accounts, transparente Bildhintergründe, Bilder in Canvas einfügen</li>
+            <li><em>Aktion:</em> Verbundene Server müssen updaten, um vollständigen Text langer Freigaben zu empfangen</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.69.0</span>
+          <span class="release-date">12. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span><span class="tag break">Breaking</span></div>
+          <div class="release-title">„Task aufzeichnen", MCP-Zugriff pro Agent</div>
+          <ul class="release-items">
+            <li>„Teach a task": Browser-Schritte aufzeichnen und als Skill speichern</li>
+            <li>MCP-Server-Zugriff per Agent und Rolle konfigurierbar</li>
+            <li>Account-Pooling für Provider mit mehreren Accounts</li>
+            <li>Grok-Bild- und Videogenerierung im Chat</li>
+            <li>Skills aus öffentlichen GitHub-Repositories hinzufügen</li>
+            <li>Kompletter Server-Export und -Import inkl. Chats und Channels</li>
+            <li>Neue Signal- und Relay-Maschinen in San Jose und Sydney</li>
+            <li><em>Verhalten:</em> Versteckte Agents führen Routinen weiter aus</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.68.0</span>
+          <span class="release-date">11. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Channel-Browser-Einstellungen, Dock-Anpassung</div>
+          <ul class="release-items">
+            <li>Channel-Browser-Einstellung: welche Mitglieder den Browser nutzen dürfen</li>
+            <li>Channel-Seitenpanel mit Browser- und Dateibereichen</li>
+            <li>Wiederherstellungsfenster nach 3 aufeinanderfolgenden Startfehlern</li>
+            <li>Dock-Größe von 70–140 % einstellbar, Agents per Drag umsortierbar</li>
+            <li>Desktop-Updates werden schrittweise ausgerollt (ca. 1 von 10 zuerst)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.67.0</span>
+          <span class="release-date">10. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Linux-Dock, Fast Mode für Claude, 207 neue Apps</div>
+          <ul class="release-items">
+            <li>Agent-Dock und Dynamic Island auf Linux</li>
+            <li>Fast Mode für Claude-Agents</li>
+            <li>Ultraschnelle Geschwindigkeit für Codex-Agents</li>
+            <li>Agents nennen OpenBot als Co-Autor bei Git-Commits (abschaltbar)</li>
+            <li>207 neue Apps im Marketplace-Katalog (u.a. Postiz, Honcho, Hindsight)</li>
+            <li>Schriftartauswahl für Interface und Code</li>
+            <li>Claude-Komprimierungsgröße von 100K bis 1M Tokens einstellbar</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.66.0</span>
+          <span class="release-date">9. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Skill-Lernen, Workflow-Outputs in Channels</div>
+          <ul class="release-items">
+            <li>Agents speichern und überarbeiten eigene Skills (Automatisch / Fragen / Aus)</li>
+            <li>Workflow-Outputs können in einen OpenBot-Channel posten</li>
+            <li>ElevenLabs Eleven v4 und v4 Turbo-Stimmen für gesprochene Antworten</li>
+            <li>Multi-Select in der Bibliothek mit Massen-Download und -Löschen</li>
+            <li>Agents können Online-Videos ansehen und Transkripte lesen</li>
+            <li>Windows bekommt Dynamic Island und Agent-Dock</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.65.0</span>
+          <span class="release-date">8. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Gesprochene Antworten, Mistral-Provider</div>
+          <ul class="release-items">
+            <li>Gesprochene Antworten mit ElevenLabs oder xAI (eigener API-Key)</li>
+            <li>Mistral als neuer Provider (Mistral Vibe 3.1.0)</li>
+            <li>Groq Whisper für Diktat</li>
+            <li>Bibliotheksseite für Bilder und Dateien aller Chats</li>
+            <li>Codex Live-Voice auf verbundenen und gehosteten Servern</li>
+            <li>„Verlauf löschen" für Agent- und Channel-Chats</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.64.0</span>
+          <span class="release-date">7. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag break">Breaking</span><span class="tag new">New</span></div>
+          <div class="release-title">Remote Desktop, Claude-Code-Setup-Trennung</div>
+          <ul class="release-items">
+            <li><em>Aktion:</em> Neuer Schalter „Claude Code Setup verwenden" ist standardmäßig <strong>aus</strong> — Claude-Agents laden <code>~/.claude</code>-Dateien nur noch bei manueller Aktivierung</li>
+            <li>Remote-Desktop-Zugriffskontrollen mit Freigabe-/Ablehnungsdialog</li>
+            <li>Agent-Dock auf macOS, bleibt über anderen Apps</li>
+            <li>Hebräische Benutzeroberfläche, Website jetzt auf Polnisch und Brasilianischem Portugiesisch</li>
+            <li>Neue Apps: GitLab.com, Omnisend, ElevenLabs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.63.0</span>
+          <span class="release-date">6. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Higgsfield-App, Skill-Nutzungsstatistiken</div>
+          <ul class="release-items">
+            <li>Neue App: Higgsfield für Bild-, Video- und Audiogenerierung</li>
+            <li>Plan-Karten können lange Tasks nach Verzögerung oder auf Befehl starten</li>
+            <li>Provider-Account beim Erstellen eines Agents wählbar</li>
+            <li>Skill-Tab in Usage mit Ladeanzahl, Tokens und Kosten</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.62.0</span>
+          <span class="release-date">5. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Hermes-Import, TickTick-Connector</div>
+          <ul class="release-items">
+            <li>Hermes Agent direkt von der Providers-Seite installieren</li>
+            <li>TickTick-Connector</li>
+            <li><code>@</code>-Tagging von Browser-Tabs und Threads</li>
+            <li>Ungelesen-Markierungen an Threads</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.61.0</span>
+          <span class="release-date">4. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Agents erstellen und starten Workflows</div>
+          <ul class="release-items">
+            <li>Jede Routine läuft im eigenen Thread</li>
+            <li>Devin und GitHub Copilot als neue Provider</li>
+            <li>Agents können Workflows erstellen und ausführen</li>
+            <li>Coinbase- und Robinhood-Connectors</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.60.0</span>
+          <span class="release-date">3. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Audit-Log, OpenID Connect, WhatsApp</div>
+          <ul class="release-items">
+            <li>Audit-Log für Server-Owner und Admins</li>
+            <li>Firmen-Anmeldung über OpenID Connect</li>
+            <li>WhatsApp-Verknüpfung</li>
+            <li>Arabische Benutzeroberfläche</li>
+            <li>Slack-, Telegram- und Discord-Workflow-Trigger</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.59.0</span>
+          <span class="release-date">2. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Kimi &amp; Hermes Agent, SVG-Anhänge</div>
+          <ul class="release-items">
+            <li>Kimi und Hermes Agent als neue Provider</li>
+            <li>SVG-Anhänge unterstützt</li>
+            <li>Verschachtelte Sidebar-Ordner</li>
+            <li>Menüleisten-Symbol auf Mac</li>
+            <li>Discord-Workflow-Trigger</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.58.0</span>
+          <span class="release-date">1. Nov.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">GitHub-Workflow-Trigger, 17 neue Agents</div>
+          <ul class="release-items">
+            <li>Dritter Balken für OpenCode Go Monatslimit</li>
+            <li>17 neue Marketplace-Agents, 15 neue Skills</li>
+            <li>GitHub-Workflow-Trigger und -Outputs</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 3 · Oktober -->
+  <section id="oktober">
+    <h2><span class="sec-num">Okt 2026</span>Oktober-Releases im Überblick</h2>
+
+    <p>Oktober brachte die erste öffentliche Preisstruktur, den Vault, Workflows und viele Fundamental-Features.</p>
+
+    <div class="month-label">Oktober 2026 · 0.50.0 → 0.57.0</div>
+    <div class="release-stream">
+
+      <div class="release" style="border-top:none; padding-top:0;">
+        <div class="release-meta">
+          <span class="ver-badge">0.57.0</span>
+          <span class="release-date">31. Okt.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Marketplace-Umzug, Branches in Chats</div>
+          <ul class="release-items">
+            <li>Marketplace umgezogen zu openbot.run/marketplace mit teilbaren Links</li>
+            <li>Konversationen können an jedem Agent-Nachricht in neuen Thread gebrancht werden</li>
+            <li>Agents beantworten Website-Dialoge aus eigenem Browser</li>
+            <li>Instructions-Seite zeigt AGENTS.md-Datei jedes Agents</li>
+            <li>Owner und Admins verwalten Agent-Einstellungen aus der Mobile-App</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.55.0</span>
+          <span class="release-date">30. Okt.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Side Threads, Custom Voice, 5 Server pro Computer</div>
+          <ul class="release-items">
+            <li>Side Threads neben dem Chat öffnen (inkl. Diktat und +-Menü)</li>
+            <li>Custom Voice Server für Diktat und gesprochene Antworten</li>
+            <li>Bis zu 5 zusätzliche Server auf einem Computer</li>
+            <li>ChatGPT kann sich mit OpenAI API-Key anmelden</li>
+            <li>Marketplace Skills-Tab zeigt „Deine Skills" zuerst</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.54.0</span>
+          <span class="release-date">29. Okt.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Pricing-Seite, kostenlose Lizenz bis Dez 2026</div>
+          <ul class="release-items">
+            <li>Öffentliche Pricing-Seite mit Starter- und Team-Lizenz-Optionen</li>
+            <li>Kostenlose kommerzielle Lizenzperiode bis 1. Dezember 2026</li>
+            <li>Workspace-Agents können Dateien in hinzugefügten Ordnern ändern</li>
+            <li>Kontext-Fenstereinstellungen pro Modell für Custom Provider</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.53.0</span>
+          <span class="release-date">28. Okt.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Server-Storage-Dashboard, Leseposition-Sync</div>
+          <ul class="release-items">
+            <li>Server Storage zeigt Festplatten-, Memory- und CPU-Nutzung mit Alerts</li>
+            <li>Side Threads haben Kontext-Meter und können komprimiert werden</li>
+            <li>Leseposition synchronisiert sich geräteübergreifend</li>
+            <li>Vault kann API-Keys speichern, die Agents via <code>list_api_keys</code> lesen</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.52.0</span>
+          <span class="release-date">27. Okt.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span></div>
+          <div class="release-title">Mehrere Threads pro Agent, Marketplace-Redesign</div>
+          <ul class="release-items">
+            <li>Mehrere Threads pro Agent, jeder mit eigenem Tab und paralleler Ausführung</li>
+            <li>Tasks durch Threads ersetzt</li>
+            <li>Marketplace-Redesign mit Seitenpanel und einheitlichen App-Seiten</li>
+            <li>Apps gruppiert nach Kategorie</li>
+            <li>Niederländische Benutzeroberfläche</li>
+            <li>Neue Apps: Obsidian, Neon, Prisma, Netlify, Railway, Atlassian, Todoist, Hugging Face, Render, Trello</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="release">
+        <div class="release-meta">
+          <span class="ver-badge">0.50.0</span>
+          <span class="release-date">25. Okt.</span>
+        </div>
+        <div class="release-body">
+          <div class="release-tags"><span class="tag new">New</span><span class="tag break">Breaking</span></div>
+          <div class="release-title">Vault, Workflows, Anthropic API-Key</div>
+          <ul class="release-items">
+            <li><strong>Vault</strong>: verschlüsselter Speicher für Logins, Zahlungskarten und Kontakte</li>
+            <li><strong>Workflows</strong>: Seite für mehrstufige Agent-Workflows mit Bedingungen, Schleifen, Freigaben und Zeitplänen</li>
+            <li>Trace-Ansicht jedes Agent-Turns</li>
+            <li>Anthropic API-Key-Support für Claude</li>
+            <li>Cloudflare im Apps-Katalog</li>
+            <li>Koreanische und Vereinfachte Chinesische Benutzeroberfläche</li>
+            <li>Steuerung für Grok-Agents</li>
+            <li><em>Aktion:</em> Google-MCP-Server (Gmail, Calendar, Drive) brauchen neuen Sign-in für Refresh-Token</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 4 · Themen -->
+  <section id="themen">
+    <h2><span class="sec-num">Trends</span>Entwicklungsschwerpunkte</h2>
+
+    <p>Ein Blick auf die Muster hinter den Releases: Was OpenBot zwischen August und November 2026 systematisch aufgebaut hat.</p>
+
+    <div class="theme-grid">
+      <div class="theme-card">
+        <div class="theme-icon">🔊</div>
+        <div class="theme-name">Voice &amp; Audio</div>
+        <div class="theme-desc">Gesprochene Antworten (ElevenLabs, xAI), Groq Whisper, Custom Voice Server, Eleven v4 — Voice-Features wurden in rascher Folge aufgebaut.</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🖥️</div>
+        <div class="theme-name">Cross-Platform</div>
+        <div class="theme-desc">Linux-Dock, Windows Dynamic Island, macOS SF Pro — jede Plattform bekommt systematisch das Feature-Set der anderen.</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🔄</div>
+        <div class="theme-name">Workflows</div>
+        <div class="theme-desc">Von einfachen Routinen zu vollständigen Workflow-Engines mit Bedingungen, Schleifen, Channel-Outputs und Trigger-Integrationen (GitHub, Slack, Discord).</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🔐</div>
+        <div class="theme-name">Sicherheit &amp; Zugriff</div>
+        <div class="theme-desc">Vault, MCP-Zugriff pro Agent, Remote-Desktop-Kontrollen, OpenID Connect, Audit-Log — Sicherheitsfundament schrittweise aufgebaut.</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🧩</div>
+        <div class="theme-name">Provider-Vielfalt</div>
+        <div class="theme-desc">Mistral, Devin, GitHub Copilot, Kimi, Hermes, Groq, DeepSeek — das Provider-Ökosystem wächst kontinuierlich; jeder bekommt eigene Steuerung.</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">📱</div>
+        <div class="theme-name">Mobile &amp; Dock</div>
+        <div class="theme-desc">Agent-Dock auf macOS, Windows und Linux; Dynamic Island; Mobile-App-Verwaltung für Server-Einstellungen — OpenBot bewegt sich aus dem Fenster heraus.</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🌍</div>
+        <div class="theme-name">Internationalisierung</div>
+        <div class="theme-desc">Arabisch, Hebräisch, Niederländisch, Koreanisch, Chinesisch (vereinfacht), Polnisch, Brasilianisches Portugiesisch — breite Sprachunterstützung in kurzer Zeit.</div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🧠</div>
+        <div class="theme-name">Skill-System</div>
+        <div class="theme-desc">Agents lernen und überarbeiten eigene Skills, importieren aus GitHub-Repos, und ein eigener Usage-Tab misst Skill-Kosten. Skills werden zur Kerninfrastruktur.</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>Hinweis zur Vollständigkeit:</strong> Dieser Guide deckt Releases 0.50.0–0.72.0 ab (Oktober–November 2026). Die früheren Releases ab 0.1.0 (August 2026) sind auf openbot.run/changelog vollständig dokumentiert.
+    </div>
+
+    <a class="original-link" href="https://openbot.run/changelog" target="_blank">↗ Vollständiger Changelog auf openbot.run</a>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  const links = Array.from(document.querySelectorAll('.toc-link[href^="#"]'));
+  const sections = links.map(l => document.getElementById(l.getAttribute('href').slice(1)));
+
+  function onScroll() {
+    const y = window.scrollY + 72;
+    let active = sections[0];
+    for (const s of sections) { if (s && s.offsetTop <= y) active = s; }
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const btn = document.getElementById('themeBtn');
+  const mq  = window.matchMedia('(prefers-color-scheme: dark)');
+  function applyTheme(dark) {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    btn.textContent = dark ? '☀ Hell' : '☾ Dunkel';
+  }
+  function isDark() {
+    const t = document.documentElement.getAttribute('data-theme');
+    return t === 'dark' || (!t && mq.matches);
+  }
+  btn.addEventListener('click', () => applyTheme(!isDark()));
+  applyTheme(isDark());
+})();
+</script>
+
+</body></html>

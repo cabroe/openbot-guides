@@ -1,0 +1,476 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!----><title>OpenBot Dokumentation</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+<style>
+/*
+  Layout: Sticky Topbar + zentrierter technischer Guide (760 px).
+  Palette: Smaragdgrün — Code, Dokumentation, Terminal-Vibes; unterscheidet sich von allen anderen Guides.
+*/
+:root {
+  --bg:       #f0fbf6;
+  --surface:  #ffffff;
+  --surface2: #e3f7ed;
+  --fg:       #0a1f15;
+  --fg-muted: #3a7055;
+  --border:   #c3e8d5;
+  --accent:   #15803d;
+  --accent-bg:#f0fdf4;
+  --code-bg:  #e8f5ee;
+  --warn:     #b45309;
+  --warn-bg:  #fffbeb;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:       #030f08;
+    --surface:  #0a1f12;
+    --surface2: #0f2d1c;
+    --fg:       #d0f0e0;
+    --fg-muted: #4d9e70;
+    --border:   #0d3020;
+    --accent:   #4ade80;
+    --accent-bg:#052e16;
+    --code-bg:  #0f2d1c;
+    --warn:     #fbbf24;
+    --warn-bg:  #1c0f00;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:       #030f08;
+  --surface:  #0a1f12;
+  --surface2: #0f2d1c;
+  --fg:       #d0f0e0;
+  --fg-muted: #4d9e70;
+  --border:   #0d3020;
+  --accent:   #4ade80;
+  --accent-bg:#052e16;
+  --code-bg:  #0f2d1c;
+  --warn:     #fbbf24;
+  --warn-bg:  #1c0f00;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.72;
+  padding-left:  max(0px, env(safe-area-inset-left,  0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+}
+
+/* ── Topbar ── */
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; padding: 0 max(20px, env(safe-area-inset-left, 0px)); gap: 2px; white-space: nowrap; }
+.topbar::-webkit-scrollbar { display: none; }
+.topbar-brand { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: var(--fg); padding: 13px 16px 13px 0; border-right: 1px solid var(--border); margin-right: 10px; flex-shrink: 0; }
+.toc-link { font-size: 12.5px; font-weight: 500; color: var(--fg-muted); text-decoration: none; padding: 6px 10px; border-radius: 5px; flex-shrink: 0; transition: color .12s, background .12s; border-bottom: 2px solid transparent; margin: 7px 1px; }
+.toc-link:hover { color: var(--fg); background: var(--surface2); }
+.toc-link.active { color: var(--accent); background: var(--accent-bg); border-bottom-color: var(--accent); font-weight: 600; }
+.theme-btn { margin-left: auto; flex-shrink: 0; background: transparent; border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--fg-muted); font-family: 'Inter', sans-serif; transition: background .12s, color .12s; margin-left: 10px; }
+.theme-btn:hover { background: var(--surface2); color: var(--fg); }
+
+/* ── Wrapper ── */
+.wrapper { max-width: 760px; margin: 0 auto; padding: 52px max(28px, env(safe-area-inset-right, 0px)) 100px max(28px, env(safe-area-inset-left, 0px)); }
+
+/* ── Header ── */
+.page-header { margin-bottom: 44px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+.sec-eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.page-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); font-weight: 700; margin: 0 0 12px; line-height: 1.18; text-wrap: balance; }
+.page-header p { color: var(--fg-muted); margin: 0; font-size: 15.5px; }
+
+/* ── Sections ── */
+section { scroll-margin-top: 56px; margin-bottom: 44px; }
+section > h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(18px, 3vw, 22px); font-weight: 700; margin: 0 0 20px; display: flex; align-items: center; gap: 10px; }
+.sec-num { font-size: 11.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--accent); background: var(--accent-bg); padding: 3px 8px; border-radius: 4px; flex-shrink: 0; }
+section h3 { font-family: 'Space Grotesk', sans-serif; font-size: 15.5px; font-weight: 600; margin: 24px 0 8px; }
+section p  { margin: 0 0 13px; }
+section ul, section ol { margin: 0 0 13px; padding-left: 22px; }
+section li { margin-bottom: 5px; }
+section strong { font-weight: 600; }
+section code { font-family: 'SF Mono','Fira Code',monospace; font-size: 12.5px; background: var(--code-bg); padding: 2px 5px; border-radius: 4px; }
+
+/* ── Code-Blöcke ── */
+.code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin: 14px 0; overflow-x: auto; }
+.code-block code { background: none; padding: 0; font-size: 13px; line-height: 1.65; color: var(--fg); display: block; white-space: pre; }
+.code-block .comment { color: var(--fg-muted); }
+
+/* ── Callouts ── */
+.callout { padding: 13px 17px; border-radius: 8px; margin: 14px 0; font-size: 14px; line-height: 1.6; }
+.callout.tip  { background: var(--accent-bg); border-left: 3px solid var(--accent); }
+.callout.warn { background: var(--warn-bg);   border-left: 3px solid var(--warn); }
+.callout.info { background: var(--surface2);  border-left: 3px solid var(--border); color: var(--fg-muted); }
+.callout strong { color: var(--fg); font-weight: 600; }
+
+/* ── Plattform-Tabs ── */
+.platform-tabs { display: flex; gap: 4px; margin-bottom: 0; border-bottom: 1px solid var(--border); }
+.pt { background: none; border: none; border-bottom: 2px solid transparent; padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--fg-muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: color .12s; margin-bottom: -1px; }
+.pt:hover { color: var(--fg); }
+.pt.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.platform-panel { display: none; background: var(--surface); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; padding: 20px; margin-bottom: 14px; }
+.platform-panel.active { display: block; }
+
+/* ── Env-Tabelle ── */
+.env-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 16px 0; }
+.env-table th { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--fg-muted); text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--border); }
+.env-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.env-table tr:last-child td { border-bottom: none; }
+.env-table td:first-child code { font-size: 12px; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+.env-table td:last-child { color: var(--fg-muted); line-height: 1.5; }
+
+/* ── Arch-Box ── */
+.arch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+@media (max-width: 520px) { .arch-grid { grid-template-columns: 1fr; } }
+.arch-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+.arch-layer { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.arch-name { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.arch-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.5; }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+.original-link { display: inline-flex; align-items: center; gap: 5px; color: var(--accent); text-decoration: none; font-size: 12.5px; margin-top: 20px; padding: 6px 12px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 6px; transition: background .12s; }
+.original-link:hover { background: var(--accent-bg); }
+
+@media (max-width: 600px) {
+  .wrapper { padding: 24px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
+  .env-table { font-size: 12.5px; }
+  .env-table td, .env-table th { padding: 7px 8px; }
+}
+</style>
+
+<nav class="topbar">
+  <span class="topbar-brand">OpenBot</span>
+  <a class="toc-link active" href="#was">Was ist OpenBot?</a>
+  <a class="toc-link" href="#install">Installation</a>
+  <a class="toc-link" href="#config">Konfiguration</a>
+  <a class="toc-link" href="#arch">Architektur</a>
+  <a class="toc-link" href="#daten">Daten &amp; Sicherheit</a>
+  <a class="toc-link" href="#dev">Entwicklung</a>
+  <button class="theme-btn" id="themeBtn">☾ Dunkel</button>
+</nav>
+
+<div class="wrapper">
+
+  <div class="page-header">
+    <div class="sec-eyebrow">github.com/nightly-labs/openbot · README</div>
+    <h1>OpenBot – Technische Dokumentation</h1>
+    <p>Vollständige Referenz aus dem offiziellen GitHub-Repository: Installation auf allen Plattformen, Konfigurationsoptionen, Architektur, Datenablage und Entwicklungs-Setup.</p>
+  </div>
+
+  <!-- 1 · Was ist OpenBot? -->
+  <section id="was">
+    <h2><span class="sec-num">01</span>Was ist OpenBot?</h2>
+
+    <p>OpenBot ist ein <strong>local-first Desktop-Workspace für persistente KI-Mitarbeiter</strong>. Er führt unterschiedliche Agent-CLIs und Modell-APIs über ein einheitliches Interface zusammen und stellt für jeden Agent einen eigenen Workspace, einen Nachrichtenspeicher und einen eingebetteten Browser bereit.</p>
+
+    <h3>Unterstützte Providers</h3>
+    <p>OpenBot läuft aktuell mit folgenden Providern und CLIs:</p>
+    <ul>
+      <li><strong>Coding CLIs:</strong> Codex, Claude Code (Antigravity CLI), Grok CLI, OpenCode, Gemini</li>
+      <li><strong>IDE-Agents:</strong> Cursor, Cline, GitHub Copilot</li>
+      <li><strong>Weitere:</strong> Kimi, Devin, Mistral Vibe, Hermes Agent</li>
+      <li><strong>Custom:</strong> OpenAI-kompatible Endpunkte und eigene ACP-Agents</li>
+    </ul>
+    <p>Jeder Provider nutzt seine eigene lokale CLI-Installation. OpenBot kopiert keine Credentials — jeder Provider verwaltet seinen eigenen Login-State.</p>
+
+    <div class="callout warn">
+      <strong>Wichtig:</strong> Agents laufen mit <code>danger-full-access</code> und <code>approvalPolicy: never</code>. Sie können Dateien ändern, Befehle ausführen, das Netzwerk nutzen und den Browser steuern — ohne Bestätigung pro Aktion. Dies ist eine bewusste Produktentscheidung, keine Sicherheitslücke.
+    </div>
+
+    <h3>Lizenz</h3>
+    <p>OpenBot steht unter der <strong>PolyForm Noncommercial 1.0.0</strong>-Lizenz. Für kommerzielle Nutzung ist eine separate Lizenz erforderlich — Details unter openbot.run/pricing. Bis 1. Dezember 2026 ist die kommerzielle Nutzung kostenlos.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 2 · Installation -->
+  <section id="install">
+    <h2><span class="sec-num">02</span>Installation</h2>
+
+    <div class="platform-tabs">
+      <button class="pt active" onclick="showTab('mac', this)">macOS</button>
+      <button class="pt" onclick="showTab('win', this)">Windows</button>
+      <button class="pt" onclick="showTab('linux', this)">Linux</button>
+      <button class="pt" onclick="showTab('docker', this)">Docker</button>
+      <button class="pt" onclick="showTab('nix', this)">Nix</button>
+    </div>
+
+    <div id="tab-mac" class="platform-panel active">
+      <p><strong>Anforderungen:</strong> macOS 13+ (Apple Silicon oder Intel)</p>
+      <ol>
+        <li>DMG-Datei von <a href="https://openbot.run" target="_blank" style="color:var(--accent)">openbot.run</a> herunterladen</li>
+        <li>App in den <code>Applications</code>-Ordner ziehen</li>
+        <li>Beim ersten Start Provider-CLIs über <strong>Settings → Providers</strong> einrichten</li>
+      </ol>
+      <p>Builds sind signiert und notarisiert. Provider-CLIs lädt OpenBot auf Wunsch selbst herunter und pinnt die Version.</p>
+    </div>
+
+    <div id="tab-win" class="platform-panel">
+      <p><strong>Anforderungen:</strong> Windows 10+ (x64)</p>
+      <ol>
+        <li>x64-Installer herunterladen und ausführen</li>
+        <li>Neuere Releases sind signiert; ältere Releases sind es nicht</li>
+        <li>Provider über <strong>Settings → Providers</strong> einrichten</li>
+      </ol>
+      <div class="callout info">Dynamic Island und Agent-Dock sind ab 0.67.0 auf Windows verfügbar.</div>
+    </div>
+
+    <div id="tab-linux" class="platform-panel">
+      <p><strong>Anforderungen:</strong> Linux x64 oder arm64</p>
+      <div class="code-block"><code>chmod +x openbot-*.AppImage
+./openbot-*.AppImage</code></div>
+      <p><strong>Ubuntu 23.10+ und Debian 13</strong> benötigen ein AppArmor-Profil:</p>
+      <div class="code-block"><code><span class="comment"># AppArmor-Profil installieren</span>
+sudo cp build/linux/openbot.apparmor /etc/apparmor.d/openbot
+sudo apparmor_parser -r /etc/apparmor.d/openbot</code></div>
+      <p>Wichtig: <strong>Niemals <code>--no-sandbox</code></strong> verwenden.</p>
+      <p>Für einen dauerhaften <strong>Linux-Server</strong> gibt es ein Installationsskript, das einen systemd-Service auf Ubuntu 24.04 oder 26.04 einrichtet:</p>
+      <div class="code-block"><code>curl -fsSL https://openbot.run/install.sh | bash
+openbot login</code></div>
+    </div>
+
+    <div id="tab-docker" class="platform-panel">
+      <p>Docker-Image läuft headless auf <code>linux/amd64</code> und <code>linux/arm64</code>.</p>
+      <div class="code-block"><code><span class="comment"># Mit seccomp-Profil starten</span>
+docker run --security-opt seccomp=openbot.json \
+  ghcr.io/nightly-labs/openbot:latest
+
+<span class="comment"># Dann einloggen</span>
+openbot login</code></div>
+      <div class="callout info">Remote Desktop auf Docker-Servern zeigt ab 0.72.0 einen Desktop mit dem OpenBot-Logo.</div>
+    </div>
+
+    <div id="tab-nix" class="platform-panel">
+      <p>OpenBot ist als Nix-Flake verfügbar:</p>
+      <div class="code-block"><code>nix run github:nightly-labs/openbot</code></div>
+    </div>
+
+    <h3>Provider-CLIs einrichten</h3>
+    <p>OpenBot kann die meisten Provider-CLIs selbst herunterladen und pinnen. Alternativ können bereits installierte CLIs über Umgebungsvariablen angegeben werden (siehe Konfiguration). Jeder Provider braucht einen eigenen Sign-in — OpenBot überträgt keine Credentials zwischen Providers.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 3 · Konfiguration -->
+  <section id="config">
+    <h2><span class="sec-num">03</span>Konfiguration &amp; Umgebungsvariablen</h2>
+
+    <h3>CLI-Pfade (Pfad-Overrides)</h3>
+    <table class="env-table">
+      <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
+      <tbody>
+        <tr><td><code>OPENBOT_OPENCODE_PATH</code></td><td>Pfad zur OpenCode-Binary</td></tr>
+        <tr><td><code>OPENBOT_ANTIGRAVITY_PATH</code></td><td>Pfad zur Antigravity (Claude Code) CLI</td></tr>
+        <tr><td><code>OPENBOT_CURSOR_PATH</code></td><td>Pfad zum Cursor-Binary</td></tr>
+        <tr><td><code>OPENBOT_CLINE_PATH</code></td><td>Pfad zur Cline-Binary</td></tr>
+        <tr><td><code>OPENBOT_KIMI_PATH</code></td><td>Pfad zur Kimi-Binary</td></tr>
+        <tr><td><code>OPENBOT_DEVIN_PATH</code></td><td>Pfad zur Devin-Binary</td></tr>
+        <tr><td><code>OPENBOT_COPILOT_PATH</code></td><td>Pfad zum GitHub-Copilot-Binary</td></tr>
+        <tr><td><code>OPENBOT_MISTRAL_PATH</code></td><td>Pfad zum Mistral-Vibe-Binary</td></tr>
+      </tbody>
+    </table>
+
+    <h3>API-Keys</h3>
+    <table class="env-table">
+      <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
+      <tbody>
+        <tr><td><code>XAI_API_KEY</code></td><td>xAI-API-Key</td></tr>
+        <tr><td><code>CURSOR_API_KEY</code></td><td>Cursor-API-Key</td></tr>
+        <tr><td><code>CLINE_API_KEY</code></td><td>Cline-API-Key</td></tr>
+        <tr><td><code>MISTRAL_API_KEY</code></td><td>Mistral-API-Key</td></tr>
+        <tr><td><code>COPILOT_GITHUB_TOKEN</code></td><td>GitHub-Token für Copilot</td></tr>
+        <tr><td><code>GH_TOKEN</code> / <code>GITHUB_TOKEN</code></td><td>Alternative GitHub-Tokens</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Home-Verzeichnis-Overrides</h3>
+    <table class="env-table">
+      <thead><tr><th>Variable</th><th>Standard-Speicherort</th></tr></thead>
+      <tbody>
+        <tr><td><code>GEMINI_HOME</code></td><td><code>~/.gemini</code></td></tr>
+        <tr><td><code>CLINE_DIR</code></td><td><code>~/.cline</code></td></tr>
+        <tr><td><code>KIMI_SHARE_DIR</code></td><td><code>~/.kimi</code></td></tr>
+        <tr><td><code>COPILOT_HOME</code></td><td><code>~/.copilot</code></td></tr>
+        <tr><td><code>VIBE_HOME</code></td><td><code>~/.vibe</code></td></tr>
+        <tr><td><code>HERMES_HOME</code></td><td><code>~/.hermes</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Remote &amp; Mobile</h3>
+    <table class="env-table">
+      <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
+      <tbody>
+        <tr><td><code>OPENBOT_MOBILE_AUTH_API_URL</code></td><td>URL der Mobile-Auth-API</td></tr>
+        <tr><td><code>REMOTE_SIGNAL_URL</code></td><td>Signal-Server für WebRTC-Setup</td></tr>
+        <tr><td><code>TURN_HOST</code></td><td>TURN-Relay-Server (coturn-Fallback)</td></tr>
+        <tr><td><code>TURN_SHARED_SECRET</code></td><td>Shared Secret für TURN-Authentifizierung</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Themes</h3>
+    <p>Eigene Farbpaletten können als JSON-Dateien in <code>~/.config/OpenBot/themes/</code> (Linux) abgelegt werden. Sie werden ohne Neustart geladen und verwenden dasselbe Token-System wie die eingebauten Themes.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 4 · Architektur -->
+  <section id="arch">
+    <h2><span class="sec-num">04</span>Architektur</h2>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-layer">Electron Main</div>
+        <div class="arch-name">Hauptprozess</div>
+        <div class="arch-desc">Lokaler Codex App Server über stdio, Claude Agent SDK über Stream-JSON, SQLite-Event-Log, typisiertes IPC, sandboxed Browser-View.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-layer">Renderer</div>
+        <div class="arch-name">UI-Schicht</div>
+        <div class="arch-desc">SolidJS. Preload exponiert nur eine typisierte <code>window.openbot</code>-API — kein direkter Zugriff auf Node aus dem Renderer.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-layer">Account API</div>
+        <div class="arch-name">Cloud-Backend</div>
+        <div class="arch-desc">TanStack Start auf Cloudflare Workers, mit D1 (SQLite) und R2 (Objekte). Verwaltet Konten, Einladungen, Mitgliedschaften — nicht Chats oder Befehle.</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-layer">Remote Access</div>
+        <div class="arch-name">WebRTC-Verbindung</div>
+        <div class="arch-desc">Team-API auf Loopback; Clients verbinden via WebRTC. Signal überträgt nur Setup-Nachrichten, coturn ist der TURN-Relay-Fallback. Chats, Dateien, Remote-Desktop-Media bleiben lokal.</div>
+      </div>
+    </div>
+
+    <h3>Package-Struktur</h3>
+    <ul>
+      <li><code>src/main</code> — Electron-Hauptprozess</li>
+      <li><code>src/backend</code> — Backend-Logik</li>
+      <li><code>src/preload</code> — Preload-Script</li>
+      <li><code>src/renderer</code> — SolidJS-UI</li>
+      <li><code>apps/auth-api</code> — Cloudflare-Workers-API</li>
+      <li><code>apps/status</code> — Statusseite</li>
+      <li><code>packages/contracts</code> — Shared Types</li>
+      <li><code>packages/i18n</code> — 15 Sprachen inkl. RTL (Arabisch, Hebräisch)</li>
+    </ul>
+
+    <h3>Dateianhänge</h3>
+    <ul>
+      <li>Bis zu <strong>100 MB</strong> pro Datei</li>
+      <li>Bis zu <strong>250 MB</strong> pro Nachricht</li>
+      <li>Bis zu <strong>10 Dateien</strong> pro Nachricht</li>
+      <li>Unterstützte Typen: MP3, MOV, MP4, ZIP, SVG und alle weiteren Dateitypen</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 5 · Daten & Sicherheit -->
+  <section id="daten">
+    <h2><span class="sec-num">05</span>Daten &amp; Sicherheit</h2>
+
+    <h3>Verzeichnisstruktur</h3>
+    <table class="env-table">
+      <thead><tr><th>Pfad</th><th>Inhalt</th></tr></thead>
+      <tbody>
+        <tr><td><code>~/OpenBot/Agents/&lt;id&gt;</code></td><td>Workspace jedes Agents</td></tr>
+        <tr><td><code>~/OpenBot/Shared</code></td><td>Gemeinsame Dateien</td></tr>
+        <tr><td><code>~/OpenBot/Shared/Transfers</code></td><td>Übertragene Dateien</td></tr>
+        <tr><td><code>userData/openbot.db</code></td><td>SQLite-Datenbank</td></tr>
+        <tr><td><code>~/.codex</code>, <code>~/.claude</code>, <code>~/.grok</code> …</td><td>Provider-State (jeweils eigenes Home)</td></tr>
+        <tr><td><code>~/Library/Application Support/OpenBot/provider-runtimes</code></td><td>Provider-CLIs (macOS)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Provider-State</h3>
+    <p>Jeder Provider CLI verwaltet seinen eigenen State in einem eigenen Home-Verzeichnis: <code>~/.codex</code>, <code>~/.claude</code>, <code>~/.grok</code>, <code>~/.gemini</code>, <code>~/.cursor</code>, <code>~/.cline</code>, <code>~/.kimi</code>, <code>~/.copilot</code>, <code>~/.vibe</code>, <code>~/.hermes</code>. OpenBot kopiert keine Credentials zwischen Providers.</p>
+
+    <div class="callout warn">
+      <strong>Sicherheitshinweis:</strong> Lokaler Vollzugriff ist eine Produktentscheidung — kein Sicherheitsmodell. Agents können auf Host-Pfade außerhalb ihrer Workspaces zugreifen. Sicherheitslücken bitte über <code>SECURITY.md</code> melden, nicht in öffentlichen Issues.
+    </div>
+
+    <h3>Datenschutz</h3>
+    <p>OpenBot exportiert anonymisierte Diagnosedaten — nur mit expliziter Zustimmung. Chats, Dateien und Befehle verlassen den lokalen Server nicht über Cloudflare. Die vollständige Datenschutzrichtlinie ist in <code>PRIVACY.md</code> im Repository dokumentiert.</p>
+
+    <h3>Agent-Import</h3>
+    <p>Agents können aus einem Grok-Bot-Export (<code>.zip</code>) importiert werden. Der Import unterstützt: Skills, Routinen, Memories, Workspace-Dateien — aber <strong>keinen Chat-Verlauf</strong>.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 6 · Entwicklung -->
+  <section id="dev">
+    <h2><span class="sec-num">06</span>Entwicklungs-Setup</h2>
+
+    <h3>Anforderungen</h3>
+    <ul>
+      <li><strong>Bun</strong> 1.4.2</li>
+      <li><strong>Node.js</strong> 24 (siehe <code>.nvmrc</code>)</li>
+      <li>Mindestens eine unterstützte Agent-CLI</li>
+    </ul>
+
+    <h3>Starten</h3>
+    <div class="code-block"><code>bun install --frozen-lockfile
+bun run dev</code></div>
+
+    <h3>Wichtige Dev-Befehle</h3>
+    <table class="env-table">
+      <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+      <tbody>
+        <tr><td><code>bun run dev</code></td><td>App im Entwicklungsmodus starten</td></tr>
+        <tr><td><code>bun run dev:all</code></td><td>App + API gemeinsam starten</td></tr>
+        <tr><td><code>bun run check</code></td><td>Alle Checks ausführen</td></tr>
+        <tr><td><code>bun run typecheck</code></td><td>TypeScript-Typen prüfen</td></tr>
+        <tr><td><code>bun run test:changed</code></td><td>Tests für geänderte Dateien</td></tr>
+        <tr><td><code>bun run dev:reset</code></td><td>Lokalen State zurücksetzen</td></tr>
+        <tr><td><code>bun run dev:seed</code></td><td>Testdaten einfügen</td></tr>
+        <tr><td><code>bun run package</code></td><td>App paketieren</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Mobile</h3>
+    <div class="code-block"><code>bun run mobile:go      <span class="comment"># Mobile-App starten</span>
+bun run mobile:ios     <span class="comment"># iOS-Simulator</span>
+bun run dev:mobile     <span class="comment"># Dev-Modus mit Mobile</span></code></div>
+
+    <div class="callout info">
+      <strong>Beiträge:</strong> Externe Beitragende müssen die CLA unterzeichnen. Weitere Details in <code>CONTRIBUTING.md</code> im Repository.
+    </div>
+
+    <a class="original-link" href="https://github.com/nightly-labs/openbot#readme" target="_blank">↗ README auf GitHub lesen</a>
+  </section>
+
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.platform-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pt').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+(function () {
+  const links = Array.from(document.querySelectorAll('.toc-link[href^="#"]'));
+  const sections = links.map(l => document.getElementById(l.getAttribute('href').slice(1)));
+  function onScroll() {
+    const y = window.scrollY + 72;
+    let active = sections[0];
+    for (const s of sections) { if (s && s.offsetTop <= y) active = s; }
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  const btn = document.getElementById('themeBtn');
+  const mq  = window.matchMedia('(prefers-color-scheme: dark)');
+  function applyTheme(dark) { document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light'); btn.textContent = dark ? '☀ Hell' : '☾ Dunkel'; }
+  function isDark() { const t = document.documentElement.getAttribute('data-theme'); return t === 'dark' || (!t && mq.matches); }
+  btn.addEventListener('click', () => applyTheme(!isDark()));
+  applyTheme(isDark());
+})();
+</script>
+
+</body></html>

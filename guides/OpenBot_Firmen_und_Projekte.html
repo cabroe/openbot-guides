@@ -1,0 +1,773 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>OpenBot Firmen & Projekte</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+<style>
+/*
+  Layout: Sticky Inhaltsverzeichnis oben, dann langer Einzel-Artikel mit klaren Sektionen.
+  Farben: Tiefes Schieferdunkelblau / warmes Off-White, Teal als Akzent — bewusst von
+  der Guides-Sammlung abgesetzt, aber im selben Sprachraum.
+*/
+:root {
+  --bg:        #f3f5f8;
+  --surface:   #ffffff;
+  --surface2:  #edf0f5;
+  --fg:        #16202e;
+  --fg-muted:  #526070;
+  --border:    #dce1ea;
+  --accent:    #0d7c66;
+  --accent-bg: #eaf4f1;
+  --accent2:   #1d6ea8;
+  --accent2-bg:#e8f1f9;
+  --warn-bg:   #fdf5e8;
+  --warn-border:#e8b84b;
+  --code-bg:   #ebeff5;
+  --tag-bg:    #e4ebf5;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #0e1118;
+    --surface:   #161c27;
+    --surface2:  #1b2232;
+    --fg:        #dde3ef;
+    --fg-muted:  #7488a2;
+    --border:    #252e3f;
+    --accent:    #25b898;
+    --accent-bg: #0d2820;
+    --accent2:   #4b9ed4;
+    --accent2-bg:#0e1f30;
+    --warn-bg:   #1e180a;
+    --warn-border:#9c7a1a;
+    --code-bg:   #1d2436;
+    --tag-bg:    #1a2438;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:        #0e1118;
+  --surface:   #161c27;
+  --surface2:  #1b2232;
+  --fg:        #dde3ef;
+  --fg-muted:  #7488a2;
+  --border:    #252e3f;
+  --accent:    #25b898;
+  --accent-bg: #0d2820;
+  --accent2:   #4b9ed4;
+  --accent2-bg:#0e1f30;
+  --warn-bg:   #1e180a;
+  --warn-border:#9c7a1a;
+  --code-bg:   #1d2436;
+  --tag-bg:    #1a2438;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.72;
+  padding-left:  max(0px, env(safe-area-inset-left,  0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+}
+
+/* ── Oben-Leiste ── */
+.topbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 max(20px, env(safe-area-inset-left, 0px));
+}
+.topbar::-webkit-scrollbar { display: none; }
+
+.topbar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+  padding: 13px 20px 13px 0;
+  border-right: 1px solid var(--border);
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.toc-link {
+  display: inline-block;
+  font-size: 12.5px;
+  color: var(--fg-muted);
+  text-decoration: none;
+  padding: 13px 12px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.12s, border-color 0.12s;
+  flex-shrink: 0;
+}
+.toc-link:hover { color: var(--fg); }
+.toc-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+
+.theme-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--fg-muted);
+  font-family: 'Inter', sans-serif;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+.theme-btn:hover { background: var(--surface2); color: var(--fg); }
+
+/* ── Wrapper ── */
+.wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 52px max(28px, env(safe-area-inset-right, 0px)) 100px max(28px, env(safe-area-inset-left, 0px));
+}
+
+/* ── Artikel-Kopf ── */
+.article-eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.article-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.article-lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+  margin: 0 0 36px;
+  max-width: 60ch;
+}
+.article-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.tag {
+  font-size: 11.5px;
+  background: var(--tag-bg);
+  color: var(--fg-muted);
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.tag.green { background: var(--accent-bg); color: var(--accent); }
+.tag.blue  { background: var(--accent2-bg); color: var(--accent2); }
+
+/* ── Sektionen ── */
+section { scroll-margin-top: 56px; margin-bottom: 60px; }
+
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  margin: 0 0 20px;
+  text-wrap: balance;
+  line-height: 1.3;
+}
+h2 .section-num {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 4px;
+}
+
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15.5px;
+  font-weight: 600;
+  margin: 28px 0 8px;
+  color: var(--fg);
+}
+
+p  { margin: 0 0 14px; }
+ul, ol { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 600; }
+
+code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* ── Spezial-Blöcke ── */
+.callout {
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.callout.tip {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  color: var(--fg);
+}
+.callout.warn {
+  background: var(--warn-bg);
+  border-left: 3px solid var(--warn-border);
+  color: var(--fg);
+}
+.callout.info {
+  background: var(--accent2-bg);
+  border-left: 3px solid var(--accent2);
+  color: var(--fg);
+}
+.callout strong { font-weight: 600; }
+
+/* ── Ordnerstruktur / Code-Block ── */
+.file-tree {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--fg);
+}
+.file-tree .dir  { color: var(--accent2); }
+.file-tree .file { color: var(--fg-muted); }
+.file-tree .note { color: var(--fg-muted); font-style: italic; opacity: 0.7; }
+
+/* ── Rollen-Karten ── */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.role-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.role-card .role-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.role-card .role-label.human  { color: var(--accent2); }
+.role-card .role-label.agent  { color: var(--accent);  }
+.role-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.role-card p  { font-size: 13px; color: var(--fg-muted); margin: 0; line-height: 1.5; }
+
+/* ── Workflow-Schritte ── */
+.steps { margin: 20px 0; }
+.step {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  font-variant-numeric: tabular-nums;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-bg);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-body h4 { font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
+.step-body p  { font-size: 13.5px; color: var(--fg-muted); margin: 0; }
+
+/* ── Vergleichs-Tabelle ── */
+.compare-table-wrap { overflow-x: auto; margin: 20px 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  min-width: 420px;
+}
+th {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  background: var(--surface2);
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+td:first-child { font-weight: 500; }
+
+/* ── Beispiel-Box ── */
+.example-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.example-header {
+  background: var(--surface2);
+  padding: 10px 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  border-bottom: 1px solid var(--border);
+}
+.example-body { padding: 20px; }
+.example-body p:last-child { margin-bottom: 0; }
+
+/* ── Trennlinie zwischen Hauptteilen ── */
+.part-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 56px 0 40px;
+}
+.part-divider::before, .part-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.part-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .wrapper { padding: 32px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
+  .role-grid { grid-template-columns: 1fr; }
+  .article-lead { font-size: 15px; }
+}
+</style>
+
+<!-- Oben-Leiste mit Inhaltsverzeichnis -->
+<nav class="topbar">
+  <span class="topbar-brand">OpenBot Guide</span>
+  <a class="toc-link active" href="#konzept">Konzept</a>
+  <a class="toc-link" href="#firmen">Firmen</a>
+  <a class="toc-link" href="#projekte">Projekte</a>
+  <a class="toc-link" href="#team">Team</a>
+  <a class="toc-link" href="#workflow">Workflow</a>
+  <a class="toc-link" href="#beispiel">Beispiel</a>
+  <a class="toc-link" href="#grenzen">Grenzen</a>
+  <button class="theme-btn" id="themeBtn">☾ Dunkel</button>
+</nav>
+
+<div class="wrapper">
+
+  <!-- Artikelkopf -->
+  <div class="article-eyebrow">OpenBot · Aufbauend auf den Grundlagen</div>
+  <h1 class="article-title">Multi-Firmen und Team-Projekte in OpenBot</h1>
+  <p class="article-lead">Wie du OpenBot strukturierst, wenn du für mehrere Firmen arbeitest oder ein Team hast, das gemeinsam an Projekten arbeitet.</p>
+  <div class="article-meta">
+    <span class="tag green">Aufbau-Guide</span>
+    <span class="tag blue">Multi-Firmen</span>
+    <span class="tag">Team-Projekte</span>
+    <span class="tag">Workspace-Struktur</span>
+  </div>
+
+  <!-- SEKTION 1: KONZEPT -->
+  <section id="konzept">
+    <h2><span class="section-num">Grundlage</span>Firmen und Projekte als Konvention</h2>
+
+    <p>OpenBot kennt weder "Firmen" noch "Projekte" als native Konzepte. Was es kennt: Agents, Workspaces, Kanäle und Routinen. Firmen und Projekte sind Konventionen, die du aus diesen Bausteinen aufbaust – eine Ordnerstruktur, eine Namenskonvention und ein klares Schema, welcher Agent welchen Kontext trägt.</p>
+
+    <p>Dieser Guide erklärt, wie diese Konvention konkret aussieht, warum sie funktioniert, und wo sie an Grenzen stößt.</p>
+
+    <div class="compare-table-wrap">
+      <table>
+        <thead>
+          <tr><th>Ebene</th><th>Was es ist</th><th>Wie es in OpenBot aussieht</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Firma</td><td>Dauerhafter Kontext: Stil, Ziele, Einschränkungen eines Kunden oder einer Organisation</td><td>Firmen-Agent + gemeinsamer Firmen-Ordner + Ressourcen-Dateien</td></tr>
+          <tr><td>Projekt</td><td>Zeitlich begrenztes Ziel: ein Newsletter, ein Report, ein Launch</td><td>Kanal + Projekt-Agents + Projektordner + Briefing-Datei</td></tr>
+          <tr><td>Team</td><td>Mehrere Menschen, die auf dasselbe OpenBot zugreifen</td><td>Eingeladene Mitglieder, gemeinsame Kanäle, klare Rollen-Zuweisung</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip">
+      <strong>Wichtig:</strong> Trenne Firmen-Kontext und Projekt-Kontext. Der Firmen-Agent kennt Marke, Sprache und Ziele. Der Projekt-Agent kennt die konkrete Aufgabe. So bleibt beides wiederverwendbar.
+    </div>
+  </section>
+
+  <div class="part-divider"><span class="part-label">Teil 1 · Firmen</span></div>
+
+  <!-- SEKTION 2: FIRMEN -->
+  <section id="firmen">
+    <h2><span class="section-num">Teil 1</span>Firmen einrichten: Kontext dauerhaft machen</h2>
+
+    <h3>Was ein Firmen-Agent trägt</h3>
+    <p>Der Firmen-Agent ist kein Ausführer – er ist ein Kontext-Träger. Seine Anweisungen beschreiben, wer die Firma ist, wie sie kommuniziert, was sie vermeidet und was sie anstrebt. Seine Erinnerungen halten fest, was bei früheren Projekten entschieden wurde. Seine Routinen prüfen regelmäßig, ob sich etwas geändert hat.</p>
+
+    <p>Jede neue Aufgabe für diese Firma beginnt damit, dass du dem Projekt-Agent sagst: „Lies zuerst den Kontext aus <code>~/OpenBot/Firmen/KundeA/ressourcen/firmen-briefing.md</code>."</p>
+
+    <h3>Empfohlene Ordnerstruktur</h3>
+    <div class="file-tree"><span class="dir">~/OpenBot/Firmen/</span>
+<span class="dir">  KundeA/</span>
+<span class="dir">    ressourcen/</span>
+<span class="file">      firmen-briefing.md   </span><span class="note">← Marke, Ziele, Sprache, Einschränkungen</span>
+<span class="file">      stil-guide.md        </span><span class="note">← Tonalität, verbotene Wörter, Beispieltexte</span>
+<span class="file">      kontakte.md          </span><span class="note">← Ansprechpersonen, Tools, Zugänge (kein Passwort!)</span>
+<span class="dir">    projekte/</span>
+<span class="dir">      2026-newsletter-q4/</span>
+<span class="file">        briefing.md</span>
+<span class="file">        recherche-notizen.md</span>
+<span class="file">        entwurf-v1.md</span>
+<span class="file">        freigabe-checklist.md</span>
+<span class="dir">      2026-launch-kampagne/</span>
+<span class="file">        briefing.md</span>
+<span class="file">        ...</span>
+<span class="dir">  KundeB/</span>
+<span class="file">    ...</span></div>
+
+    <h3>Was niemals zwischen Firmen fließen darf</h3>
+    <p>Der häufigste Fehler: Ein Agent, der für Kunde A und Kunde B gleichzeitig zuständig ist. Wenn dieser Agent Kontext aus einem Gespräch über Kunde A in die Arbeit für Kunde B trägt, ist das ein Datenleck – selbst wenn es nur Stileinflüsse sind.</p>
+
+    <div class="callout warn">
+      <strong>Regel:</strong> Jede Firma bekommt eigene Agents. Agents werden nie firmenübergreifend geteilt. Der Shared-Ordner ist für Übergaben innerhalb eines Projekts, nicht zwischen Firmen.
+    </div>
+
+    <h3>Zwischen Firmen wechseln</h3>
+    <p>Ein Wechsel bedeutet nicht, einen neuen Chat zu öffnen. Er bedeutet, mit dem richtigen Firmen-Agent weiterzumachen und ihm zu sagen, welches Projekt als nächstes ansteht. Der Agent liest die Ressourcen-Dateien, und du hast sofort den richtigen Kontext.</p>
+  </section>
+
+  <div class="part-divider"><span class="part-label">Teil 2 · Projekte</span></div>
+
+  <!-- SEKTION 3: PROJEKTE -->
+  <section id="projekte">
+    <h2><span class="section-num">Teil 2</span>Projekte strukturieren: vom Briefing zur Freigabe</h2>
+
+    <h3>Was ein Projekt definiert</h3>
+    <p>Ein Projekt ist fertig definiert, wenn du diese fünf Fragen beantworten kannst: Was ist das Ziel? Wann ist es fertig? Welche Agents arbeiten daran? Wo liegt die Arbeit (Ordner)? Wer gibt am Ende frei?</p>
+
+    <p>Diese fünf Antworten gehören in die <code>briefing.md</code>-Datei im Projektordner. Jeder Agent, der am Projekt arbeitet, liest sie zuerst.</p>
+
+    <h3>Projekt-Agents: Spezialisierung statt Generalisierung</h3>
+    <p>Ein generischer Agent, der alles macht, verliert mit wachsendem Projekt seinen roten Faden. Besser sind spezialisierte Agents mit klaren Zuständigkeiten:</p>
+
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-label agent">Agent</div>
+        <h4>Recherche-Agent</h4>
+        <p>Sammelt Fakten aus angegebenen Quellen, prüft Aussagen, speichert Quellennotizen mit Links. Markiert alles Unbestätigte.</p>
+      </div>
+      <div class="role-card">
+        <div class="role-label agent">Agent</div>
+        <h4>Produktions-Agent</h4>
+        <p>Erstellt den eigentlichen Output: Entwurf, Bericht, Social Post. Arbeitet ausschließlich mit geprüften Quellennotizen.</p>
+      </div>
+      <div class="role-card">
+        <div class="role-label agent">Agent</div>
+        <h4>Review-Agent</h4>
+        <p>Vergleicht den Entwurf mit dem Briefing und den Quellennotizen. Gibt eine Liste von Abweichungen oder „Freigabe empfohlen" zurück.</p>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>Wann ein Agent reicht:</strong> Für kleine, klar abgegrenzte Projekte ist ein einzelner Agent mit klarem Briefing oft schneller als drei spezialisierte. Fang mit einem an, trenne erst, wenn du merkst, dass der Kontext zu groß wird oder Phasen sich gegenseitig stören.
+    </div>
+
+    <h3>Der Projekt-Lifecycle</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Briefing erstellen</h4>
+          <p>Ziel, Zielgruppe, Format, Quellen, Deadline und Freigabe-Kriterien in <code>briefing.md</code> festhalten. Auch: was der Agent nicht tun soll.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Agents einrichten</h4>
+          <p>Agents anlegen, ihnen das Briefing und den Firmen-Kontext zeigen. Den Projektordner als ihren Workspace-Ordner setzen.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Erste Ausführung</h4>
+          <p>Recherche-Agent läuft zuerst, speichert Notizen. Produktions-Agent liest die Notizen und erstellt <code>entwurf-v1.md</code>. Alles im Projektordner.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Review-Schleife</h4>
+          <p>Review-Agent prüft Entwurf gegen Briefing. Du oder ein Teammitglied überprüft das Review-Ergebnis. Bei Korrekturen: Produktions-Agent erstellt <code>entwurf-v2.md</code>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Freigabe und Archivierung</h4>
+          <p>Die Freigabe ist immer eine menschliche Entscheidung. Freigegebener Output in <code>final/</code> verschieben. Projektordner für spätere Referenz behalten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="part-divider"><span class="part-label">Teil 3 · Team</span></div>
+
+  <!-- SEKTION 4: TEAM -->
+  <section id="team">
+    <h2><span class="section-num">Teil 3</span>Teams: Menschen und Agents gemeinsam</h2>
+
+    <h3>Was "Team" in OpenBot bedeutet</h3>
+    <p>Wenn du Personen in dein OpenBot einlädst, greifen sie auf dieselben Agents, Kanäle und – je nach Workspace-Einstellung – auf dieselben Ordner zu. Die Agents gehören zur Installation, nicht zur Person. Das ist eine Stärke: Ein Agent, der von mehreren Menschen betreut wird, bleibt konsistent.</p>
+
+    <h3>Menschliche Rollen und Agent-Rollen klären</h3>
+    <p>Verwirrung entsteht, wenn unklar ist, wer was entscheidet. Trenne daher von Anfang an, was Agents tun und was Menschen entscheiden:</p>
+
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-label human">Mensch</div>
+        <h4>Projektverantwortliche</h4>
+        <p>Schreibt das Briefing, entscheidet über Freigaben, gibt Richtungsänderungen vor.</p>
+      </div>
+      <div class="role-card">
+        <div class="role-label human">Mensch</div>
+        <h4>Fachreviewerin</h4>
+        <p>Prüft das Agent-Review auf sachliche Richtigkeit. Gibt das endgültige „Freigabe" oder „Überarbeiten".</p>
+      </div>
+      <div class="role-card">
+        <div class="role-label agent">Agent</div>
+        <h4>Recherche-Agent</h4>
+        <p>Faktenbeschaffung, Quellenprüfung, Notizablage im Projektordner.</p>
+      </div>
+      <div class="role-card">
+        <div class="role-label agent">Agent</div>
+        <h4>Produktions-Agent</h4>
+        <p>Erstellt Entwürfe auf Basis geprüfter Notizen. Niemals auf Basis eigener Annahmen.</p>
+      </div>
+    </div>
+
+    <h3>Übergaben im Team</h3>
+    <p>Eine Übergabe zwischen Agents – oder von einem Agent an einen Menschen – ist nur so gut wie die Datei, die sie begleitet. Eine gute Übergabedatei enthält:</p>
+    <ul>
+      <li>Das Briefing (oder einen Link darauf)</li>
+      <li>Was bereits erledigt ist, mit Quelle</li>
+      <li>Was noch aussteht oder unklar ist</li>
+      <li>Die konkrete nächste Aufgabe</li>
+    </ul>
+
+    <div class="callout tip">
+      <strong>Tipp:</strong> Agents teilen bei einer Übergabe nicht automatisch ihre volle Konversation. Alles, was der nächste Agent wissen muss, muss in der Übergabedatei stehen – oder im Briefing verlinkt sein.
+    </div>
+
+    <h3>Gemeinsamer Workspace: Wer schreibt, wer liest</h3>
+    <p>Wenn mehrere Agents auf denselben Projektordner zugreifen, braucht jeder eine klare Schreibregel: Ein Agent schreibt in <code>recherche-notizen.md</code>, ein anderer liest sie nur. Der Produktions-Agent schreibt in <code>entwurf-v*.md</code>, der Review-Agent liest und schreibt sein Review in <code>review.md</code>. Ohne diese Trennung überschreiben sich Agents gegenseitig.</p>
+
+    <h3>Freigabe-Workflow mit OpenBot Workflows</h3>
+    <p>Wenn ein Projekt regelmäßig wiederholt wird, lohnt sich ein Workflow: ein Agent-Schritt für Recherche, ein Produktions-Schritt, dann ein Freigabe-Schritt mit Approve/Reject. Erst nach menschlicher Freigabe läuft der nächste Schritt. Baue den Workflow erst, nachdem du den Ablauf einmal manuell durchgeführt hast und weißt, dass er funktioniert.</p>
+  </section>
+
+  <div class="part-divider"><span class="part-label">Teil 4 · Praxis</span></div>
+
+  <!-- SEKTION 5: BEISPIEL-WORKFLOW -->
+  <section id="workflow">
+    <h2><span class="section-num">Teil 4</span>Der vollständige Workflow im Überblick</h2>
+
+    <p>Hier der komplette Ablauf für ein Projekt innerhalb einer Firmen-Struktur – von der Einrichtung bis zur Freigabe:</p>
+
+    <div class="example-box">
+      <div class="example-header">Schritt-für-Schritt: Neues Projekt für Kunde A</div>
+      <div class="example-body">
+        <p><strong>1. Firmen-Kontext prüfen</strong><br>
+        Den Firmen-Agent von Kunde A öffnen. Prüfen, ob <code>firmen-briefing.md</code> aktuell ist. Falls sich etwas geändert hat – neues Produkt, neuer Ansprechpartner – jetzt aktualisieren.</p>
+
+        <p><strong>2. Projektordner anlegen</strong><br>
+        Neuen Ordner unter <code>~/OpenBot/Firmen/KundeA/projekte/[projektname]/</code> anlegen. <code>briefing.md</code> erstellen: Ziel, Format, Quellen, Deadline, Freigabe-Kriterien.</p>
+
+        <p><strong>3. Projekt-Agents einrichten</strong><br>
+        Recherche-Agent: Anweisung zeigt auf <code>firmen-briefing.md</code> und <code>briefing.md</code>, Workspace zeigt auf Projektordner.<br>
+        Produktions-Agent: Liest <code>recherche-notizen.md</code>, schreibt <code>entwurf-v1.md</code>.<br>
+        Review-Agent: Vergleicht Entwurf mit Briefing, schreibt <code>review-v1.md</code>.</p>
+
+        <p><strong>4. Recherche-Runde</strong><br>
+        Recherche-Agent anweisen: „Prüfe die Quellen aus dem Briefing, speichere bestätigte Fakten mit Quellenlinks in <code>recherche-notizen.md</code>. Markiere alles Unbestätigte."<br>
+        <code>recherche-notizen.md</code> selbst kurz durchlesen.</p>
+
+        <p><strong>5. Produktionsrunde</strong><br>
+        Produktions-Agent anweisen: „Lies <code>briefing.md</code> und <code>recherche-notizen.md</code>. Erstelle <code>entwurf-v1.md</code> im Format aus dem Briefing. Verwende nur bestätigte Fakten."</p>
+
+        <p><strong>6. Review</strong><br>
+        Review-Agent anweisen: „Vergleiche <code>entwurf-v1.md</code> mit <code>briefing.md</code> und <code>recherche-notizen.md</code>. Liste Abweichungen auf. Falls alles stimmt: schreibe 'Freigabe empfohlen'."<br>
+        <code>review-v1.md</code> selbst lesen und entscheiden.</p>
+
+        <p><strong>7. Freigabe</strong><br>
+        Bei Freigabe: Output in <code>final/</code> kopieren. Projektordner archivieren.<br>
+        Bei Überarbeitung: Produktions-Agent liest Review, erstellt <code>entwurf-v2.md</code>. Review-Schleife wiederholen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEKTION 6: BEISPIEL -->
+  <section id="beispiel">
+    <h2><span class="section-num">Beispiel</span>Agentur mit zwei Kunden</h2>
+
+    <p>Ein konkreter Aufbau für eine kleine Content-Agentur:</p>
+
+    <div class="example-box">
+      <div class="example-header">Kunde A: Tech-Startup, Kunde B: Handelsunternehmen</div>
+      <div class="example-body">
+        <p><strong>Kunde A – monatlicher Newsletter + wöchentliche Social Posts</strong></p>
+        <ul>
+          <li>Firmen-Agent „KundeA-Kontext": kennt Marke, Produkt-Updates, Tonalität</li>
+          <li>Newsletter-Projekt pro Monat: eigener Kanal, Recherche + Produktions-Agent</li>
+          <li>Social-Post-Routine: wöchentlich, Produktions-Agent liest vorher genehmigten Newsletter</li>
+        </ul>
+
+        <p><strong>Kunde B – wöchentlicher Datenbericht</strong></p>
+        <ul>
+          <li>Firmen-Agent „KundeB-Kontext": kennt Datenquellen, Berichtsformat, Empfänger</li>
+          <li>Daten-Agent: liest wöchentliche Exporte aus <code>~/OpenBot/Firmen/KundeB/daten/</code></li>
+          <li>Produktions-Agent erstellt Bericht, Review prüft Zahlenkonsistenz</li>
+          <li>Routine jeden Montag: Daten prüfen, Entwurf erstellen, zur menschlichen Freigabe bereitstellen</li>
+        </ul>
+
+        <p><strong>Was die zwei Kunden nie gemeinsam haben:</strong><br>
+        Keinen gemeinsamen Agent, keinen gemeinsamen Ordner, keine geteilten Routinen. Wenn ein Agent für Kunde A eine Stilentscheidung trifft, beeinflusst das Kunde B nicht.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="part-divider"><span class="part-label">Teil 5 · Grenzen</span></div>
+
+  <!-- SEKTION 7: GRENZEN -->
+  <section id="grenzen">
+    <h2><span class="section-num">Teil 5</span>Wo diese Struktur an ihre Grenzen stößt</h2>
+
+    <h3>Zu viele Agents = Koordinationsaufwand überwiegt</h3>
+    <p>Ab einer gewissen Anzahl von Agents ist es schwieriger, den Überblick zu behalten, als die Aufgabe einfach selbst zu erledigen. Drei spezialisierte Agents für ein Einzel-Briefing, das einmal verwendet wird, lohnen sich nicht. Spezialisierung rechnet sich bei wiederkehrender, klar abgegrenzter Arbeit.</p>
+
+    <h3>Agents ohne aktuellen Firmen-Kontext</h3>
+    <p>Wenn das <code>firmen-briefing.md</code> sechs Monate alt ist, arbeitet der Agent mit veralteten Annahmen. Plane eine monatliche Routine ein: „Prüfe, ob sich an Marke, Produkt oder Zielen von Kunde A etwas geändert hat. Aktualisiere <code>firmen-briefing.md</code> entsprechend."</p>
+
+    <h3>Fehlende Briefings</h3>
+    <p>Ein Agent ohne klares Briefing entscheidet selbst, was „fertig" bedeutet. Das Ergebnis passt selten. Die Briefing-Datei ist kein Zusatzaufwand – sie ist die Spezifikation. Ohne sie ist das Ergebnis Zufall.</p>
+
+    <h3>Freigabe liegt immer beim Menschen</h3>
+    <p>Kein Agent entscheidet über Veröffentlichung, Versand oder Weiterleitung an Kunden. Diese Entscheidungen treffen Menschen. Agents bereiten sie vor. Der Review-Agent sagt „Freigabe empfohlen" – die Freigabe selbst ist deine.</p>
+
+    <div class="callout warn">
+      <strong>Datenschutz:</strong> Agents haben Zugriff auf alle Dateien in ihrem Workspace-Ordner. Speichere keine Passwörter, Zugangsdaten oder sensible Kundendaten als Klartextdateien im Projektordner. Nutze für Zugangsdaten die Credentials-Funktion von OpenBot.
+    </div>
+
+    <div class="callout tip" style="margin-top: 32px;">
+      <strong>Nächster Schritt:</strong> Fang mit einer Firma und einem Projekt an. Lege den Ordner an, schreibe das erste Briefing, richte einen Firmen-Agent ein. Baue die Struktur dann projekt-für-projekt aus – nicht alles auf einmal.
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  // Theme Toggle
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function isDark() {
+    const t = root.getAttribute('data-theme');
+    return t === 'dark' || (!t && mq.matches);
+  }
+  function updateBtn() {
+    btn.textContent = isDark() ? '☀ Hell' : '☾ Dunkel';
+  }
+  btn.addEventListener('click', function () {
+    root.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+    updateBtn();
+  });
+  updateBtn();
+
+  // Aktive Toc-Links beim Scrollen
+  const tocLinks = document.querySelectorAll('.toc-link[href^="#"]');
+  const sections = Array.from(tocLinks).map(l => document.getElementById(l.getAttribute('href').slice(1))).filter(Boolean);
+
+  function onScroll() {
+    const y = window.scrollY + 72;
+    let active = sections[0];
+    for (const s of sections) {
+      if (s.offsetTop <= y) active = s;
+    }
+    tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+</body></html>

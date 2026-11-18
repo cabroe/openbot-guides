@@ -1,0 +1,700 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>OpenBot Bots</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+
+<style>
+/*
+  Layout: Sticky Topbar-Navigation, langer Einzel-Artikel mit Sektionen.
+  Farben: Tiefes Indigo / weiches Off-White, Orange-Amber als Akzent — eigener
+  Charakter gegenüber den anderen Guides, aber im gleichen Sprachraum.
+*/
+:root {
+  --bg:         #f4f5f8;
+  --surface:    #ffffff;
+  --surface2:   #edeef3;
+  --fg:         #17192b;
+  --fg-muted:   #55607a;
+  --border:     #dde0eb;
+  --accent:     #c8560a;
+  --accent-bg:  #fef3ec;
+  --accent2:    #3b5bdb;
+  --accent2-bg: #eef1fc;
+  --tag-bg:     #e8eaf4;
+  --code-bg:    #ebecf2;
+  --warn-bg:    #fdf8ec;
+  --warn-line:  #d4a017;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:         #0d0f18;
+    --surface:    #14172a;
+    --surface2:   #1a1e30;
+    --fg:         #dfe2f0;
+    --fg-muted:   #7a85a8;
+    --border:     #232840;
+    --accent:     #f07a3a;
+    --accent-bg:  #261508;
+    --accent2:    #6880e8;
+    --accent2-bg: #101630;
+    --tag-bg:     #1c2038;
+    --code-bg:    #1a1e30;
+    --warn-bg:    #1a1508;
+    --warn-line:  #9c7a1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:         #0d0f18;
+  --surface:    #14172a;
+  --surface2:   #1a1e30;
+  --fg:         #dfe2f0;
+  --fg-muted:   #7a85a8;
+  --border:     #232840;
+  --accent:     #f07a3a;
+  --accent-bg:  #261508;
+  --accent2:    #6880e8;
+  --accent2-bg: #101630;
+  --tag-bg:     #1c2038;
+  --code-bg:    #1a1e30;
+  --warn-bg:    #1a1508;
+  --warn-line:  #9c7a1a;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.72;
+  padding-left:  max(0px, env(safe-area-inset-left,  0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+}
+
+/* ── Topbar ── */
+.topbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 max(20px, env(safe-area-inset-left, 0px));
+}
+.topbar::-webkit-scrollbar { display: none; }
+.topbar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+  padding: 13px 20px 13px 0;
+  border-right: 1px solid var(--border);
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+.toc-link {
+  display: inline-block;
+  font-size: 12.5px;
+  color: var(--fg-muted);
+  text-decoration: none;
+  padding: 13px 12px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.12s, border-color 0.12s;
+  flex-shrink: 0;
+}
+.toc-link:hover { color: var(--fg); }
+.toc-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+.theme-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--fg-muted);
+  font-family: 'Inter', sans-serif;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+.theme-btn:hover { background: var(--surface2); color: var(--fg); }
+
+/* ── Wrapper ── */
+.wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 52px max(28px, env(safe-area-inset-right, 0px)) 100px max(28px, env(safe-area-inset-left, 0px));
+}
+
+/* ── Artikelkopf ── */
+.eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.article-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.article-lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+  margin: 0 0 28px;
+  max-width: 60ch;
+}
+.article-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.tag {
+  font-size: 11.5px;
+  background: var(--tag-bg);
+  color: var(--fg-muted);
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.tag.orange { background: var(--accent-bg); color: var(--accent); }
+.tag.blue   { background: var(--accent2-bg); color: var(--accent2); }
+
+/* ── Sektionen / Typografie ── */
+section { scroll-margin-top: 56px; margin-bottom: 56px; }
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  margin: 0 0 20px;
+  text-wrap: balance;
+  line-height: 1.3;
+}
+h2 .sec-num {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 4px;
+}
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15.5px;
+  font-weight: 600;
+  margin: 28px 0 8px;
+}
+p  { margin: 0 0 14px; }
+ul, ol { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 600; }
+code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* ── Callouts ── */
+.callout {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.callout.tip  { background: var(--accent-bg);  border-left: 3px solid var(--accent);  }
+.callout.info { background: var(--accent2-bg); border-left: 3px solid var(--accent2); }
+.callout.warn { background: var(--warn-bg);    border-left: 3px solid var(--warn-line);}
+
+/* ── Screenshot-Mockup ── */
+.ui-mockup {
+  background: #1a1a1e;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 20px 0;
+  border: 1px solid #333;
+  font-family: 'Inter', sans-serif;
+  color: #e8e8e8;
+}
+.ui-mockup-top {
+  background: #111115;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: #888;
+  border-bottom: 1px solid #2a2a2e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ui-dot { width: 8px; height: 8px; border-radius: 50%; background: #444; }
+.ui-name { color: #e8e8e8; font-weight: 600; font-size: 13px; }
+.ui-menu {
+  padding: 6px 0;
+}
+.ui-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #e8e8e8;
+  transition: background 0.1s;
+}
+.ui-item:first-child { background: #2a2a30; }
+.ui-item-icon {
+  width: 18px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 15px;
+  color: #aaa;
+}
+.ui-item:first-child .ui-item-icon { color: #e8e8e8; }
+.ui-item.red .ui-item-icon { color: #e55; }
+.ui-sep { height: 1px; background: #2a2a2e; margin: 4px 0; }
+.ui-input {
+  padding: 12px 20px;
+  border-top: 1px solid #2a2a2e;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #666;
+  font-size: 14px;
+}
+.ui-plus {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #2a2a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #aaa;
+  flex-shrink: 0;
+}
+.ui-annotation {
+  display: flex;
+  gap: 10px;
+  padding: 10px 16px 6px;
+  font-size: 11.5px;
+  color: #888;
+  align-items: flex-start;
+}
+.ui-ann-num {
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+/* ── Menüpunkt-Karten ── */
+.menu-cards { display: flex; flex-direction: column; gap: 2px; margin: 20px 0; }
+.menu-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.menu-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+.menu-card-body { min-width: 0; }
+.menu-card-body h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.menu-card-body p { font-size: 13.5px; color: var(--fg-muted); margin: 0; line-height: 1.55; }
+.menu-card-body .wann {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+/* ── Vergleichstabelle ── */
+.table-wrap { overflow-x: auto; margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 400px; }
+th {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  background: var(--surface2);
+}
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+td:first-child { font-weight: 500; white-space: nowrap; }
+
+/* ── Schritt-Liste ── */
+.steps { margin: 18px 0; }
+.step {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-bg);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step h4 { font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
+.step p  { font-size: 13.5px; color: var(--fg-muted); margin: 0; }
+
+/* ── Trennlinie ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 52px 0 36px;
+}
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.divider-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .wrapper { padding: 32px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
+  .article-lead { font-size: 15px; }
+}
+</style>
+
+<!-- Topbar -->
+<nav class="topbar">
+  <span class="topbar-brand">OpenBot Guide</span>
+  <a class="toc-link active" href="#was">Was sind Bots?</a>
+  <a class="toc-link" href="#interface">Das Interface</a>
+  <a class="toc-link" href="#menue">Das + Menü</a>
+  <a class="toc-link" href="#kommunikation">Kommunikation</a>
+  <a class="toc-link" href="#praxis">Praxis</a>
+  <button class="theme-btn" id="themeBtn">☾ Dunkel</button>
+</nav>
+
+<div class="wrapper">
+
+  <!-- Artikelkopf -->
+  <div class="eyebrow">OpenBot · Aufbauend auf den Grundlagen</div>
+  <h1 class="article-title">Wie benutze ich Bots in OpenBot</h1>
+  <p class="article-lead">Bots sind deine direkten Gesprächspartner in OpenBot. Dieser Guide erklärt den Unterschied zu Agents, wie das Chat-Interface funktioniert und was jede Option im Menü bewirkt.</p>
+  <div class="article-meta">
+    <span class="tag orange">Aufbau-Guide</span>
+    <span class="tag blue">Chat-Interface</span>
+    <span class="tag">Bots &amp; Agents</span>
+    <span class="tag">+ Menü</span>
+  </div>
+
+  <!-- SEKTION 1 -->
+  <section id="was">
+    <h2><span class="sec-num">Grundlage</span>Was ist ein Bot – und worin unterscheidet er sich vom Agent?</h2>
+
+    <p>In OpenBot ist ein <strong>Bot</strong> die Oberfläche, über die du mit einem Agent schreibst. Wenn du einem Bot eine Nachricht schickst, sprichst du mit einem Agent, der diesen Namen trägt. Bot und Agent sind dasselbe Ding aus zwei Perspektiven: der Agent ist das Innere (Anweisungen, Workspace, Modell), der Bot ist das Außen (das Chatfenster, das du siehst).</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Begriff</th><th>Was es beschreibt</th><th>Wo du es siehst</th></tr></thead>
+        <tbody>
+          <tr><td>Agent</td><td>Die persistente Einheit: Anweisungen, Erinnerungen, Workspace, Modell</td><td>Server-Einstellungen, Agent-Liste</td></tr>
+          <tr><td>Bot</td><td>Das Chat-Interface dieses Agents – wie du mit ihm sprichst</td><td>Das Chatfenster mit dem Eingabefeld</td></tr>
+          <tr><td>Kanal</td><td>Ein gemeinsamer Chat, in dem mehrere Agents und Menschen zusammenarbeiten</td><td>Kanalliste in der Seitenleiste</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info">
+      <strong>Kurzfassung:</strong> Du kannst „Bot" und „Agent" in der Alltagssprache gleichsetzen. Der Unterschied wird relevant, wenn du Agents konfigurierst oder verstehen willst, was nach einem Gespräch erhalten bleibt.
+    </div>
+  </section>
+
+  <div class="divider"><span class="divider-label">Das Interface</span></div>
+
+  <!-- SEKTION 2 -->
+  <section id="interface">
+    <h2><span class="sec-num">Teil 1</span>Das Chat-Interface verstehen</h2>
+
+    <p>Das Chatfenster eines Bots ist auf den ersten Blick ein normales Chatfenster: oben der Name des Bots, darunter der Gesprächsverlauf, unten das Eingabefeld. Der wesentliche Unterschied zu einem einfachen Chat liegt im <strong>+ Symbol</strong> links vom Eingabefeld.</p>
+
+    <!-- UI Mockup -->
+    <div class="ui-mockup">
+      <div class="ui-mockup-top">
+        <div class="ui-dot"></div>
+        <div class="ui-dot"></div>
+        <div class="ui-dot"></div>
+        <span style="margin-left:4px;" class="ui-name">Mein Bot</span>
+        <span style="margin-left:auto; font-size:11px;">Bot · Aktiv</span>
+      </div>
+      <div class="ui-menu">
+        <div class="ui-item">
+          <span class="ui-item-icon">📄</span>
+          Dateien anhängen
+        </div>
+        <div class="ui-item">
+          <span class="ui-item-icon">⚙️</span>
+          Fähigkeit verwenden
+        </div>
+        <div class="ui-item red">
+          <span class="ui-item-icon">⏺</span>
+          Aufgabe beibringen
+        </div>
+        <div class="ui-sep"></div>
+        <div class="ui-item">
+          <span class="ui-item-icon">❓</span>
+          Nebenfrage
+        </div>
+        <div class="ui-item">
+          <span class="ui-item-icon">🎙</span>
+          Sprache
+        </div>
+      </div>
+      <div class="ui-ann-num" style="padding: 4px 20px 0; font-size:11px; color:#888;">▲ Das + Menü öffnet sich über diesem Eingabefeld:</div>
+      <div class="ui-input">
+        <div class="ui-plus">+</div>
+        Nachricht an deinen Bot …
+      </div>
+    </div>
+
+    <p>Das + Menü gibt dir Zugriff auf fünf Aktionen, die über eine normale Textnachricht hinausgehen. Sie verändern, <em>wie</em> deine nächste Nachricht verarbeitet wird oder <em>was</em> du dem Bot mitgibst.</p>
+  </section>
+
+  <div class="divider"><span class="divider-label">Die fünf Optionen</span></div>
+
+  <!-- SEKTION 3 -->
+  <section id="menue">
+    <h2><span class="sec-num">Teil 2</span>Das + Menü: alle fünf Optionen erklärt</h2>
+
+    <div class="menu-cards">
+
+      <div class="menu-card">
+        <div class="menu-card-icon">📄</div>
+        <div class="menu-card-body">
+          <h4>Dateien anhängen</h4>
+          <p>Hängt eine oder mehrere Dateien an deine nächste Nachricht an. Der Bot kann dann den Inhalt dieser Dateien lesen – zum Beispiel ein PDF, ein Textdokument, eine CSV oder ein Bild. Die Datei wird zusammen mit deiner Nachricht übermittelt, bleibt aber nicht dauerhaft im Workspace des Agents.</p>
+          <p class="wann">Wann nutzen: Wenn du dem Bot etwas zum Lesen, Analysieren oder Verarbeiten geben willst, das nicht schon in seinem Workspace liegt.</p>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-icon">⚙️</div>
+        <div class="menu-card-body">
+          <h4>Fähigkeit verwenden</h4>
+          <p>Aktiviert eine spezifische Fähigkeit (Skill) für diese Interaktion. Skills sind zusätzliche Anweisungspakete, die dem Bot sagen, wie er eine bestimmte Aufgabe angehen soll – zum Beispiel „Schreibe im Stil eines Pressetexts" oder „Prüfe auf rechtliche Risiken". Ein Skill kann den normalen Anweisungen des Bots etwas hinzufügen oder sie für diese Aufgabe übersteuern.</p>
+          <p class="wann">Wann nutzen: Wenn du eine Aufgabe hast, für die ein passender Skill installiert ist, und du sicherstellen willst, dass der Bot ihn für diese Nachricht anwendet.</p>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-icon">⏺</div>
+        <div class="menu-card-body">
+          <h4>Aufgabe beibringen</h4>
+          <p>Erstellt eine neue Aufgabe oder lehrt den Bot eine Vorgehensweise, die er sich dauerhaft merken soll. Anders als eine normale Nachricht, die nur im aktuellen Gespräch wirkt, schreibt „Aufgabe beibringen" etwas in die Erinnerungen oder Anweisungen des Agents. Du kannst damit zum Beispiel sagen: „Wenn ich dich nach einem Report frage, fang immer mit dem Quellencheck an."</p>
+          <p class="wann">Wann nutzen: Wenn du das Verhalten des Bots dauerhaft anpassen willst – nicht nur für dieses Gespräch, sondern für alle zukünftigen.</p>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-icon">❓</div>
+        <div class="menu-card-body">
+          <h4>Nebenfrage</h4>
+          <p>Stellt eine Frage außerhalb des aktuellen Aufgabenkontexts, ohne den laufenden Gesprächsfaden zu unterbrechen. Wenn der Bot gerade an einer komplexen Aufgabe arbeitet, kannst du mit „Nebenfrage" eine schnelle Klärung einholen, ohne dass der Bot seinen bisherigen Fokus verliert. Die Nebenfrage landet als separater, deutlich markierter Austausch.</p>
+          <p class="wann">Wann nutzen: Bei einer kurzen Rückfrage mitten in einer größeren Aufgabe – zum Beispiel „Meinst du mit ‚Quelle' auch interne Dokumente?" – ohne den Hauptauftrag neu zu formulieren.</p>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-icon">🎙</div>
+        <div class="menu-card-body">
+          <h4>Sprache</h4>
+          <p>Wechselt die Sprache, in der der Bot antwortet. Der Bot liest und versteht die meisten Sprachen unabhängig von dieser Einstellung, aber die Antwortsprache folgt dieser Vorgabe. Nützlich, wenn du in einer Sprache schreibst und die Antwort in einer anderen brauchst, oder wenn du mit einem Bot arbeitest, dessen Anweisungen auf Englisch verfasst sind, du aber deutsche Antworten willst.</p>
+          <p class="wann">Wann nutzen: Wenn Antwortsprache und Eingabesprache auseinanderfallen sollen, oder wenn der Bot standardmäßig in der falschen Sprache antwortet.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"><span class="divider-label">Effektiv kommunizieren</span></div>
+
+  <!-- SEKTION 4 -->
+  <section id="kommunikation">
+    <h2><span class="sec-num">Teil 3</span>Effektiv mit Bots kommunizieren</h2>
+
+    <h3>Was ein Bot aus deiner Nachricht macht</h3>
+    <p>Jede Nachricht, die du schickst, durchläuft im Hintergrund folgendes: Der Bot liest deine Nachricht zusammen mit seinen Anweisungen, dem bisherigen Gesprächsverlauf, seinen Erinnerungen und – falls vorhanden – angehängten Dateien oder aktivierten Skills. Daraus erzeugt er eine Antwort.</p>
+    <p>Das bedeutet: Je präziser deine Nachricht, desto weniger muss der Bot interpolieren. Vage Fragen führen zu vagen Antworten – nicht weil der Bot schlecht ist, sondern weil er ohne mehr Kontext die Lücken selbst füllt.</p>
+
+    <h3>Die drei Teile einer guten Bot-Nachricht</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Was du willst</h4>
+          <p>Das Ziel der Nachricht in einem Satz: „Erstelle eine Zusammenfassung", „Prüfe diesen Text auf Faktenfehler", „Liste alle genannten Firmen auf."</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Womit</h4>
+          <p>Welche Grundlage der Bot nutzen soll: die angehängte Datei, ein bestimmtes Dokument im Workspace, eine URL, die du angibst, oder sein allgemeines Wissen.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>In welcher Form</h4>
+          <p>Wie das Ergebnis aussehen soll: als Stichpunkte, als Fließtext, als Tabelle, als Datei gespeichert, maximal drei Punkte, auf Deutsch.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <strong>Beispiel:</strong> Statt „Kannst du den Text verbessern?" lieber: „Überarbeite den folgenden Entwurf im Hinblick auf Klarheit und Kürze. Behalte den Tonfall bei. Gib mir den überarbeiteten Text als Fließtext zurück." – dann folgt der Text.
+    </div>
+
+    <h3>Wenn der Bot etwas Falsches macht</h3>
+    <p>Korrigiere in derselben Konversation, direkt und konkret: „Der zweite Absatz ist zu lang. Kürze ihn auf drei Sätze." Starte keine neue Konversation, solange der bisherige Kontext noch nützlich ist – der Bot kennt dann seinen eigenen Entwurf und kann gezielt anpassen.</p>
+
+    <h3>Was dauerhaft bleibt und was nicht</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Was du tust</th><th>Bleibt nach dem Gespräch?</th></tr></thead>
+        <tbody>
+          <tr><td>Normale Nachricht schreiben</td><td>Im Gesprächsverlauf, nicht in Erinnerungen oder Anweisungen</td></tr>
+          <tr><td>Datei anhängen</td><td>Nein – nur für diese Konversation verfügbar</td></tr>
+          <tr><td>Datei im Workspace speichern lassen</td><td>Ja – bleibt im Workspace-Ordner des Agents</td></tr>
+          <tr><td>Aufgabe beibringen</td><td>Ja – schreibt in Erinnerungen oder Anweisungen</td></tr>
+          <tr><td>Fähigkeit verwenden</td><td>Nur für diese Interaktion aktiv</td></tr>
+          <tr><td>Sprache wechseln</td><td>Bleibt bis zur nächsten Änderung</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"><span class="divider-label">Praxis</span></div>
+
+  <!-- SEKTION 5 -->
+  <section id="praxis">
+    <h2><span class="sec-num">Teil 4</span>Praktische Beispiele</h2>
+
+    <h3>Beispiel 1: Dokument analysieren lassen</h3>
+    <div class="callout info">
+      <strong>Situation:</strong> Du hast einen Vertrag als PDF und willst wissen, welche Fristen darin stehen.<br><br>
+      <strong>Vorgehen:</strong> + → <em>Dateien anhängen</em> → Vertrag auswählen → Nachricht: „Liste alle Fristen und Deadlines aus diesem Vertrag auf. Gib für jede an, auf welche Partei sie sich bezieht."
+    </div>
+
+    <h3>Beispiel 2: Bot für wiederkehrende Aufgabe trainieren</h3>
+    <div class="callout info">
+      <strong>Situation:</strong> Du willst, dass dein Bot beim Verfassen von Texten immer zuerst die Länge und die Zielgruppe fragt.<br><br>
+      <strong>Vorgehen:</strong> + → <em>Aufgabe beibringen</em> → Eingabe: „Wenn ich dich bitte, einen Text zu schreiben, und ich habe weder Länge noch Zielgruppe angegeben, frage zuerst danach, bevor du anfängst."
+    </div>
+
+    <h3>Beispiel 3: Mitten in der Arbeit eine Frage klären</h3>
+    <div class="callout info">
+      <strong>Situation:</strong> Dein Bot arbeitet gerade an einem längeren Report. Dir fällt auf, dass du nicht sicher bist, welches Datumsformat er verwenden soll.<br><br>
+      <strong>Vorgehen:</strong> + → <em>Nebenfrage</em> → „Verwendest du für Datumsangaben TT.MM.JJJJ oder das englische Format?" – Der Bot beantwortet die Frage ohne den Report-Auftrag neu zu starten.
+    </div>
+
+    <h3>Beispiel 4: Antwortsprache wechseln</h3>
+    <div class="callout info">
+      <strong>Situation:</strong> Du schreibst auf Englisch, brauchst aber eine deutsche Zusammenfassung für ein internes Meeting.<br><br>
+      <strong>Vorgehen:</strong> + → <em>Sprache</em> → Deutsch auswählen → Nachricht auf Englisch schreiben. Der Bot antwortet auf Deutsch.
+    </div>
+
+    <div class="callout warn" style="margin-top: 32px;">
+      <strong>Wichtig:</strong> Alles, was der Bot zurückgibt, solltest du vor der Weiterverwendung prüfen – besonders bei Faktaussagen, Zahlen und Quellenangaben. Der Bot macht keine Fehler absichtlich, aber er kann sich irren. Die finale Einschätzung liegt immer bei dir.
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  function isDark() {
+    const t = root.getAttribute('data-theme');
+    return t === 'dark' || (!t && mq.matches);
+  }
+  function updateBtn() { btn.textContent = isDark() ? '☀ Hell' : '☾ Dunkel'; }
+  btn.addEventListener('click', function () {
+    root.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+    updateBtn();
+  });
+  updateBtn();
+
+  const links = document.querySelectorAll('.toc-link[href^="#"]');
+  const secs  = Array.from(links).map(l => document.getElementById(l.getAttribute('href').slice(1))).filter(Boolean);
+  function onScroll() {
+    const y = window.scrollY + 72;
+    let active = secs[0];
+    for (const s of secs) { if (s.offsetTop <= y) active = s; }
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+</body></html>
