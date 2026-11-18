@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>OpenBot Teams</title>
+<title>OpenBot Bots</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
 <style>
@@ -15,10 +15,10 @@
   --fg:        #16202e;
   --fg-muted:  #526070;
   --border:    #dce1ea;
-  --accent:    #0891b2;
-  --accent-bg: #ecfeff;
-  --accent2:   #1d6ea8;
-  --accent2-bg:#e8f1f9;
+  --accent:    #c8560a;
+  --accent-bg: #fef3ec;
+  --accent2:   #3b5bdb;
+  --accent2-bg:#eef1fc;
   --warn-bg:   #fdf5e8;
   --warn-border:#e8b84b;
   --code-bg:   #ebeff5;
@@ -33,10 +33,10 @@
   --fg:        #dde3ef;
   --fg-muted:  #7488a2;
   --border:    #252e3f;
-  --accent:    #22d3ee;
-  --accent-bg: #0a2030;
-  --accent2:   #4b9ed4;
-  --accent2-bg:#0e1f30;
+  --accent:    #f07a3a;
+  --accent-bg: #261508;
+  --accent2:   #6880e8;
+  --accent2-bg:#101630;
   --warn-bg:   #1e180a;
   --warn-border:#9c7a1a;
   --code-bg:   #1d2436;
@@ -51,10 +51,10 @@
   --fg:        #dde3ef;
   --fg-muted:  #7488a2;
   --border:    #252e3f;
-  --accent:    #22d3ee;
-  --accent-bg: #0a2030;
-  --accent2:   #4b9ed4;
-  --accent2-bg:#0e1f30;
+  --accent:    #f07a3a;
+  --accent-bg: #261508;
+  --accent2:   #6880e8;
+  --accent2-bg:#101630;
   --warn-bg:   #1e180a;
   --warn-border:#9c7a1a;
   --code-bg:   #1d2436;
@@ -408,7 +408,7 @@ td:first-child { font-weight: 500; }
   .article-lead { font-size: 15px; }
 }
 
-/* ── Ergänzungen für die ganze Guide-Serie ── */
+/* ── Ergänzungen für alle Guides und Docs ── */
 a.topbar-brand { text-decoration: none; cursor: pointer; }
 a.topbar-brand:hover { color: var(--accent); }
 .wrapper a { color: var(--accent2); text-underline-offset: 2px; }
@@ -423,150 +423,158 @@ a.topbar-brand:hover { color: var(--accent); }
 
 <!-- Oben-Leiste mit Inhaltsverzeichnis -->
 <nav class="topbar">
-  <a class="topbar-brand" href="#" title="Zum Anfang">OpenBot Guide</a>
-  <a class="toc-link active" href="#setups">Setup-Optionen</a>
-  <a class="toc-link" href="#features">Team-Features</a>
-  <a class="toc-link" href="#services">Implementation</a>
-  <a class="toc-link" href="#releases">Releases</a>
-  <a class="toc-link" href="#start">Erste Schritte</a>
+  <a class="topbar-brand" href="#" title="Zum Anfang">OpenBot Docs</a>
+  <a class="toc-link active" href="#was">Was sind Bots?</a>
+  <a class="toc-link" href="#interface">Das Interface</a>
+  <a class="toc-link" href="#menue">Das + Menü</a>
+  <a class="toc-link" href="#kommunikation">Kommunikation</a>
+  <a class="toc-link" href="#praxis">Praxis</a>
   <button class="theme-btn" id="themeBtn">☾ Dunkel</button>
 </nav>
 
 <div class="wrapper">
 
   <!-- Artikelkopf -->
-  <div class="article-eyebrow">openbot.run/teams</div>
-  <h1 class="article-title">OpenBot für Teams</h1>
-  <p class="article-lead">Gemeinsame Agent-Umgebungen für Firmen, Agenturen und Remote-Teams: von der einfachen Shared-Server-Einrichtung bis zur individuell konfigurierten Deployment-Lösung.</p>
+  <div class="article-eyebrow">OpenBot · Aufbauend auf den Grundlagen</div>
+  <h1 class="article-title">Wie benutze ich Bots in OpenBot?</h1>
+  <p class="article-lead">Bots sind deine direkten Gesprächspartner in OpenBot. Diese Doku erklärt den Unterschied zu Agents, wie das Chat-Interface funktioniert und was jede Option im Menü bewirkt.</p>
   <div class="article-meta">
-    <span class="tag green">Team-Guide</span>
-    <span class="tag blue">Managed Server</span>
-    <span class="tag">Rollen &amp; Rechte</span>
-    <span class="tag">Kollaboration</span>
+    <span class="tag green">Doku</span>
+    <span class="tag blue">Chat-Interface</span>
+    <span class="tag">Bots &amp; Agents</span>
+    <span class="tag">+ Menü</span>
   </div>
 
   <!-- 1 -->
-  <section id="setups">
-    <h2><span class="section-num">Grundlage</span>Drei Setup-Optionen</h2>
-    <p>OpenBot bietet Teams drei Wege, eine gemeinsame Umgebung zu betreiben. Der Unterschied liegt im Hosting und im Support-Umfang.</p>
-    <div class="role-grid">
-      <div class="role-card"><div class="role-label human">Selbst betrieben</div><h4>Lokal</h4><p>Einzelne Personen oder kleine Teams betreiben OpenBot auf eigener Infrastruktur. Volle Kontrolle, keine Hosting-Kosten, aber eigene Wartung.</p></div>
-      <div class="role-card"><div class="role-label agent">Empfohlen für Teams</div><h4>Managed Server</h4><p>Der Anbieter hostet und wartet den Server. Agents, Automatisierungen und Personen teilen sich eine Umgebung, rund um die Uhr verfügbar.</p></div>
-      <div class="role-card"><div class="role-label human">Für Unternehmen</div><h4>Custom Deployment</h4><p>Umgebungen, Agents, Berechtigungen und Integrationen werden individuell um bestehende Workflows konfiguriert.</p></div>
-    </div>
-    <div class="callout tip">
-      <strong>Wichtig:</strong> Beim Managed Server laufen Agents, Automatisierungen und Personen in einer gemeinsamen Umgebung. Cloudflare verwaltet Konten und Einladungen; Chats, Dateien und Befehle bleiben ausschließlich auf dem Server. Pläne und Preise stehen in Guide 10 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g10">offiziellen Guides</a>.
-    </div>
-  </section>
-
-  <div class="part-divider"><span class="part-label">Teil 1 · Features</span></div>
-
-  <!-- 2 -->
-  <section id="features">
-    <h2><span class="section-num">Teil 1</span>Team-Features im Überblick</h2>
-    <div class="role-grid">
-      <div class="role-card"><div class="role-label agent">Betrieb</div><h4>24/7-Agents</h4><p>Auf Managed-Infrastruktur laufen Agents durchgehend, auch nachts, am Wochenende und wenn das Team offline ist.</p></div>
-      <div class="role-card"><div class="role-label agent">Automatisierung</div><h4>Geplante Routinen</h4><p>Routinen laufen zu festen Zeiten oder in Intervallen, ohne manuelle Auslösung.</p></div>
-      <div class="role-card"><div class="role-label human">Zusammenarbeit</div><h4>Multiplayer</h4><p>Personen und KI-Mitarbeiter teilen sich einen Server. Channels, Threads und Delegierung koordinieren die Arbeit.</p></div>
-      <div class="role-card"><div class="role-label human">Zugriff</div><h4>Remote und mobil</h4><p>Verbindung vom Desktop oder Mobilgerät. Owner und Admins verwalten Agent-Einstellungen direkt aus der Mobile-App.</p></div>
-    </div>
-
-    <h3>Zugriffs- und Sicherheitsfeatures</h3>
+  <section id="was">
+    <h2><span class="section-num">Grundlage</span>Was ist ein Bot, und worin unterscheidet er sich vom Agent?</h2>
+    <p>In OpenBot ist ein <strong>Bot</strong> die Oberfläche, über die du mit einem Agent schreibst. Wenn du einem Bot eine Nachricht schickst, sprichst du mit dem Agent, der diesen Namen trägt. Bot und Agent sind dasselbe aus zwei Perspektiven: Der Agent ist das Innere (Anweisungen, Workspace, Modell), der Bot das Außen (das Chatfenster, das du siehst).</p>
     <div class="compare-table-wrap">
       <table>
-        <thead><tr><th>Feature</th><th>Was es leistet</th></tr></thead>
+        <thead><tr><th>Begriff</th><th>Was es beschreibt</th><th>Wo du es siehst</th></tr></thead>
         <tbody>
-          <tr><td>Rollen</td><td>Owner, Admin und Mitglied mit unterschiedlichen Berechtigungen</td></tr>
-          <tr><td>MCP-Zugriff pro Agent</td><td>Jeder Agent bekommt nur die MCP-Server und Apps, die er braucht</td></tr>
-          <tr><td>Vault</td><td>Verschlüsselter Speicher für Logins, API-Keys, Zahlungskarten und Kontakte; Zugriff pro Agent konfigurierbar</td></tr>
-          <tr><td>Audit-Log</td><td>Protokoll der Server-Aktionen für Owner und Admins</td></tr>
-          <tr><td>OpenID Connect</td><td>Firmen-Anmeldung über bestehende Identity-Provider</td></tr>
-          <tr><td>Thread-Parallelitätslimits</td><td>Pro Server und pro Agent konfigurierbar</td></tr>
-          <tr><td>Channel-Browserrechte</td><td>Welche Mitglieder den eingebetteten Browser nutzen dürfen</td></tr>
+          <tr><td>Agent</td><td>Die persistente Einheit: Anweisungen, Erinnerungen, Workspace, Modell</td><td>Server-Einstellungen, Agent-Liste</td></tr>
+          <tr><td>Bot</td><td>Das Chat-Interface dieses Agents: wie du mit ihm sprichst</td><td>Das Chatfenster mit dem Eingabefeld</td></tr>
+          <tr><td>Kanal</td><td>Ein gemeinsamer Chat, in dem mehrere Agents und Menschen zusammenarbeiten</td><td>Kanalliste in der Seitenleiste</td></tr>
         </tbody>
       </table>
-    </div>
-    <div class="callout warn">
-      <strong>Grenzen kennen:</strong> Der Audit-Log protokolliert Beitritte, Rollen und Agentenstufen, aber keine Agentenaktionen. API-Keys im Vault können Agents auf demselben Systembenutzer gegenseitig lesen. Details im <a href="OpenBot_Komplett_Setup_mehrere_Firmen.html#sicherheit">Komplett-Setup-Guide</a>.
     </div>
     <div class="callout info">
-      <strong>Team-Einladungen:</strong> Personen werden über WebRTC zu einem bestehenden Server eingeladen. Die Team-API bleibt auf Loopback; Cloudflare überträgt nur Setup-Nachrichten, keine Chats oder Befehle.
+      <strong>Kurzfassung:</strong> Im Alltag kannst du „Bot“ und „Agent“ gleichsetzen. Der Unterschied zählt, wenn du Agents konfigurierst oder verstehen willst, was nach einem Gespräch erhalten bleibt.
     </div>
   </section>
 
-  <div class="part-divider"><span class="part-label">Teil 2 · Implementation</span></div>
+  <div class="part-divider"><span class="part-label">Teil 1 · Das Interface</span></div>
+
+  <!-- 2 -->
+  <section id="interface">
+    <h2><span class="section-num">Teil 1</span>Das Chat-Interface verstehen</h2>
+    <p>Das Chatfenster eines Bots sieht aus wie ein normales Chatfenster: oben der Name des Bots, darunter der Gesprächsverlauf, unten das Eingabefeld. Der wesentliche Unterschied liegt im <strong>+ Symbol</strong> links vom Eingabefeld. Es öffnet über dem Eingabefeld ein Menü mit fünf Aktionen:</p>
+    <div class="example-box">
+      <div class="example-header">Das + Menü über dem Eingabefeld</div>
+      <div class="example-body">
+        <ul style="margin:0">
+          <li>📄 Dateien anhängen</li>
+          <li>⚙️ Fähigkeit verwenden</li>
+          <li>⏺ Aufgabe beibringen</li>
+          <li>❓ Nebenfrage</li>
+          <li>🎙 Sprache</li>
+        </ul>
+      </div>
+    </div>
+    <p>Diese Aktionen gehen über eine normale Textnachricht hinaus. Sie verändern, <em>wie</em> deine nächste Nachricht verarbeitet wird oder <em>was</em> du dem Bot mitgibst.</p>
+  </section>
+
+  <div class="part-divider"><span class="part-label">Teil 2 · Die fünf Optionen</span></div>
 
   <!-- 3 -->
-  <section id="services">
-    <h2><span class="section-num">Teil 2</span>Implementation Services (Custom)</h2>
-    <p>Für Unternehmen mit komplexen Anforderungen bietet OpenBot einen begleiteten Deployment-Prozess:</p>
+  <section id="menue">
+    <h2><span class="section-num">Teil 2</span>Das + Menü: alle fünf Optionen erklärt</h2>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Infrastruktur-Setup und Konfiguration</h4><p>Server-Umgebung auf eigener oder verwalteter Infrastruktur, abgestimmt auf IT-Landschaft und Sicherheitsanforderungen.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Initiale Agent-Konfiguration</h4><p>Agents für bestimmte Rollen, Workflows und Zugriffsrechte, mit passenden Skills, Apps und Instruktionen.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Integration mit bestehenden Tools</h4><p>Anbindung an interne Systeme, Datenquellen und Toolchains über Marketplace-Apps oder eigene Integrationen.</p></div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Custom Features und Workflows</h4><p>Individuelle Workflows, Automatisierungen und Features über den Standardumfang hinaus.</p></div></div>
-      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Laufende Wartung und Weiterentwicklung</h4><p>Support, Updates und Anpassungen nach dem Deployment, für Unternehmen ohne eigene OpenBot-Expertise.</p></div></div>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Dateien anhängen</h4><p>Hängt eine oder mehrere Dateien an deine nächste Nachricht an, etwa ein PDF, ein Textdokument, eine CSV oder ein Bild. Die Datei wird mit der Nachricht übermittelt, bleibt aber nicht dauerhaft im Workspace des Agents. <strong>Wann:</strong> wenn der Bot etwas lesen, analysieren oder verarbeiten soll, das nicht schon in seinem Workspace liegt.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Fähigkeit verwenden</h4><p>Aktiviert einen Skill für diese Interaktion. Skills sind Anweisungspakete, die dem Bot sagen, wie er eine bestimmte Aufgabe angehen soll, etwa „Schreibe im Stil eines Pressetexts“. Ein Skill kann die normalen Anweisungen ergänzen oder für diese Aufgabe übersteuern. <strong>Wann:</strong> wenn ein passender Skill installiert ist und der Bot ihn sicher anwenden soll.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Aufgabe beibringen</h4><p>Lehrt den Bot eine Vorgehensweise, die er sich dauerhaft merken soll. Anders als eine normale Nachricht wirkt sie über das aktuelle Gespräch hinaus. <strong>Wann:</strong> wenn du das Verhalten des Bots für alle künftigen Gespräche anpassen willst. Laut <a href="OpenBot_Changelog.html#november">Changelog</a> (0.69.0) zeichnet „Teach a task“ Browser-Schritte auf und speichert sie als Skill; prüfe in deiner Version, wo das Gelernte landet.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Nebenfrage</h4><p>Stellt eine Frage außerhalb des laufenden Auftrags, ohne den Gesprächsfaden zu unterbrechen. Die Nebenfrage läuft als separater, markierter Austausch. <strong>Wann:</strong> bei einer kurzen Rückfrage mitten in einer größeren Aufgabe, z. B. „Meinst du mit ‚Quelle‘ auch interne Dokumente?“</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Sprache</h4><p>Legt die Sprache fest, in der der Bot antwortet. Er versteht die meisten Sprachen unabhängig davon, antwortet aber in der gewählten. <strong>Wann:</strong> wenn Antwort- und Eingabesprache auseinanderfallen sollen oder der Bot in der falschen Sprache antwortet.</p></div></div>
     </div>
-    <p>Das Modell richtet sich an Unternehmen, die Agents abteilungsübergreifend einsetzen, an Agenturen, die Agent-Umgebungen für Kunden aufbauen, und an Organisationen mit besonderen Datenschutz- oder Compliance-Anforderungen.</p>
   </section>
 
-  <div class="part-divider"><span class="part-label">Teil 3 · Releases</span></div>
+  <div class="part-divider"><span class="part-label">Teil 3 · Effektiv kommunizieren</span></div>
 
   <!-- 4 -->
-  <section id="releases">
-    <h2><span class="section-num">Teil 3</span>Team-relevante Features aus den letzten Releases</h2>
-    <p>Neueste zuerst. Alle Releases im <a href="../docs/OpenBot_Changelog.html">Changelog</a>.</p>
+  <section id="kommunikation">
+    <h2><span class="section-num">Teil 3</span>Effektiv mit Bots kommunizieren</h2>
+    <h3>Was ein Bot aus deiner Nachricht macht</h3>
+    <p>Der Bot liest deine Nachricht zusammen mit seinen Anweisungen, dem bisherigen Gesprächsverlauf, seinen Erinnerungen und gegebenenfalls angehängten Dateien oder aktivierten Skills. Daraus erzeugt er eine Antwort.</p>
+    <p>Je präziser deine Nachricht, desto weniger muss der Bot raten. Vage Fragen führen zu vagen Antworten, weil der Bot ohne Kontext die Lücken selbst füllt.</p>
+
+    <h3>Die drei Teile einer guten Nachricht</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Was du willst</h4><p>Das Ziel in einem Satz: „Erstelle eine Zusammenfassung“, „Prüfe diesen Text auf Faktenfehler“, „Liste alle genannten Firmen auf.“</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Womit</h4><p>Welche Grundlage der Bot nutzen soll: die angehängte Datei, ein Dokument im Workspace, eine URL oder sein allgemeines Wissen.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>In welcher Form</h4><p>Stichpunkte, Fließtext, Tabelle, als Datei gespeichert, maximal drei Punkte, auf Deutsch.</p></div></div>
+    </div>
+    <div class="callout tip">
+      <strong>Beispiel:</strong> Statt „Kannst du den Text verbessern?“ lieber: „Überarbeite den folgenden Entwurf im Hinblick auf Klarheit und Kürze. Behalte den Tonfall bei. Gib mir den überarbeiteten Text als Fließtext zurück.“ Dann folgt der Text.
+    </div>
+
+    <h3>Wenn der Bot etwas Falsches macht</h3>
+    <p>Korrigiere in derselben Konversation, direkt und konkret: „Der zweite Absatz ist zu lang. Kürze ihn auf drei Sätze.“ Starte keine neue Konversation, solange der Kontext noch nützt; der Bot kennt dann seinen Entwurf und kann gezielt anpassen.</p>
+
+    <h3>Was dauerhaft bleibt und was nicht</h3>
     <div class="compare-table-wrap">
       <table>
-        <thead><tr><th>Version</th><th>Datum</th><th>Team-relevante Änderungen</th></tr></thead>
+        <thead><tr><th>Was du tust</th><th>Bleibt nach dem Gespräch?</th></tr></thead>
         <tbody>
-          <tr><td>0.72.0</td><td>16. Nov.</td><td><strong>CRM-Seite</strong> für Owner/Admins, <strong>geteilte Browser-Profile</strong> mit Freigabe-Karten, AppSignal-, Cloud-66-, HubSpot- und Stripe-Connectors, größere VPS-Storage-Tiers</td></tr>
-          <tr><td>0.70.0</td><td>13. Nov.</td><td><strong>Thread-Parallelitätslimits</strong> pro Server und Agent, <strong>Vault-Zugriff pro Agent</strong>, Server-Neustart aus der App, Agent-Defaults in den Server-Einstellungen</td></tr>
-          <tr><td>0.69.0</td><td>12. Nov.</td><td><strong>MCP-Zugriff pro Agent und Rolle</strong>, kompletter Server-Export/-Import (Chats, Channels, Workflows), Account-Pooling für Provider, Server auf anderen Server kopieren</td></tr>
-          <tr><td>0.68.0</td><td>11. Nov.</td><td><strong>Channel-Browser-Einstellungen</strong>: welche Mitglieder den Browser nutzen dürfen; Wiederherstellungsfenster nach Startfehlern</td></tr>
-          <tr><td>0.60.0</td><td>3. Nov.</td><td><strong>Audit-Log</strong> für Owner/Admins, <strong>OpenID Connect</strong> für Firmen-Sign-in, WhatsApp-Verknüpfung, Slack/Telegram/Discord-Workflow-Trigger</td></tr>
-          <tr><td>0.57.0</td><td>31. Okt.</td><td>Owner/Admins verwalten <strong>Agent-Einstellungen aus der Mobile-App</strong>; Konversations-Branches in neue Threads</td></tr>
-          <tr><td>0.52.0</td><td>27. Okt.</td><td><strong>Mehrere Threads pro Agent</strong> mit paralleler Ausführung, Marketplace-Redesign, Owner/Admins verbundener Server haben Vault-Zugriff</td></tr>
-          <tr><td>0.50.0</td><td>25. Okt.</td><td><strong>Vault</strong>, <strong>Workflow-Engine</strong> mit Bedingungen, Schleifen, Freigaben und Zeitplänen, Steuerung für Grok-Agents, koreanische und chinesische UI</td></tr>
+          <tr><td>Normale Nachricht schreiben</td><td>Im Gesprächsverlauf, nicht in Erinnerungen oder Anweisungen</td></tr>
+          <tr><td>Datei anhängen</td><td>Nein, nur für diese Konversation verfügbar</td></tr>
+          <tr><td>Datei im Workspace speichern lassen</td><td>Ja, bleibt im Workspace-Ordner des Agents</td></tr>
+          <tr><td>Aufgabe beibringen</td><td>Ja, wirkt über das Gespräch hinaus</td></tr>
+          <tr><td>Fähigkeit verwenden</td><td>Nur für diese Interaktion aktiv</td></tr>
+          <tr><td>Sprache wechseln</td><td>Bleibt bis zur nächsten Änderung</td></tr>
         </tbody>
       </table>
     </div>
+    <div class="callout info">Wie Anweisungen, Erinnerungen und Skills eines Agents zusammenspielen, erklärt der <a href="../guides/OpenBot_Komplett_Setup_mehrere_Firmen.html#anweisungen">Komplett-Setup-Guide</a>.</div>
   </section>
 
-  <div class="part-divider"><span class="part-label">Teil 4 · Erste Schritte</span></div>
+  <div class="part-divider"><span class="part-label">Teil 4 · Praxis</span></div>
 
   <!-- 5 -->
-  <section id="start">
-    <h2><span class="section-num">Teil 4</span>Erste Schritte für Teams</h2>
+  <section id="praxis">
+    <h2><span class="section-num">Teil 4</span>Praktische Beispiele</h2>
 
-    <h3>Option A: Managed Server einrichten</h3>
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Server erstellen</h4><p><strong>Settings → Server</strong> öffnen und <em>Hosted Server erstellen</em> wählen.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Standort und Speicher</h4><p>Hosting-Standort und Speichertier auswählen.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Mitglieder einladen</h4><p>Über <strong>Settings → Mitglieder → Einladen</strong>.</p></div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Rollen vergeben</h4><p>Owner, Admin oder Mitglied.</p></div></div>
-      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Agent-Defaults</h4><p>Unter <strong>Server-Einstellungen → Agents</strong> konfigurieren.</p></div></div>
+    <div class="example-box">
+      <div class="example-header">Beispiel 1: Dokument analysieren lassen</div>
+      <div class="example-body">
+        <p><strong>Situation:</strong> Du hast einen Vertrag als PDF und willst wissen, welche Fristen darin stehen.</p>
+        <p><strong>Vorgehen:</strong> + → <em>Dateien anhängen</em> → Vertrag auswählen → „Liste alle Fristen und Deadlines aus diesem Vertrag auf. Gib für jede an, auf welche Partei sie sich bezieht.“</p>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-header">Beispiel 2: Bot für wiederkehrende Aufgabe trainieren</div>
+      <div class="example-body">
+        <p><strong>Situation:</strong> Dein Bot soll beim Verfassen von Texten immer zuerst Länge und Zielgruppe erfragen.</p>
+        <p><strong>Vorgehen:</strong> + → <em>Aufgabe beibringen</em> → „Wenn ich dich bitte, einen Text zu schreiben, und ich weder Länge noch Zielgruppe angegeben habe, frage zuerst danach.“</p>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-header">Beispiel 3: Mitten in der Arbeit eine Frage klären</div>
+      <div class="example-body">
+        <p><strong>Situation:</strong> Dein Bot arbeitet an einem längeren Report, und du bist unsicher, welches Datumsformat er verwendet.</p>
+        <p><strong>Vorgehen:</strong> + → <em>Nebenfrage</em> → „Verwendest du für Datumsangaben TT.MM.JJJJ oder das englische Format?“ Der Bot antwortet, ohne den Report-Auftrag neu zu starten.</p>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-header">Beispiel 4: Antwortsprache wechseln</div>
+      <div class="example-body">
+        <p><strong>Situation:</strong> Du schreibst auf Englisch, brauchst aber eine deutsche Zusammenfassung für ein internes Meeting.</p>
+        <p><strong>Vorgehen:</strong> + → <em>Sprache</em> → Deutsch auswählen → Nachricht auf Englisch schreiben. Der Bot antwortet auf Deutsch.</p>
+      </div>
     </div>
 
-    <h3>Option B: Einem Server beitreten</h3>
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Einladung erhalten</h4><p>Der Server-Owner schickt einen Einladungslink.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Beitreten</h4><p>OpenBot → <em>Server beitreten</em> öffnen und den Einladungscode eingeben.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Verbinden</h4><p>Die Verbindung läuft über WebRTC; ein direkter Netzwerkzugang zum Server ist nicht nötig.</p></div></div>
-    </div>
-
-    <h3>Empfohlene Ersteinrichtung</h3>
-    <ul>
-      <li>Einen <strong>Firmen-Agent</strong> als Kontext-Halter für firmenweite Informationen einrichten (Modell aus <a href="OpenBot_Firmen_und_Projekte.html#firmen">Firmen &amp; Projekte</a>).</li>
-      <li>Den <strong>Audit-Log</strong> von Anfang an nutzen; rückwirkende Logs gibt es nicht.</li>
-      <li><strong>MCP-Zugriffsrechte</strong> pro Agent setzen, bevor produktive Agents starten.</li>
-      <li>API-Keys im <strong>Vault</strong> ablegen statt in Agent-Instruktionen.</li>
-      <li><strong>Channels</strong> für abteilungsübergreifende Kommunikation mit Agents nutzen.</li>
-      <li><strong>Permissions</strong> für Everyone schließen, bevor du jemanden einlädst; neue Agents sind sonst für alle Mitglieder verwaltbar (siehe <a href="OpenBot_Komplett_Setup_mehrere_Firmen.html#sicherheit">Komplett-Setup</a>).</li>
-    </ul>
-
-    <div class="callout tip" style="margin-top: 32px;">
-      Bis zum 1. Dezember 2026 ist die kommerzielle Nutzung von OpenBot kostenlos. Danach gilt die Lizenz unter openbot.run/pricing. Original: <a href="https://openbot.run/teams" target="_blank">openbot.run/teams ↗</a>
+    <div class="callout warn" style="margin-top: 32px;">
+      <strong>Wichtig:</strong> Prüfe alles, was der Bot zurückgibt, vor der Weiterverwendung, besonders Fakten, Zahlen und Quellen. Der Bot kann sich irren; die finale Einschätzung liegt bei dir.
     </div>
   </section>
 

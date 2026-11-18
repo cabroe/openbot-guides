@@ -5,7 +5,7 @@ Deutschsprachige Sammlung zu [OpenBot](https://openbot.run). Alle Seiten sind ei
 Die Sammlung ist in zwei Arten geteilt:
 
 - **Guides** (`guides/`) sind Anleitungen: Sie erklären, *wie* du etwas einrichtest oder machst, Schritt für Schritt und mit Empfehlungen.
-- **Docs** (`docs/`) sind zum Nachschlagen: Sie beschreiben, *was es gibt*, also Technik, Kataloge und Versionen, ohne bestimmten Weg vorzugeben.
+- **Docs** (`docs/`) sind zum Nachschlagen: Sie beschreiben, *was es gibt* und wie es funktioniert, also Technik, Oberfläche, Team-Funktionen, Kataloge und Versionen.
 
 ## Guides
 
@@ -13,8 +13,6 @@ Die Sammlung ist in zwei Arten geteilt:
 | --- | --- |
 | [OpenBot_Komplett_Setup_mehrere_Firmen.html](guides/OpenBot_Komplett_Setup_mehrere_Firmen.html) | Eigener Gesamt-Guide: Agenten, AGENTS.md, Ordner, Kanäle, Bibliothek, Gedächtnis, Skills, Apps, Routinen, Workflows, Projekte, mehrere Firmen, Sicherheit |
 | [OpenBot_Firmen_und_Projekte.html](guides/OpenBot_Firmen_und_Projekte.html) | Mehrere Firmen und Team-Projekte mit eigenen Agents pro Firma |
-| [OpenBot_Teams.html](guides/OpenBot_Teams.html) | OpenBot für Teams: Setups, Team-Features, erste Schritte |
-| [OpenBot_Bots.html](guides/OpenBot_Bots.html) | Bots im Chat nutzen, das + Menü erklärt |
 | [OpenBot_Guides_14_offizielle_Guides_DE.html](guides/OpenBot_Guides_14_offizielle_Guides_DE.html) | Die 14 offiziellen Guides von openbot.run, ins Deutsche übersetzt |
 
 ## Docs
@@ -22,6 +20,8 @@ Die Sammlung ist in zwei Arten geteilt:
 | Datei | Inhalt |
 | --- | --- |
 | [OpenBot_Dokumentation.html](docs/OpenBot_Dokumentation.html) | Technische Dokumentation: Installation, Konfiguration, Architektur, Daten, Entwicklung |
+| [OpenBot_Teams.html](docs/OpenBot_Teams.html) | OpenBot für Teams: Setup-Optionen, Team-Features, Rollen und Rechte |
+| [OpenBot_Bots.html](docs/OpenBot_Bots.html) | Bots im Chat: Unterschied zu Agents, das + Menü und seine fünf Optionen |
 | [OpenBot_Apps.html](docs/OpenBot_Apps.html) | App-Katalog im Marketplace: Kategorien, wichtige Apps, Zapier und Composio |
 | [OpenBot_Changelog.html](docs/OpenBot_Changelog.html) | Release-Übersicht 0.50.0 bis 0.72.0 (Okt.–Nov. 2026) |
 
