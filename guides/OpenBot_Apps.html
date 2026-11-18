@@ -1,53 +1,69 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<!----><title>OpenBot Apps</title>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OpenBot Apps</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-
 <style>
-/*
-  Layout: Sticky Topbar + zentrierter Einzel-Guide (760 px).
-  Palette: Violett als Akzent — hebt sich von Blau, Türkis, Orange der Serie ab.
-*/
+/* Design-Referenz: OpenBot_Firmen_und_Projekte.html. Pro Guide ändern sich nur die Farben. */
 :root {
-  --bg:       #f5f4fb;
-  --surface:  #ffffff;
-  --surface2: #edecf6;
-  --fg:       #1a1535;
-  --fg-muted: #5c5882;
-  --border:   #dddaef;
-  --accent:   #7c3aed;
-  --accent-bg:#f5f3ff;
-  --code-bg:  #edeaf8;
+  --bg:        #f3f5f8;
+  --surface:   #ffffff;
+  --surface2:  #edf0f5;
+  --fg:        #16202e;
+  --fg-muted:  #526070;
+  --border:    #dce1ea;
+  --accent:    #7c3aed;
+  --accent-bg: #f5f3ff;
+  --accent2:   #1d6ea8;
+  --accent2-bg:#e8f1f9;
+  --warn-bg:   #fdf5e8;
+  --warn-border:#e8b84b;
+  --code-bg:   #ebeff5;
+  --tag-bg:    #e4ebf5;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:       #0e0c18;
-    --surface:  #161228;
-    --surface2: #1e1a30;
-    --fg:       #e2dff5;
-    --fg-muted: #8882b8;
-    --border:   #272240;
-    --accent:   #a78bfa;
-    --accent-bg:#1e1540;
-    --code-bg:  #1e1a30;
+  --bg:        #0e1118;
+  --surface:   #161c27;
+  --surface2:  #1b2232;
+  --fg:        #dde3ef;
+  --fg-muted:  #7488a2;
+  --border:    #252e3f;
+  --accent:    #a78bfa;
+  --accent-bg: #1e1540;
+  --accent2:   #4b9ed4;
+  --accent2-bg:#0e1f30;
+  --warn-bg:   #1e180a;
+  --warn-border:#9c7a1a;
+  --code-bg:   #1d2436;
+  --tag-bg:    #1a2438;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg:       #0e0c18;
-  --surface:  #161228;
-  --surface2: #1e1a30;
-  --fg:       #e2dff5;
-  --fg-muted: #8882b8;
-  --border:   #272240;
-  --accent:   #a78bfa;
-  --accent-bg:#1e1540;
-  --code-bg:  #1e1a30;
+  --bg:        #0e1118;
+  --surface:   #161c27;
+  --surface2:  #1b2232;
+  --fg:        #dde3ef;
+  --fg-muted:  #7488a2;
+  --border:    #252e3f;
+  --accent:    #a78bfa;
+  --accent-bg: #1e1540;
+  --accent2:   #4b9ed4;
+  --accent2-bg:#0e1f30;
+  --warn-bg:   #1e180a;
+  --warn-border:#9c7a1a;
+  --code-bg:   #1d2436;
+  --tag-bg:    #1a2438;
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -61,7 +77,7 @@ body {
   padding-right: max(0px, env(safe-area-inset-right, 0px));
 }
 
-/* ── Topbar ── */
+/* ── Oben-Leiste ── */
 .topbar {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
@@ -70,11 +86,10 @@ body {
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
+  gap: 0;
   overflow-x: auto;
   scrollbar-width: none;
   padding: 0 max(20px, env(safe-area-inset-left, 0px));
-  gap: 2px;
-  white-space: nowrap;
 }
 .topbar::-webkit-scrollbar { display: none; }
 
@@ -83,31 +98,26 @@ body {
   font-size: 13px;
   font-weight: 700;
   color: var(--fg);
-  padding: 13px 16px 13px 0;
+  white-space: nowrap;
+  padding: 13px 20px 13px 0;
   border-right: 1px solid var(--border);
-  margin-right: 10px;
+  margin-right: 16px;
   flex-shrink: 0;
 }
 
 .toc-link {
+  display: inline-block;
   font-size: 12.5px;
-  font-weight: 500;
   color: var(--fg-muted);
   text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  flex-shrink: 0;
-  transition: color .12s, background .12s;
+  padding: 13px 12px;
+  white-space: nowrap;
   border-bottom: 2px solid transparent;
-  margin: 7px 1px;
+  transition: color 0.12s, border-color 0.12s;
+  flex-shrink: 0;
 }
-.toc-link:hover { color: var(--fg); background: var(--surface2); }
-.toc-link.active {
-  color: var(--accent);
-  background: var(--accent-bg);
-  border-bottom-color: var(--accent);
-  font-weight: 600;
-}
+.toc-link:hover { color: var(--fg); }
+.toc-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
 
 .theme-btn {
   margin-left: auto;
@@ -120,8 +130,8 @@ body {
   cursor: pointer;
   color: var(--fg-muted);
   font-family: 'Inter', sans-serif;
-  transition: background .12s, color .12s;
-  margin-left: 10px;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
 }
 .theme-btn:hover { background: var(--surface2); color: var(--fg); }
 
@@ -132,76 +142,86 @@ body {
   padding: 52px max(28px, env(safe-area-inset-right, 0px)) 100px max(28px, env(safe-area-inset-left, 0px));
 }
 
-/* ── Header ── */
-.page-header { margin-bottom: 44px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
-.sec-eyebrow {
+/* ── Artikel-Kopf ── */
+.article-eyebrow {
   font-size: 11.5px;
   font-weight: 600;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 10px;
 }
-.page-header h1 {
+.article-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(24px, 4vw, 34px);
+  font-size: clamp(24px, 4vw, 38px);
   font-weight: 700;
-  margin: 0 0 12px;
-  line-height: 1.18;
+  line-height: 1.15;
+  margin: 0 0 16px;
   text-wrap: balance;
 }
-.page-header p { color: var(--fg-muted); margin: 0; font-size: 15.5px; line-height: 1.6; }
-.stat-row { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
-.stat {
-  background: var(--surface2);
-  border-radius: 8px;
-  padding: 10px 16px;
+.article-lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+  margin: 0 0 36px;
+  max-width: 60ch;
+}
+.article-meta {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
 }
-.stat-num {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
+.tag {
+  font-size: 11.5px;
+  background: var(--tag-bg);
+  color: var(--fg-muted);
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-weight: 500;
 }
-.stat-label { font-size: 12px; color: var(--fg-muted); }
+.tag.green { background: var(--accent-bg); color: var(--accent); }
+.tag.blue  { background: var(--accent2-bg); color: var(--accent2); }
 
-/* ── Sections ── */
-section { scroll-margin-top: 56px; margin-bottom: 44px; }
-section h2 {
+/* ── Sektionen ── */
+section { scroll-margin-top: 56px; margin-bottom: 60px; }
+
+h2 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(18px, 3vw, 22px);
+  font-size: clamp(18px, 2.5vw, 22px);
   font-weight: 700;
   margin: 0 0 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  text-wrap: balance;
+  line-height: 1.3;
 }
-.sec-num {
-  font-size: 11.5px;
+h2 .section-num {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: .07em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
-  background: var(--accent-bg);
-  padding: 3px 8px;
-  border-radius: 4px;
-  flex-shrink: 0;
+  display: block;
+  margin-bottom: 4px;
 }
-section h3 {
+
+h3 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 15.5px;
   font-weight: 600;
-  margin: 24px 0 8px;
+  margin: 28px 0 8px;
+  color: var(--fg);
 }
-section p  { margin: 0 0 13px; }
-section ul, section ol { margin: 0 0 13px; padding-left: 22px; }
-section li { margin-bottom: 5px; }
-section strong { font-weight: 600; }
-section code {
+
+p  { margin: 0 0 14px; }
+ul, ol { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 600; }
+
+code {
   font-family: 'SF Mono', 'Fira Code', monospace;
   font-size: 12.5px;
   background: var(--code-bg);
@@ -209,164 +229,201 @@ section code {
   border-radius: 4px;
 }
 
-/* ── Callouts ── */
+/* ── Spezial-Blöcke ── */
 .callout {
-  padding: 14px 18px;
   border-radius: 8px;
-  margin: 16px 0;
+  padding: 16px 20px;
+  margin: 20px 0;
   font-size: 14px;
   line-height: 1.6;
 }
-.callout.tip  { background: var(--accent-bg); border-left: 3px solid var(--accent); }
-.callout.info { background: var(--surface2);  border-left: 3px solid var(--border); color: var(--fg-muted); }
-.callout strong { font-weight: 600; color: var(--fg); }
+.callout.tip {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  color: var(--fg);
+}
+.callout.warn {
+  background: var(--warn-bg);
+  border-left: 3px solid var(--warn-border);
+  color: var(--fg);
+}
+.callout.info {
+  background: var(--accent2-bg);
+  border-left: 3px solid var(--accent2);
+  color: var(--fg);
+}
+.callout strong { font-weight: 600; }
 
-/* ── Kategorie-Grid ── */
-.cat-grid {
+/* ── Ordnerstruktur / Code-Block ── */
+.file-tree {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--fg);
+}
+.file-tree .dir  { color: var(--accent2); }
+.file-tree .file { color: var(--fg-muted); }
+.file-tree .note { color: var(--fg-muted); font-style: italic; opacity: 0.7; }
+
+/* ── Rollen-Karten ── */
+.role-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
+  gap: 14px;
   margin: 20px 0;
 }
-.cat-card {
+.role-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  padding: 18px 20px;
 }
-.cat-icon {
-  font-size: 20px;
-  line-height: 1;
-  margin-bottom: 2px;
-}
-.cat-name {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 13.5px;
-  font-weight: 600;
-}
-.cat-count {
-  font-size: 11.5px;
-  color: var(--accent);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-.cat-apps {
-  font-size: 12px;
-  color: var(--fg-muted);
-  line-height: 1.5;
-}
-
-/* ── Highlight-Apps ── */
-.app-row { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
-.app-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 16px 20px;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 12px;
-  align-items: start;
-}
-.app-badge {
-  background: var(--accent-bg);
-  color: var(--accent);
+.role-card .role-label {
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: .05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  margin-top: 2px;
+  margin-bottom: 6px;
 }
-.app-name {
+.role-card .role-label.human  { color: var(--accent2); }
+.role-card .role-label.agent  { color: var(--accent);  }
+.role-card h4 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin: 0 0 6px;
 }
-.app-desc { font-size: 13.5px; color: var(--fg-muted); line-height: 1.5; }
+.role-card p  { font-size: 13px; color: var(--fg-muted); margin: 0; line-height: 1.5; }
 
-/* ── Bridge-Karten ── */
-.bridge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
-@media (max-width: 520px) { .bridge-grid { grid-template-columns: 1fr; } }
-.bridge-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
-}
-.bridge-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.bridge-sub { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
-.bridge-desc { font-size: 13.5px; color: var(--fg-muted); line-height: 1.55; }
-
-/* ── Steps ── */
-.steps { counter-reset: step; display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+/* ── Workflow-Schritte ── */
+.steps { margin: 20px 0; }
 .step {
-  display: grid;
-  grid-template-columns: 32px 1fr;
-  gap: 14px;
-  align-items: start;
+  display: flex;
+  gap: 16px;
   padding: 14px 0;
-  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
-.step:first-child { border-top: none; padding-top: 0; }
+.step:last-child { border-bottom: none; }
 .step-num {
-  counter-increment: step;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--accent-bg);
-  color: var(--accent);
+  font-variant-numeric: tabular-nums;
   font-family: 'Space Grotesk', sans-serif;
   font-size: 13px;
   font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-bg);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
 }
-.step-body { padding-top: 5px; }
-.step-title { font-weight: 600; font-size: 14.5px; margin-bottom: 4px; }
-.step-desc { font-size: 13.5px; color: var(--fg-muted); line-height: 1.55; }
+.step-body h4 { font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
+.step-body p  { font-size: 13.5px; color: var(--fg-muted); margin: 0; }
 
-.divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+/* ── Vergleichs-Tabelle ── */
+.compare-table-wrap { overflow-x: auto; margin: 20px 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  min-width: 420px;
+}
+th {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  background: var(--surface2);
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+td:first-child { font-weight: 500; }
 
-/* ── Original-Link ── */
-.original-link {
-  display: inline-flex;
+/* ── Beispiel-Box ── */
+.example-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.example-header {
+  background: var(--surface2);
+  padding: 10px 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  border-bottom: 1px solid var(--border);
+}
+.example-body { padding: 20px; }
+.example-body p:last-child { margin-bottom: 0; }
+
+/* ── Trennlinie zwischen Hauptteilen ── */
+.part-divider {
+  display: flex;
   align-items: center;
-  gap: 5px;
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 12.5px;
-  margin-top: 24px;
-  padding: 6px 12px;
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-  border-radius: 6px;
-  transition: background .12s;
+  gap: 14px;
+  margin: 56px 0 40px;
 }
-.original-link:hover { background: var(--accent-bg); }
+.part-divider::before, .part-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.part-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
 
 @media (max-width: 600px) {
-  .wrapper { padding: 24px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
-  .cat-grid { grid-template-columns: 1fr 1fr; }
+  .wrapper { padding: 32px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
+  .role-grid { grid-template-columns: 1fr; }
+  .article-lead { font-size: 15px; }
 }
-</style>
 
-<!-- Topbar -->
-<nav class="topbar" aria-label="Seitennavigation">
-  <span class="topbar-brand">OpenBot</span>
+/* ── Ergänzungen für die ganze Guide-Serie ── */
+a.topbar-brand { text-decoration: none; cursor: pointer; }
+a.topbar-brand:hover { color: var(--accent); }
+.wrapper a { color: var(--accent2); text-underline-offset: 2px; }
+.checklist { list-style: none; padding-left: 0; }
+.checklist li { padding-left: 26px; position: relative; }
+.checklist li::before { content: "☐"; position: absolute; left: 2px; color: var(--accent); }
+.file-tree.code { white-space: pre; }
+.wrapper p code, .wrapper li code, .wrapper td code { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+
+<!-- Oben-Leiste mit Inhaltsverzeichnis -->
+<nav class="topbar">
+  <a class="topbar-brand" href="#" title="Zum Anfang">OpenBot Guide</a>
   <a class="toc-link active" href="#intro">Was sind Apps?</a>
   <a class="toc-link" href="#kategorien">8 Kategorien</a>
   <a class="toc-link" href="#highlights">Wichtige Apps</a>
@@ -377,317 +434,175 @@ section code {
 
 <div class="wrapper">
 
-  <!-- Header -->
-  <div class="page-header">
-    <div class="sec-eyebrow">openbot.run/marketplace/apps</div>
-    <h1>Apps im OpenBot-Marketplace</h1>
-    <p>Apps geben deinen Agents Zugriff auf externe Dienste — von Design-Tools über Datenbanken bis zu Automatisierungsplattformen. So funktionieren sie und wie du die richtigen für deinen Workflow findest.</p>
-    <div class="stat-row">
-      <div class="stat"><span class="stat-num">254</span><span class="stat-label">Apps verfügbar</span></div>
-      <div class="stat"><span class="stat-num">8</span><span class="stat-label">Kategorien</span></div>
-      <div class="stat"><span class="stat-num">1000+</span><span class="stat-label">Dienste via Composio</span></div>
-    </div>
+  <!-- Artikelkopf -->
+  <div class="article-eyebrow">openbot.run/marketplace/apps</div>
+  <h1 class="article-title">Apps im OpenBot-Marketplace</h1>
+  <p class="article-lead">Apps geben deinen Agents Zugriff auf externe Dienste, von Design-Tools über Datenbanken bis zu Automatisierungsplattformen. So funktionieren sie und so findest du die richtigen für deinen Workflow.</p>
+  <div class="article-meta">
+    <span class="tag green">254 Apps</span>
+    <span class="tag blue">8 Kategorien</span>
+    <span class="tag">1000+ Dienste via Composio</span>
+    <span class="tag">Marketplace</span>
   </div>
 
-  <!-- 1 · Was sind Apps? -->
+  <!-- 1 -->
   <section id="intro">
-    <h2><span class="sec-num">01</span>Was sind Apps in OpenBot?</h2>
-
-    <p>Im OpenBot-Marketplace werden unter dem Tab <strong>Apps</strong> Plugins aufgelistet, die ein Agent aktiv nutzen kann. Jede App erweitert den Agent um neue Fähigkeiten: Er kann damit auf externe Dienste zugreifen, Daten abrufen, Aktionen auslösen oder Inhalte erstellen — alles ohne Browser-Umweg.</p>
-
-    <p>Der Unterschied zu <strong>Skills</strong>: Skills beschreiben, wie ein Agent denkt und handelt (Schreibstil, Struktur, Rollenverhalten). Apps beschreiben, womit er handelt — konkrete Verbindungen zu Figma, Notion, Supabase, Stripe und Hunderten weiterer Dienste.</p>
-
+    <h2><span class="section-num">Grundlage</span>Was sind Apps in OpenBot?</h2>
+    <p>Im Marketplace stehen unter dem Tab <strong>Apps</strong> Plugins, die ein Agent aktiv nutzen kann. Jede App erweitert den Agent um neue Fähigkeiten: Er greift auf externe Dienste zu, ruft Daten ab, löst Aktionen aus oder erstellt Inhalte, ohne Umweg über den Browser.</p>
+    <p>Der Unterschied zu <strong>Skills</strong>: Skills beschreiben, wie ein Agent denkt und handelt (Schreibstil, Struktur, Rollenverhalten). Apps beschreiben, womit er handelt: konkrete Verbindungen zu Figma, Notion, Supabase, Stripe und Hunderten weiterer Dienste.</p>
     <div class="callout tip">
-      <strong>Wichtig:</strong> Apps laufen auf deinem eigenen Computer. OpenBot kennt keine Chat-Verläufe oder Befehle — es stellt nur die Verbindung zwischen Agent und Dienst her. Zugangsdaten bleiben bei dir.
+      <strong>Wichtig:</strong> Apps laufen auf deinem eigenen Computer. OpenBot kennt keine Chat-Verläufe oder Befehle, es stellt nur die Verbindung zwischen Agent und Dienst her. Zugangsdaten bleiben bei dir.
     </div>
-
     <h3>Was eine App technisch tut</h3>
-    <p>Jede App stellt dem Agent eine Menge von <em>Tools</em> zur Verfügung — strukturierte Funktionen, die der Agent im Kontext einer Aufgabe aufrufen kann. Eine Notion-App hat zum Beispiel Tools wie „Seite erstellen", „Datenbank abfragen" oder „Block aktualisieren". Der Agent entscheidet selbst, welches Tool er wann einsetzt.</p>
-
-    <p>Apps erscheinen im Marketplace mit einer Versionsnummer (z. B. <code>v1.1.1</code>), damit du immer weißt, welchen Stand du installiert hast und ob Updates vorliegen.</p>
+    <p>Jede App stellt dem Agent eine Reihe von <em>Tools</em> bereit: strukturierte Funktionen, die er im Rahmen einer Aufgabe aufrufen kann. Eine Notion-App hat etwa „Seite erstellen“, „Datenbank abfragen“ oder „Block aktualisieren“. Der Agent entscheidet selbst, welches Tool er wann einsetzt.</p>
+    <p>Apps erscheinen im Marketplace mit einer Versionsnummer (z. B. <code>v1.1.1</code>), damit du weißt, welchen Stand du installiert hast und ob Updates vorliegen.</p>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 1 · Kategorien</span></div>
 
-  <!-- 2 · Kategorien -->
+  <!-- 2 -->
   <section id="kategorien">
-    <h2><span class="sec-num">02</span>Die 8 Kategorien im Überblick</h2>
-
-    <p>Der Marketplace sortiert alle Apps in acht thematische Kategorien. Hier ist, was sich hinter jeder verbirgt:</p>
-
-    <div class="cat-grid">
-      <div class="cat-card">
-        <div class="cat-icon">💻</div>
-        <div class="cat-name">Coding</div>
-        <div class="cat-count">42 Apps</div>
-        <div class="cat-apps">Supabase, Vercel, Linear, Sentry, Cloudflare, Neon, Railway, GitLab …</div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">📋</div>
-        <div class="cat-name">Productivity</div>
-        <div class="cat-count">~75 Apps</div>
-        <div class="cat-apps">Notion, Obsidian, HubSpot, ClickUp, Trello, Calendly, Monday.com …</div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">📊</div>
-        <div class="cat-name">Data &amp; Analytics</div>
-        <div class="cat-count">37 Apps</div>
-        <div class="cat-apps">Airtable, Mixpanel, PostHog, Tableau, Amplitude, Coinbase …</div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">🔬</div>
-        <div class="cat-name">Research</div>
-        <div class="cat-count">27 Apps</div>
-        <div class="cat-apps">Firecrawl, Brave Search, Exa, Apify, Semrush, ZoomInfo, Tavily …</div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">🎨</div>
-        <div class="cat-name">Design</div>
-        <div class="cat-count">25 Apps</div>
-        <div class="cat-apps">Figma, Canva, ElevenLabs, Runway, Excalidraw, Webflow, Miro …</div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">⚡</div>
-        <div class="cat-name">Automation</div>
-        <div class="cat-count">19 Apps</div>
-        <div class="cat-apps">Zapier, Make, IFTTT, Composio, Buffer, Resend, Customer.io …</div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">📄</div>
-        <div class="cat-name">Documents</div>
-        <div class="cat-count">8 Apps</div>
-        <div class="cat-apps">Notion, Coda, Dropbox, Evernote, GitBook, Craft Docs, Lark …</div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">🔀</div>
-        <div class="cat-name">Other</div>
-        <div class="cat-count">20 Apps</div>
-        <div class="cat-apps">Stripe, RevenueCat, Mercury, Brex, Ramp, Upwork, Withings …</div>
-      </div>
+    <h2><span class="section-num">Teil 1</span>Die 8 Kategorien im Überblick</h2>
+    <p>Der Marketplace sortiert alle Apps in acht Kategorien:</p>
+    <div class="role-grid">
+      <div class="role-card"><div class="role-label agent">42 Apps</div><h4>💻 Coding</h4><p>Supabase, Vercel, Linear, Sentry, Cloudflare, Neon, Railway, GitLab …</p></div>
+      <div class="role-card"><div class="role-label agent">~75 Apps</div><h4>📋 Productivity</h4><p>Notion, Obsidian, HubSpot, ClickUp, Trello, Calendly, Monday.com …</p></div>
+      <div class="role-card"><div class="role-label agent">37 Apps</div><h4>📊 Data &amp; Analytics</h4><p>Airtable, Mixpanel, PostHog, Tableau, Amplitude, Coinbase …</p></div>
+      <div class="role-card"><div class="role-label agent">27 Apps</div><h4>🔬 Research</h4><p>Firecrawl, Brave Search, Exa, Apify, Semrush, ZoomInfo, Tavily …</p></div>
+      <div class="role-card"><div class="role-label agent">25 Apps</div><h4>🎨 Design</h4><p>Figma, Canva, ElevenLabs, Runway, Excalidraw, Webflow, Miro …</p></div>
+      <div class="role-card"><div class="role-label agent">19 Apps</div><h4>⚡ Automation</h4><p>Zapier, Make, IFTTT, Composio, Buffer, Resend, Customer.io …</p></div>
+      <div class="role-card"><div class="role-label agent">8 Apps</div><h4>📄 Documents</h4><p>Notion, Coda, Dropbox, Evernote, GitBook, Craft Docs, Lark …</p></div>
+      <div class="role-card"><div class="role-label agent">20 Apps</div><h4>🔀 Other</h4><p>Stripe, RevenueCat, Mercury, Brex, Ramp, Upwork, Withings …</p></div>
     </div>
-
     <div class="callout info">
-      Neben Apps gibt es im Marketplace zwei weitere Tabs: <strong>Agents</strong> (vorgefertigte Agents mit bestimmter Rolle) und <strong>Skills</strong> (Verhaltensvorlagen für Agents). Diese drei ergänzen sich — Apps liefern die Werkzeuge, Skills die Arbeitsweise, Agents die Kombination aus beidem.
+      Neben Apps hat der Marketplace zwei weitere Tabs: <strong>Agents</strong> (vorgefertigte Agents mit bestimmter Rolle) und <strong>Skills</strong> (Verhaltensvorlagen). Apps liefern die Werkzeuge, Skills die Arbeitsweise, Agents die Kombination aus beidem. Mehr dazu in Guide 11 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g11">offiziellen Guides</a>.
     </div>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 2 · Ausgewählte Apps</span></div>
 
-  <!-- 3 · Highlights -->
+  <!-- 3 -->
   <section id="highlights">
-    <h2><span class="sec-num">03</span>Ausgewählte Apps nach Anwendungsfall</h2>
-
-    <p>Nicht jede der 254 Apps ist für jeden Workflow gleich nützlich. Hier eine Auswahl nach typischen Einsatzbereichen:</p>
-
-    <h3>Für Entwickler-Workflows</h3>
-    <div class="app-row">
-      <div class="app-item">
-        <span class="app-badge">Coding</span>
-        <div>
-          <div class="app-name">Supabase</div>
-          <div class="app-desc">Agent kann Datenbankschemas lesen, Tabellen abfragen und Rows einfügen — direkt im Gespräch, ohne SQL-Client.</div>
-        </div>
-      </div>
-      <div class="app-item">
-        <span class="app-badge">Coding</span>
-        <div>
-          <div class="app-name">Linear</div>
-          <div class="app-desc">Issues anlegen, Status aktualisieren, Sprints abrufen. Nützlich, wenn Agents nach einem Deployment-Fehler automatisch ein Issue erstellen sollen.</div>
-        </div>
-      </div>
-      <div class="app-item">
-        <span class="app-badge">Coding</span>
-        <div>
-          <div class="app-name">Sentry</div>
-          <div class="app-desc">Fehler-Events abrufen und zusammenfassen. Ein Agent kann nach einem Release eigenständig prüfen, ob neue Fehler aufgetreten sind.</div>
-        </div>
-      </div>
+    <h2><span class="section-num">Teil 2</span>Ausgewählte Apps nach Anwendungsfall</h2>
+    <p>Nicht jede der 254 Apps ist für jeden Workflow gleich nützlich. Eine Auswahl nach Einsatzbereich:</p>
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>App</th><th>Kategorie</th><th>Was der Agent damit tut</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3"><strong>Entwickler-Workflows</strong></td></tr>
+          <tr><td>Supabase</td><td>Coding</td><td>Datenbankschemas lesen, Tabellen abfragen und Rows einfügen, direkt im Gespräch, ohne SQL-Client</td></tr>
+          <tr><td>Linear</td><td>Coding</td><td>Issues anlegen, Status aktualisieren, Sprints abrufen, z. B. nach einem Deployment-Fehler automatisch ein Issue erstellen</td></tr>
+          <tr><td>Sentry</td><td>Coding</td><td>Fehler-Events abrufen und zusammenfassen; nach einem Release prüfen, ob neue Fehler aufgetreten sind</td></tr>
+          <tr><td colspan="3"><strong>Wissens- und Content-Workflows</strong></td></tr>
+          <tr><td>Notion</td><td>Productivity</td><td>Seiten lesen, erstellen und aktualisieren; Meeting-Notizen schreiben oder Dokumente zusammenfassen</td></tr>
+          <tr><td>Obsidian</td><td>Productivity</td><td>Lokales Wissensmanagement im eigenen Vault, gut für Agents, die über längere Zeit Kontext aufbauen</td></tr>
+          <tr><td>Firecrawl</td><td>Research</td><td>Webseiten in strukturiertes Markdown umwandeln und als Quellen verarbeiten</td></tr>
+          <tr><td colspan="3"><strong>Design und Medienproduktion</strong></td></tr>
+          <tr><td>Figma</td><td>Design</td><td>Designdateien lesen, Komponenten abrufen, Kommentare erstellen; Designs reviewen oder Änderungen dokumentieren</td></tr>
+          <tr><td>ElevenLabs</td><td>Design</td><td>Text-to-Speech direkt aus dem Agent, für Voiceovers in Content-Pipelines</td></tr>
+          <tr><td colspan="3"><strong>Finanzen und Abrechnung</strong></td></tr>
+          <tr><td>Stripe</td><td>Other</td><td>Zahlungen, Kunden und Abonnements abfragen; tägliche Umsatzberichte, Churn-Risiken erkennen</td></tr>
+          <tr><td>Ramp / Mercury</td><td>Other</td><td>Ausgabenübersichten und Kontostand abrufen, für automatisiertes Finanzreporting</td></tr>
+        </tbody>
+      </table>
     </div>
-
-    <h3>Für Wissens- und Content-Workflows</h3>
-    <div class="app-row">
-      <div class="app-item">
-        <span class="app-badge">Productivity</span>
-        <div>
-          <div class="app-name">Notion</div>
-          <div class="app-desc">Seiten lesen, erstellen und aktualisieren. Agents können Meeting-Notizen direkt in Notion schreiben oder bestehende Dokumente zusammenfassen.</div>
-        </div>
-      </div>
-      <div class="app-item">
-        <span class="app-badge">Productivity</span>
-        <div>
-          <div class="app-name">Obsidian</div>
-          <div class="app-desc">Lokales Wissensmanagement im eigenen Vault. Besonders gut für Agents, die über längere Zeiträume Kontext aufbauen und strukturieren.</div>
-        </div>
-      </div>
-      <div class="app-item">
-        <span class="app-badge">Research</span>
-        <div>
-          <div class="app-name">Firecrawl</div>
-          <div class="app-desc">Webseiten in strukturiertes Markdown umwandeln. Ermöglicht Agents, beliebige Seiten zu scrapen und als Quellen zu verarbeiten.</div>
-        </div>
-      </div>
-    </div>
-
-    <h3>Für Design und Medienproduktion</h3>
-    <div class="app-row">
-      <div class="app-item">
-        <span class="app-badge">Design</span>
-        <div>
-          <div class="app-name">Figma</div>
-          <div class="app-desc">Designdateien lesen, Komponenten abrufen, Kommentare erstellen. Agents können Designs reviewen oder Änderungen dokumentieren.</div>
-        </div>
-      </div>
-      <div class="app-item">
-        <span class="app-badge">Design</span>
-        <div>
-          <div class="app-name">ElevenLabs</div>
-          <div class="app-desc">Text-to-Speech direkt aus dem Agent heraus. Für automatisierte Voiceover-Erstellung in Content-Pipelines.</div>
-        </div>
-      </div>
-    </div>
-
-    <h3>Für Finanzen und Abrechnung</h3>
-    <div class="app-row">
-      <div class="app-item">
-        <span class="app-badge">Other</span>
-        <div>
-          <div class="app-name">Stripe</div>
-          <div class="app-desc">Zahlungen, Kunden und Abonnements abfragen. Agents können z. B. täglich Umsatzberichte erstellen oder Churn-Risiken erkennen.</div>
-        </div>
-      </div>
-      <div class="app-item">
-        <span class="app-badge">Other</span>
-        <div>
-          <div class="app-name">Ramp / Mercury</div>
-          <div class="app-desc">Ausgabenübersichten und Kontostand abrufen — für Agents, die Finanzreporting automatisieren.</div>
-        </div>
-      </div>
-    </div>
-
     <div class="callout tip">
-      <strong>Apple Apps (MrGo2):</strong> Wenn du auf einem Mac arbeitest, gibt diese App Agents Zugriff auf Mail und Kalender — lokal, ohne externe API.
+      <strong>Apple Apps (MrGo2):</strong> Auf einem Mac gibt diese App Agents Zugriff auf Mail und Kalender, lokal und ohne externe API.
     </div>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 3 · Brücken-Apps</span></div>
 
-  <!-- 4 · Brücken -->
+  <!-- 4 -->
   <section id="bruecken">
-    <h2><span class="sec-num">04</span>Zapier &amp; Composio — die Brücken-Apps</h2>
-
-    <p>Zwei Apps im Marketplace heben sich durch ihre Reichweite heraus: Sie verbinden OpenBot-Agents nicht mit einem einzelnen Dienst, sondern mit Hunderten gleichzeitig.</p>
-
-    <div class="bridge-grid">
-      <div class="bridge-card">
-        <div class="bridge-title">Composio</div>
-        <div class="bridge-sub">1 000+ integrierte Dienste</div>
-        <div class="bridge-desc">Composio ist eine Integrations-Plattform, die standardisierte Tools für über 1 000 Apps bereitstellt. Einmal installiert, kann dein Agent auf Dienste zugreifen, die keinen eigenen Marketplace-Eintrag haben — von Slack bis Salesforce bis GitHub.</div>
-      </div>
-      <div class="bridge-card">
-        <div class="bridge-title">Zapier</div>
-        <div class="bridge-sub">Aktionen in verbundenen Apps auslösen</div>
-        <div class="bridge-desc">Mit dem Zapier-Plugin kann ein Agent Zaps (Automatisierungen) auslösen, die du in Zapier konfiguriert hast. Dein Agent muss die Ziel-App nicht direkt kennen — er gibt nur einen Trigger an Zapier weiter.</div>
-      </div>
+    <h2><span class="section-num">Teil 3</span>Zapier und Composio: die Brücken-Apps</h2>
+    <p>Zwei Apps verbinden Agents nicht mit einem einzelnen Dienst, sondern mit Hunderten gleichzeitig.</p>
+    <div class="role-grid">
+      <div class="role-card"><div class="role-label agent">1.000+ Dienste</div><h4>Composio</h4><p>Integrations-Plattform mit standardisierten Tools für über 1.000 Apps. Einmal installiert, erreicht dein Agent auch Dienste ohne eigenen Marketplace-Eintrag, von Slack bis Salesforce.</p></div>
+      <div class="role-card"><div class="role-label agent">Automatisierungen</div><h4>Zapier</h4><p>Der Agent löst Zaps aus, die du in Zapier konfiguriert hast. Er muss die Ziel-App nicht kennen, er gibt nur einen Trigger weiter.</p></div>
     </div>
-
     <h3>Wann welche Brücke?</h3>
     <ul>
-      <li><strong>Composio</strong> eignet sich, wenn du direkte Tool-Calls brauchst: der Agent soll eine Aktion in einem Dienst ausführen, und Composio liefert das passende Tool zur Laufzeit.</li>
-      <li><strong>Zapier</strong> eignet sich, wenn du bestehende Automatisierungen weiterverwenden willst: du verwaltest die Logik in Zapier, der Agent löst nur aus.</li>
-      <li><strong>Beide zusammen:</strong> Zapier für komplexe Multi-Step-Flows, Composio für direkte Einzelaktionen in spezifischen Diensten.</li>
+      <li><strong>Composio</strong> für direkte Tool-Calls: Der Agent führt eine Aktion in einem Dienst aus, Composio liefert das passende Tool zur Laufzeit.</li>
+      <li><strong>Zapier</strong>, wenn du bestehende Automatisierungen weiterverwenden willst: Die Logik liegt in Zapier, der Agent löst nur aus.</li>
+      <li><strong>Beide zusammen:</strong> Zapier für komplexe Multi-Step-Flows, Composio für direkte Einzelaktionen.</li>
     </ul>
-
     <div class="callout info">
-      Composio und Zapier ersetzen keine nativen Apps — sie ergänzen sie. Wenn Figma oder Supabase im Marketplace verfügbar sind, nutze die native App: sie ist spezialisierter und hat weniger Overhead.
+      Composio und Zapier ersetzen keine nativen Apps, sie ergänzen sie. Gibt es Figma oder Supabase im Marketplace, nimm die native App: spezialisierter und mit weniger Overhead.
     </div>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 4 · Erste Schritte</span></div>
 
-  <!-- 5 · Erste Schritte -->
+  <!-- 5 -->
   <section id="start">
-    <h2><span class="sec-num">05</span>Erste Schritte: Apps installieren und nutzen</h2>
-
-    <p>So richtest du eine App für deinen Agent ein:</p>
-
+    <h2><span class="section-num">Teil 4</span>Apps installieren und nutzen</h2>
     <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-body">
-          <div class="step-title">Marketplace öffnen</div>
-          <div class="step-desc">Navigiere in OpenBot zum Marketplace und wechsle auf den Tab <strong>Apps</strong>. Du kannst nach Kategorie filtern oder über die Suche direkt nach einem Dienst suchen.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <div class="step-title">App auswählen und installieren</div>
-          <div class="step-desc">Klicke auf die gewünschte App und wähle <em>Installieren</em>. Bei Diensten, die Authentifizierung brauchen (Notion, Stripe usw.), wirst du nach einem API-Schlüssel oder OAuth-Login gefragt.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <div class="step-title">App einem Agent zuweisen</div>
-          <div class="step-desc">Öffne den Agent, dem die App zur Verfügung stehen soll. Unter den Agent-Einstellungen findest du den Bereich <em>Apps</em> — aktiviere dort die installierte App. Der Agent kann nur Tools nutzen, die explizit zugewiesen wurden.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-body">
-          <div class="step-title">Im Gespräch nutzen</div>
-          <div class="step-desc">Starte eine Unterhaltung mit dem Agent. Er entscheidet selbst, welche App-Tools er für deine Aufgabe einsetzt. Du kannst ihn auch explizit ansprechen: „Erstelle eine Notion-Seite mit dem Ergebnis."</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <div class="step-body">
-          <div class="step-title">Updates im Blick behalten</div>
-          <div class="step-desc">Apps erscheinen im Marketplace mit einer Versionsnummer. Wenn eine neue Version verfügbar ist, siehst du einen Update-Hinweis — bestehende Konfigurationen bleiben dabei erhalten.</div>
-        </div>
-      </div>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Marketplace öffnen</h4><p>Zum Marketplace wechseln und den Tab <strong>Apps</strong> wählen. Nach Kategorie filtern oder direkt nach einem Dienst suchen.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>App auswählen und verbinden</h4><p>App anklicken und installieren. Dienste mit Authentifizierung (Notion, Stripe usw.) fragen nach API-Schlüssel oder OAuth-Login.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Agents festlegen</h4><p>Auf der App-Seite im Bereich <strong>Agents</strong> auswählen, welche Agents die App nutzen. <strong>Standardmäßig bekommt jeder Agent jede App</strong>, auch neue; beschränke sie deshalb auf die Agents, die sie brauchen.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Im Gespräch nutzen</h4><p>Der Agent entscheidet selbst, welche App-Tools er einsetzt. Du kannst ihn auch direkt ansprechen: „Erstelle eine Notion-Seite mit dem Ergebnis.“</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Updates im Blick behalten</h4><p>Ist eine neue Version verfügbar, zeigt der Marketplace einen Hinweis; bestehende Konfigurationen bleiben erhalten.</p></div></div>
     </div>
-
+    <div class="callout warn">
+      <strong>Sicherheit:</strong> Rechte pro Tool gibt es nicht; ein Agent bekommt eine App ganz oder gar nicht. Eingebaute Connectors (GitHub, Slack …) gelten immer für alle Agents. Hintergründe im <a href="OpenBot_Komplett_Setup_mehrere_Firmen.html#apps">Komplett-Setup-Guide</a>.
+    </div>
     <h3>Empfehlung für den Einstieg</h3>
-    <p>Starte mit einer App, die einen Dienst abbildet, den du täglich nutzt — Notion, Linear oder Supabase sind gute erste Kandidaten, weil sie breite Tool-Sets haben und gut dokumentiert sind. Installiere Composio erst dann, wenn du auf einen Dienst angewiesen bist, der keinen eigenen Marketplace-Eintrag hat.</p>
-
-    <div class="callout tip">
-      <strong>Tipp:</strong> Teste neue Apps zunächst in einem dedizierten Test-Agent, bevor du sie deinen produktiven Agents gibst. So kannst du das Verhalten beobachten, ohne bestehende Workflows zu stören.
+    <p>Starte mit einer App für einen Dienst, den du täglich nutzt. Notion, Linear oder Supabase eignen sich gut, weil sie breite Tool-Sets haben und gut dokumentiert sind. Composio installierst du erst, wenn du einen Dienst ohne eigenen Marketplace-Eintrag brauchst.</p>
+    <div class="callout tip" style="margin-top: 32px;">
+      <strong>Tipp:</strong> Teste neue Apps zuerst mit einem eigenen Test-Agent, bevor du sie produktiven Agents gibst. Original: <a href="https://openbot.run/marketplace/apps" target="_blank">Marketplace auf openbot.run ↗</a>
     </div>
-
-    <a class="original-link" href="https://openbot.run/marketplace/apps" target="_blank">↗ Marketplace auf openbot.run öffnen</a>
   </section>
 
 </div>
 
 <script>
 (function () {
-  const links = Array.from(document.querySelectorAll('.toc-link[href^="#"]'));
-  const sections = links.map(l => document.getElementById(l.getAttribute('href').slice(1)));
+  // Theme Toggle
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function isDark() {
+    const t = root.getAttribute('data-theme');
+    return t === 'dark' || (!t && mq.matches);
+  }
+  function updateBtn() {
+    btn.textContent = isDark() ? '☀ Hell' : '☾ Dunkel';
+  }
+  btn.addEventListener('click', function () {
+    root.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+    updateBtn();
+  });
+  updateBtn();
+
+  // Aktive Toc-Links beim Scrollen
+  const tocLinks = document.querySelectorAll('.toc-link[href^="#"]');
+  const sections = Array.from(tocLinks).map(l => document.getElementById(l.getAttribute('href').slice(1))).filter(Boolean);
 
   function onScroll() {
     const y = window.scrollY + 72;
     let active = sections[0];
-    for (const s of sections) { if (s && s.offsetTop <= y) active = s; }
-    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
+    for (const s of sections) {
+      if (s.offsetTop <= y) active = s;
+    }
+    tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-
-  const btn = document.getElementById('themeBtn');
-  const mq  = window.matchMedia('(prefers-color-scheme: dark)');
-  function applyTheme(dark) {
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-    btn.textContent = dark ? '☀ Hell' : '☾ Dunkel';
-  }
-  function isDark() {
-    const t = document.documentElement.getAttribute('data-theme');
-    return t === 'dark' || (!t && mq.matches);
-  }
-  btn.addEventListener('click', () => applyTheme(!isDark()));
-  applyTheme(isDark());
 })();
 </script>
 
-</body></html>
+<script>
+(function () {
+  // Klick auf die Marke springt zum Dokumentanfang.
+  var brand = document.querySelector('.topbar-brand');
+  if (brand) brand.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,60 +1,71 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<!----><title>OpenBot Dokumentation</title>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OpenBot Dokumentation</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-
 <style>
-/*
-  Layout: Sticky Topbar + zentrierter technischer Guide (760 px).
-  Palette: Smaragdgrün — Code, Dokumentation, Terminal-Vibes; unterscheidet sich von allen anderen Guides.
-*/
+/* Design-Referenz: OpenBot_Firmen_und_Projekte.html. Pro Guide ändern sich nur die Farben. */
 :root {
-  --bg:       #f0fbf6;
-  --surface:  #ffffff;
-  --surface2: #e3f7ed;
-  --fg:       #0a1f15;
-  --fg-muted: #3a7055;
-  --border:   #c3e8d5;
-  --accent:   #15803d;
-  --accent-bg:#f0fdf4;
-  --code-bg:  #e8f5ee;
-  --warn:     #b45309;
-  --warn-bg:  #fffbeb;
+  --bg:        #f3f5f8;
+  --surface:   #ffffff;
+  --surface2:  #edf0f5;
+  --fg:        #16202e;
+  --fg-muted:  #526070;
+  --border:    #dce1ea;
+  --accent:    #15803d;
+  --accent-bg: #f0fdf4;
+  --accent2:   #1d6ea8;
+  --accent2-bg:#e8f1f9;
+  --warn-bg:   #fdf5e8;
+  --warn-border:#e8b84b;
+  --code-bg:   #ebeff5;
+  --tag-bg:    #e4ebf5;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:       #030f08;
-    --surface:  #0a1f12;
-    --surface2: #0f2d1c;
-    --fg:       #d0f0e0;
-    --fg-muted: #4d9e70;
-    --border:   #0d3020;
-    --accent:   #4ade80;
-    --accent-bg:#052e16;
-    --code-bg:  #0f2d1c;
-    --warn:     #fbbf24;
-    --warn-bg:  #1c0f00;
+  --bg:        #0e1118;
+  --surface:   #161c27;
+  --surface2:  #1b2232;
+  --fg:        #dde3ef;
+  --fg-muted:  #7488a2;
+  --border:    #252e3f;
+  --accent:    #4ade80;
+  --accent-bg: #052e16;
+  --accent2:   #4b9ed4;
+  --accent2-bg:#0e1f30;
+  --warn-bg:   #1e180a;
+  --warn-border:#9c7a1a;
+  --code-bg:   #1d2436;
+  --tag-bg:    #1a2438;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg:       #030f08;
-  --surface:  #0a1f12;
-  --surface2: #0f2d1c;
-  --fg:       #d0f0e0;
-  --fg-muted: #4d9e70;
-  --border:   #0d3020;
-  --accent:   #4ade80;
-  --accent-bg:#052e16;
-  --code-bg:  #0f2d1c;
-  --warn:     #fbbf24;
-  --warn-bg:  #1c0f00;
+  --bg:        #0e1118;
+  --surface:   #161c27;
+  --surface2:  #1b2232;
+  --fg:        #dde3ef;
+  --fg-muted:  #7488a2;
+  --border:    #252e3f;
+  --accent:    #4ade80;
+  --accent-bg: #052e16;
+  --accent2:   #4b9ed4;
+  --accent2-bg:#0e1f30;
+  --warn-bg:   #1e180a;
+  --warn-border:#9c7a1a;
+  --code-bg:   #1d2436;
+  --tag-bg:    #1a2438;
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+
 html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -66,86 +77,353 @@ body {
   padding-right: max(0px, env(safe-area-inset-right, 0px));
 }
 
-/* ── Topbar ── */
-.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; padding: 0 max(20px, env(safe-area-inset-left, 0px)); gap: 2px; white-space: nowrap; }
+/* ── Oben-Leiste ── */
+.topbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 max(20px, env(safe-area-inset-left, 0px));
+}
 .topbar::-webkit-scrollbar { display: none; }
-.topbar-brand { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: var(--fg); padding: 13px 16px 13px 0; border-right: 1px solid var(--border); margin-right: 10px; flex-shrink: 0; }
-.toc-link { font-size: 12.5px; font-weight: 500; color: var(--fg-muted); text-decoration: none; padding: 6px 10px; border-radius: 5px; flex-shrink: 0; transition: color .12s, background .12s; border-bottom: 2px solid transparent; margin: 7px 1px; }
-.toc-link:hover { color: var(--fg); background: var(--surface2); }
-.toc-link.active { color: var(--accent); background: var(--accent-bg); border-bottom-color: var(--accent); font-weight: 600; }
-.theme-btn { margin-left: auto; flex-shrink: 0; background: transparent; border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--fg-muted); font-family: 'Inter', sans-serif; transition: background .12s, color .12s; margin-left: 10px; }
+
+.topbar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+  padding: 13px 20px 13px 0;
+  border-right: 1px solid var(--border);
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.toc-link {
+  display: inline-block;
+  font-size: 12.5px;
+  color: var(--fg-muted);
+  text-decoration: none;
+  padding: 13px 12px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.12s, border-color 0.12s;
+  flex-shrink: 0;
+}
+.toc-link:hover { color: var(--fg); }
+.toc-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+
+.theme-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--fg-muted);
+  font-family: 'Inter', sans-serif;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
 .theme-btn:hover { background: var(--surface2); color: var(--fg); }
 
 /* ── Wrapper ── */
-.wrapper { max-width: 760px; margin: 0 auto; padding: 52px max(28px, env(safe-area-inset-right, 0px)) 100px max(28px, env(safe-area-inset-left, 0px)); }
+.wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 52px max(28px, env(safe-area-inset-right, 0px)) 100px max(28px, env(safe-area-inset-left, 0px));
+}
 
-/* ── Header ── */
-.page-header { margin-bottom: 44px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
-.sec-eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-.page-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); font-weight: 700; margin: 0 0 12px; line-height: 1.18; text-wrap: balance; }
-.page-header p { color: var(--fg-muted); margin: 0; font-size: 15.5px; }
+/* ── Artikel-Kopf ── */
+.article-eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.article-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.article-lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+  margin: 0 0 36px;
+  max-width: 60ch;
+}
+.article-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.tag {
+  font-size: 11.5px;
+  background: var(--tag-bg);
+  color: var(--fg-muted);
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.tag.green { background: var(--accent-bg); color: var(--accent); }
+.tag.blue  { background: var(--accent2-bg); color: var(--accent2); }
 
-/* ── Sections ── */
-section { scroll-margin-top: 56px; margin-bottom: 44px; }
-section > h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(18px, 3vw, 22px); font-weight: 700; margin: 0 0 20px; display: flex; align-items: center; gap: 10px; }
-.sec-num { font-size: 11.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--accent); background: var(--accent-bg); padding: 3px 8px; border-radius: 4px; flex-shrink: 0; }
-section h3 { font-family: 'Space Grotesk', sans-serif; font-size: 15.5px; font-weight: 600; margin: 24px 0 8px; }
-section p  { margin: 0 0 13px; }
-section ul, section ol { margin: 0 0 13px; padding-left: 22px; }
-section li { margin-bottom: 5px; }
-section strong { font-weight: 600; }
-section code { font-family: 'SF Mono','Fira Code',monospace; font-size: 12.5px; background: var(--code-bg); padding: 2px 5px; border-radius: 4px; }
+/* ── Sektionen ── */
+section { scroll-margin-top: 56px; margin-bottom: 60px; }
 
-/* ── Code-Blöcke ── */
-.code-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin: 14px 0; overflow-x: auto; }
-.code-block code { background: none; padding: 0; font-size: 13px; line-height: 1.65; color: var(--fg); display: block; white-space: pre; }
-.code-block .comment { color: var(--fg-muted); }
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  margin: 0 0 20px;
+  text-wrap: balance;
+  line-height: 1.3;
+}
+h2 .section-num {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 4px;
+}
 
-/* ── Callouts ── */
-.callout { padding: 13px 17px; border-radius: 8px; margin: 14px 0; font-size: 14px; line-height: 1.6; }
-.callout.tip  { background: var(--accent-bg); border-left: 3px solid var(--accent); }
-.callout.warn { background: var(--warn-bg);   border-left: 3px solid var(--warn); }
-.callout.info { background: var(--surface2);  border-left: 3px solid var(--border); color: var(--fg-muted); }
-.callout strong { color: var(--fg); font-weight: 600; }
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15.5px;
+  font-weight: 600;
+  margin: 28px 0 8px;
+  color: var(--fg);
+}
 
-/* ── Plattform-Tabs ── */
-.platform-tabs { display: flex; gap: 4px; margin-bottom: 0; border-bottom: 1px solid var(--border); }
-.pt { background: none; border: none; border-bottom: 2px solid transparent; padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--fg-muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: color .12s; margin-bottom: -1px; }
-.pt:hover { color: var(--fg); }
-.pt.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
-.platform-panel { display: none; background: var(--surface); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; padding: 20px; margin-bottom: 14px; }
-.platform-panel.active { display: block; }
+p  { margin: 0 0 14px; }
+ul, ol { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 600; }
 
-/* ── Env-Tabelle ── */
-.env-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 16px 0; }
-.env-table th { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--fg-muted); text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--border); }
-.env-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-.env-table tr:last-child td { border-bottom: none; }
-.env-table td:first-child code { font-size: 12px; background: var(--code-bg); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
-.env-table td:last-child { color: var(--fg-muted); line-height: 1.5; }
+code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
 
-/* ── Arch-Box ── */
-.arch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
-@media (max-width: 520px) { .arch-grid { grid-template-columns: 1fr; } }
-.arch-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
-.arch-layer { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-.arch-name { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-.arch-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.5; }
+/* ── Spezial-Blöcke ── */
+.callout {
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.callout.tip {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  color: var(--fg);
+}
+.callout.warn {
+  background: var(--warn-bg);
+  border-left: 3px solid var(--warn-border);
+  color: var(--fg);
+}
+.callout.info {
+  background: var(--accent2-bg);
+  border-left: 3px solid var(--accent2);
+  color: var(--fg);
+}
+.callout strong { font-weight: 600; }
 
-.divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+/* ── Ordnerstruktur / Code-Block ── */
+.file-tree {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--fg);
+}
+.file-tree .dir  { color: var(--accent2); }
+.file-tree .file { color: var(--fg-muted); }
+.file-tree .note { color: var(--fg-muted); font-style: italic; opacity: 0.7; }
 
-.original-link { display: inline-flex; align-items: center; gap: 5px; color: var(--accent); text-decoration: none; font-size: 12.5px; margin-top: 20px; padding: 6px 12px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 6px; transition: background .12s; }
-.original-link:hover { background: var(--accent-bg); }
+/* ── Rollen-Karten ── */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.role-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.role-card .role-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.role-card .role-label.human  { color: var(--accent2); }
+.role-card .role-label.agent  { color: var(--accent);  }
+.role-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.role-card p  { font-size: 13px; color: var(--fg-muted); margin: 0; line-height: 1.5; }
+
+/* ── Workflow-Schritte ── */
+.steps { margin: 20px 0; }
+.step {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  font-variant-numeric: tabular-nums;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-bg);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-body h4 { font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
+.step-body p  { font-size: 13.5px; color: var(--fg-muted); margin: 0; }
+
+/* ── Vergleichs-Tabelle ── */
+.compare-table-wrap { overflow-x: auto; margin: 20px 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  min-width: 420px;
+}
+th {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  background: var(--surface2);
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+td:first-child { font-weight: 500; }
+
+/* ── Beispiel-Box ── */
+.example-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.example-header {
+  background: var(--surface2);
+  padding: 10px 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  border-bottom: 1px solid var(--border);
+}
+.example-body { padding: 20px; }
+.example-body p:last-child { margin-bottom: 0; }
+
+/* ── Trennlinie zwischen Hauptteilen ── */
+.part-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 56px 0 40px;
+}
+.part-divider::before, .part-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.part-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
 
 @media (max-width: 600px) {
-  .wrapper { padding: 24px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
-  .env-table { font-size: 12.5px; }
-  .env-table td, .env-table th { padding: 7px 8px; }
+  .wrapper { padding: 32px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
+  .role-grid { grid-template-columns: 1fr; }
+  .article-lead { font-size: 15px; }
 }
-</style>
 
+/* ── Ergänzungen für die ganze Guide-Serie ── */
+a.topbar-brand { text-decoration: none; cursor: pointer; }
+a.topbar-brand:hover { color: var(--accent); }
+.wrapper a { color: var(--accent2); text-underline-offset: 2px; }
+.checklist { list-style: none; padding-left: 0; }
+.checklist li { padding-left: 26px; position: relative; }
+.checklist li::before { content: "☐"; position: absolute; left: 2px; color: var(--accent); }
+.file-tree.code { white-space: pre; }
+.wrapper p code, .wrapper li code, .wrapper td code { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+
+<!-- Oben-Leiste mit Inhaltsverzeichnis -->
 <nav class="topbar">
-  <span class="topbar-brand">OpenBot</span>
+  <a class="topbar-brand" href="#" title="Zum Anfang">OpenBot Guide</a>
   <a class="toc-link active" href="#was">Was ist OpenBot?</a>
   <a class="toc-link" href="#install">Installation</a>
   <a class="toc-link" href="#config">Konfiguration</a>
@@ -157,206 +435,187 @@ section code { font-family: 'SF Mono','Fira Code',monospace; font-size: 12.5px; 
 
 <div class="wrapper">
 
-  <div class="page-header">
-    <div class="sec-eyebrow">github.com/nightly-labs/openbot · README</div>
-    <h1>OpenBot – Technische Dokumentation</h1>
-    <p>Vollständige Referenz aus dem offiziellen GitHub-Repository: Installation auf allen Plattformen, Konfigurationsoptionen, Architektur, Datenablage und Entwicklungs-Setup.</p>
+  <!-- Artikelkopf -->
+  <div class="article-eyebrow">github.com/nightly-labs/openbot · README</div>
+  <h1 class="article-title">OpenBot – Technische Dokumentation</h1>
+  <p class="article-lead">Referenz aus dem offiziellen GitHub-Repository: Installation auf allen Plattformen, Konfigurationsoptionen, Architektur, Datenablage und Entwicklungs-Setup.</p>
+  <div class="article-meta">
+    <span class="tag green">Referenz</span>
+    <span class="tag blue">Technik</span>
+    <span class="tag">Installation</span>
+    <span class="tag">Umgebungsvariablen</span>
   </div>
 
-  <!-- 1 · Was ist OpenBot? -->
+  <!-- 1 -->
   <section id="was">
-    <h2><span class="sec-num">01</span>Was ist OpenBot?</h2>
+    <h2><span class="section-num">Grundlage</span>Was ist OpenBot?</h2>
+    <p>OpenBot ist ein <strong>local-first Desktop-Workspace für persistente KI-Mitarbeiter</strong>. Er führt unterschiedliche Agent-CLIs und Modell-APIs über ein einheitliches Interface zusammen und stellt jedem Agent einen eigenen Workspace, einen Nachrichtenspeicher und einen eingebetteten Browser bereit.</p>
 
-    <p>OpenBot ist ein <strong>local-first Desktop-Workspace für persistente KI-Mitarbeiter</strong>. Er führt unterschiedliche Agent-CLIs und Modell-APIs über ein einheitliches Interface zusammen und stellt für jeden Agent einen eigenen Workspace, einen Nachrichtenspeicher und einen eingebetteten Browser bereit.</p>
-
-    <h3>Unterstützte Providers</h3>
-    <p>OpenBot läuft aktuell mit folgenden Providern und CLIs:</p>
-    <ul>
-      <li><strong>Coding CLIs:</strong> Codex, Claude Code (Antigravity CLI), Grok CLI, OpenCode, Gemini</li>
-      <li><strong>IDE-Agents:</strong> Cursor, Cline, GitHub Copilot</li>
-      <li><strong>Weitere:</strong> Kimi, Devin, Mistral Vibe, Hermes Agent</li>
-      <li><strong>Custom:</strong> OpenAI-kompatible Endpunkte und eigene ACP-Agents</li>
-    </ul>
-    <p>Jeder Provider nutzt seine eigene lokale CLI-Installation. OpenBot kopiert keine Credentials — jeder Provider verwaltet seinen eigenen Login-State.</p>
+    <h3>Unterstützte Provider</h3>
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>Gruppe</th><th>Provider und CLIs</th></tr></thead>
+        <tbody>
+          <tr><td>Coding-CLIs</td><td>Codex, Claude Code (Antigravity CLI), Grok CLI, OpenCode, Gemini</td></tr>
+          <tr><td>IDE-Agents</td><td>Cursor, Cline, GitHub Copilot</td></tr>
+          <tr><td>Weitere</td><td>Kimi, Devin, Mistral Vibe, Hermes Agent</td></tr>
+          <tr><td>Custom</td><td>OpenAI-kompatible Endpunkte und eigene ACP-Agents</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Jeder Provider nutzt seine eigene lokale CLI-Installation. OpenBot kopiert keine Credentials; jeder Provider verwaltet seinen eigenen Login-State.</p>
 
     <div class="callout warn">
-      <strong>Wichtig:</strong> Agents laufen mit <code>danger-full-access</code> und <code>approvalPolicy: never</code>. Sie können Dateien ändern, Befehle ausführen, das Netzwerk nutzen und den Browser steuern — ohne Bestätigung pro Aktion. Dies ist eine bewusste Produktentscheidung, keine Sicherheitslücke.
+      <strong>Wichtig:</strong> Agents laufen mit <code>danger-full-access</code> und <code>approvalPolicy: never</code>. Sie können Dateien ändern, Befehle ausführen, das Netzwerk nutzen und den Browser steuern, ohne Bestätigung pro Aktion. Das ist eine bewusste Produktentscheidung, keine Sicherheitslücke. Wie du das mit Zugriffsstufen eingrenzt, zeigt der <a href="OpenBot_Komplett_Setup_mehrere_Firmen.html#sicherheit">Komplett-Setup-Guide</a>.
     </div>
 
     <h3>Lizenz</h3>
-    <p>OpenBot steht unter der <strong>PolyForm Noncommercial 1.0.0</strong>-Lizenz. Für kommerzielle Nutzung ist eine separate Lizenz erforderlich — Details unter openbot.run/pricing. Bis 1. Dezember 2026 ist die kommerzielle Nutzung kostenlos.</p>
+    <p>OpenBot steht unter der <strong>PolyForm Noncommercial 1.0.0</strong>-Lizenz. Für kommerzielle Nutzung ist eine separate Lizenz nötig (openbot.run/pricing). Bis 1. Dezember 2026 ist die kommerzielle Nutzung kostenlos.</p>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 1 · Installation</span></div>
 
-  <!-- 2 · Installation -->
+  <!-- 2 -->
   <section id="install">
-    <h2><span class="sec-num">02</span>Installation</h2>
+    <h2><span class="section-num">Teil 1</span>Installation</h2>
 
-    <div class="platform-tabs">
-      <button class="pt active" onclick="showTab('mac', this)">macOS</button>
-      <button class="pt" onclick="showTab('win', this)">Windows</button>
-      <button class="pt" onclick="showTab('linux', this)">Linux</button>
-      <button class="pt" onclick="showTab('docker', this)">Docker</button>
-      <button class="pt" onclick="showTab('nix', this)">Nix</button>
+    <h3>macOS</h3>
+    <p><strong>Anforderungen:</strong> macOS 13+ (Apple Silicon oder Intel).</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Herunterladen</h4><p>DMG-Datei von <a href="https://openbot.run" target="_blank">openbot.run</a> laden.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Installieren</h4><p>App in den Ordner <code>Applications</code> ziehen.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Provider einrichten</h4><p>Beim ersten Start Provider-CLIs über <strong>Settings → Providers</strong> einrichten.</p></div></div>
     </div>
+    <p>Builds sind signiert und notarisiert. Provider-CLIs lädt OpenBot auf Wunsch selbst herunter und pinnt die Version.</p>
 
-    <div id="tab-mac" class="platform-panel active">
-      <p><strong>Anforderungen:</strong> macOS 13+ (Apple Silicon oder Intel)</p>
-      <ol>
-        <li>DMG-Datei von <a href="https://openbot.run" target="_blank" style="color:var(--accent)">openbot.run</a> herunterladen</li>
-        <li>App in den <code>Applications</code>-Ordner ziehen</li>
-        <li>Beim ersten Start Provider-CLIs über <strong>Settings → Providers</strong> einrichten</li>
-      </ol>
-      <p>Builds sind signiert und notarisiert. Provider-CLIs lädt OpenBot auf Wunsch selbst herunter und pinnt die Version.</p>
-    </div>
+    <h3>Windows</h3>
+    <p><strong>Anforderungen:</strong> Windows 10+ (x64). x64-Installer herunterladen und ausführen; neuere Releases sind signiert, ältere nicht. Provider über <strong>Settings → Providers</strong> einrichten.</p>
+    <div class="callout info">Dynamic Island und Agent-Dock sind ab 0.67.0 auf Windows verfügbar.</div>
 
-    <div id="tab-win" class="platform-panel">
-      <p><strong>Anforderungen:</strong> Windows 10+ (x64)</p>
-      <ol>
-        <li>x64-Installer herunterladen und ausführen</li>
-        <li>Neuere Releases sind signiert; ältere Releases sind es nicht</li>
-        <li>Provider über <strong>Settings → Providers</strong> einrichten</li>
-      </ol>
-      <div class="callout info">Dynamic Island und Agent-Dock sind ab 0.67.0 auf Windows verfügbar.</div>
-    </div>
-
-    <div id="tab-linux" class="platform-panel">
-      <p><strong>Anforderungen:</strong> Linux x64 oder arm64</p>
-      <div class="code-block"><code>chmod +x openbot-*.AppImage
-./openbot-*.AppImage</code></div>
-      <p><strong>Ubuntu 23.10+ und Debian 13</strong> benötigen ein AppArmor-Profil:</p>
-      <div class="code-block"><code><span class="comment"># AppArmor-Profil installieren</span>
+    <h3>Linux</h3>
+    <p><strong>Anforderungen:</strong> Linux x64 oder arm64.</p>
+    <div class="file-tree code">chmod +x openbot-*.AppImage
+./openbot-*.AppImage</div>
+    <p><strong>Ubuntu 23.10+ und Debian 13</strong> brauchen ein AppArmor-Profil:</p>
+    <div class="file-tree code"><span class="note"># AppArmor-Profil installieren</span>
 sudo cp build/linux/openbot.apparmor /etc/apparmor.d/openbot
-sudo apparmor_parser -r /etc/apparmor.d/openbot</code></div>
-      <p>Wichtig: <strong>Niemals <code>--no-sandbox</code></strong> verwenden.</p>
-      <p>Für einen dauerhaften <strong>Linux-Server</strong> gibt es ein Installationsskript, das einen systemd-Service auf Ubuntu 24.04 oder 26.04 einrichtet:</p>
-      <div class="code-block"><code>curl -fsSL https://openbot.run/install.sh | bash
-openbot login</code></div>
-    </div>
+sudo apparmor_parser -r /etc/apparmor.d/openbot</div>
+    <div class="callout warn"><strong>Niemals</strong> <code>--no-sandbox</code> verwenden.</div>
+    <p>Für einen dauerhaften <strong>Linux-Server</strong> richtet ein Installationsskript einen systemd-Service auf Ubuntu 24.04 oder 26.04 ein:</p>
+    <div class="file-tree code">curl -fsSL https://openbot.run/install.sh | bash
+openbot login</div>
 
-    <div id="tab-docker" class="platform-panel">
-      <p>Docker-Image läuft headless auf <code>linux/amd64</code> und <code>linux/arm64</code>.</p>
-      <div class="code-block"><code><span class="comment"># Mit seccomp-Profil starten</span>
+    <h3>Docker</h3>
+    <p>Das Docker-Image läuft headless auf <code>linux/amd64</code> und <code>linux/arm64</code>.</p>
+    <div class="file-tree code"><span class="note"># Mit seccomp-Profil starten</span>
 docker run --security-opt seccomp=openbot.json \
   ghcr.io/nightly-labs/openbot:latest
 
-<span class="comment"># Dann einloggen</span>
-openbot login</code></div>
-      <div class="callout info">Remote Desktop auf Docker-Servern zeigt ab 0.72.0 einen Desktop mit dem OpenBot-Logo.</div>
-    </div>
+<span class="note"># Dann einloggen</span>
+openbot login</div>
+    <div class="callout info">Remote Desktop auf Docker-Servern zeigt ab 0.72.0 einen Desktop mit dem OpenBot-Logo.</div>
 
-    <div id="tab-nix" class="platform-panel">
-      <p>OpenBot ist als Nix-Flake verfügbar:</p>
-      <div class="code-block"><code>nix run github:nightly-labs/openbot</code></div>
-    </div>
+    <h3>Nix</h3>
+    <p>OpenBot ist als Nix-Flake verfügbar:</p>
+    <div class="file-tree code">nix run github:nightly-labs/openbot</div>
 
     <h3>Provider-CLIs einrichten</h3>
-    <p>OpenBot kann die meisten Provider-CLIs selbst herunterladen und pinnen. Alternativ können bereits installierte CLIs über Umgebungsvariablen angegeben werden (siehe Konfiguration). Jeder Provider braucht einen eigenen Sign-in — OpenBot überträgt keine Credentials zwischen Providers.</p>
+    <p>OpenBot lädt die meisten Provider-CLIs selbst herunter und pinnt sie. Alternativ gibst du bereits installierte CLIs über Umgebungsvariablen an (siehe <a href="#config">Konfiguration</a>). Jeder Provider braucht einen eigenen Sign-in; OpenBot überträgt keine Credentials zwischen Providern.</p>
+    <div class="callout tip">Eine Schritt-für-Schritt-Anleitung für Ubuntu und Docker auf einem VPS steht in Guide 04 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g4">offiziellen Guides</a>.</div>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 2 · Konfiguration</span></div>
 
-  <!-- 3 · Konfiguration -->
+  <!-- 3 -->
   <section id="config">
-    <h2><span class="sec-num">03</span>Konfiguration &amp; Umgebungsvariablen</h2>
+    <h2><span class="section-num">Teil 2</span>Konfiguration und Umgebungsvariablen</h2>
 
-    <h3>CLI-Pfade (Pfad-Overrides)</h3>
-    <table class="env-table">
-      <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
-      <tbody>
-        <tr><td><code>OPENBOT_OPENCODE_PATH</code></td><td>Pfad zur OpenCode-Binary</td></tr>
-        <tr><td><code>OPENBOT_ANTIGRAVITY_PATH</code></td><td>Pfad zur Antigravity (Claude Code) CLI</td></tr>
-        <tr><td><code>OPENBOT_CURSOR_PATH</code></td><td>Pfad zum Cursor-Binary</td></tr>
-        <tr><td><code>OPENBOT_CLINE_PATH</code></td><td>Pfad zur Cline-Binary</td></tr>
-        <tr><td><code>OPENBOT_KIMI_PATH</code></td><td>Pfad zur Kimi-Binary</td></tr>
-        <tr><td><code>OPENBOT_DEVIN_PATH</code></td><td>Pfad zur Devin-Binary</td></tr>
-        <tr><td><code>OPENBOT_COPILOT_PATH</code></td><td>Pfad zum GitHub-Copilot-Binary</td></tr>
-        <tr><td><code>OPENBOT_MISTRAL_PATH</code></td><td>Pfad zum Mistral-Vibe-Binary</td></tr>
-      </tbody>
-    </table>
+    <h3>CLI-Pfade</h3>
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
+        <tbody>
+          <tr><td><code>OPENBOT_OPENCODE_PATH</code></td><td>Pfad zur OpenCode-Binary</td></tr>
+          <tr><td><code>OPENBOT_ANTIGRAVITY_PATH</code></td><td>Pfad zur Antigravity-CLI (Claude Code)</td></tr>
+          <tr><td><code>OPENBOT_CURSOR_PATH</code></td><td>Pfad zur Cursor-Binary</td></tr>
+          <tr><td><code>OPENBOT_CLINE_PATH</code></td><td>Pfad zur Cline-Binary</td></tr>
+          <tr><td><code>OPENBOT_KIMI_PATH</code></td><td>Pfad zur Kimi-Binary</td></tr>
+          <tr><td><code>OPENBOT_DEVIN_PATH</code></td><td>Pfad zur Devin-Binary</td></tr>
+          <tr><td><code>OPENBOT_COPILOT_PATH</code></td><td>Pfad zur GitHub-Copilot-Binary</td></tr>
+          <tr><td><code>OPENBOT_MISTRAL_PATH</code></td><td>Pfad zur Mistral-Vibe-Binary</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <h3>API-Keys</h3>
-    <table class="env-table">
-      <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
-      <tbody>
-        <tr><td><code>XAI_API_KEY</code></td><td>xAI-API-Key</td></tr>
-        <tr><td><code>CURSOR_API_KEY</code></td><td>Cursor-API-Key</td></tr>
-        <tr><td><code>CLINE_API_KEY</code></td><td>Cline-API-Key</td></tr>
-        <tr><td><code>MISTRAL_API_KEY</code></td><td>Mistral-API-Key</td></tr>
-        <tr><td><code>COPILOT_GITHUB_TOKEN</code></td><td>GitHub-Token für Copilot</td></tr>
-        <tr><td><code>GH_TOKEN</code> / <code>GITHUB_TOKEN</code></td><td>Alternative GitHub-Tokens</td></tr>
-      </tbody>
-    </table>
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
+        <tbody>
+          <tr><td><code>XAI_API_KEY</code></td><td>xAI-API-Key</td></tr>
+          <tr><td><code>CURSOR_API_KEY</code></td><td>Cursor-API-Key</td></tr>
+          <tr><td><code>CLINE_API_KEY</code></td><td>Cline-API-Key</td></tr>
+          <tr><td><code>MISTRAL_API_KEY</code></td><td>Mistral-API-Key</td></tr>
+          <tr><td><code>COPILOT_GITHUB_TOKEN</code></td><td>GitHub-Token für Copilot</td></tr>
+          <tr><td><code>GH_TOKEN</code> / <code>GITHUB_TOKEN</code></td><td>Alternative GitHub-Tokens</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h3>Home-Verzeichnis-Overrides</h3>
-    <table class="env-table">
-      <thead><tr><th>Variable</th><th>Standard-Speicherort</th></tr></thead>
-      <tbody>
-        <tr><td><code>GEMINI_HOME</code></td><td><code>~/.gemini</code></td></tr>
-        <tr><td><code>CLINE_DIR</code></td><td><code>~/.cline</code></td></tr>
-        <tr><td><code>KIMI_SHARE_DIR</code></td><td><code>~/.kimi</code></td></tr>
-        <tr><td><code>COPILOT_HOME</code></td><td><code>~/.copilot</code></td></tr>
-        <tr><td><code>VIBE_HOME</code></td><td><code>~/.vibe</code></td></tr>
-        <tr><td><code>HERMES_HOME</code></td><td><code>~/.hermes</code></td></tr>
-      </tbody>
-    </table>
+    <h3>Home-Verzeichnisse</h3>
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>Variable</th><th>Standard-Speicherort</th></tr></thead>
+        <tbody>
+          <tr><td><code>GEMINI_HOME</code></td><td><code>~/.gemini</code></td></tr>
+          <tr><td><code>CLINE_DIR</code></td><td><code>~/.cline</code></td></tr>
+          <tr><td><code>KIMI_SHARE_DIR</code></td><td><code>~/.kimi</code></td></tr>
+          <tr><td><code>COPILOT_HOME</code></td><td><code>~/.copilot</code></td></tr>
+          <tr><td><code>VIBE_HOME</code></td><td><code>~/.vibe</code></td></tr>
+          <tr><td><code>HERMES_HOME</code></td><td><code>~/.hermes</code></td></tr>
+        </tbody>
+      </table>
+    </div>
 
-    <h3>Remote &amp; Mobile</h3>
-    <table class="env-table">
-      <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
-      <tbody>
-        <tr><td><code>OPENBOT_MOBILE_AUTH_API_URL</code></td><td>URL der Mobile-Auth-API</td></tr>
-        <tr><td><code>REMOTE_SIGNAL_URL</code></td><td>Signal-Server für WebRTC-Setup</td></tr>
-        <tr><td><code>TURN_HOST</code></td><td>TURN-Relay-Server (coturn-Fallback)</td></tr>
-        <tr><td><code>TURN_SHARED_SECRET</code></td><td>Shared Secret für TURN-Authentifizierung</td></tr>
-      </tbody>
-    </table>
+    <h3>Remote und Mobile</h3>
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>Variable</th><th>Beschreibung</th></tr></thead>
+        <tbody>
+          <tr><td><code>OPENBOT_MOBILE_AUTH_API_URL</code></td><td>URL der Mobile-Auth-API</td></tr>
+          <tr><td><code>REMOTE_SIGNAL_URL</code></td><td>Signal-Server für das WebRTC-Setup</td></tr>
+          <tr><td><code>TURN_HOST</code></td><td>TURN-Relay-Server (coturn-Fallback)</td></tr>
+          <tr><td><code>TURN_SHARED_SECRET</code></td><td>Shared Secret für die TURN-Authentifizierung</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <h3>Themes</h3>
-    <p>Eigene Farbpaletten können als JSON-Dateien in <code>~/.config/OpenBot/themes/</code> (Linux) abgelegt werden. Sie werden ohne Neustart geladen und verwenden dasselbe Token-System wie die eingebauten Themes.</p>
+    <p>Eigene Farbpaletten legst du als JSON-Dateien in <code>~/.config/OpenBot/themes/</code> (Linux) ab. Sie werden ohne Neustart geladen und verwenden dasselbe Token-System wie die eingebauten Themes.</p>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 3 · Architektur</span></div>
 
-  <!-- 4 · Architektur -->
+  <!-- 4 -->
   <section id="arch">
-    <h2><span class="sec-num">04</span>Architektur</h2>
+    <h2><span class="section-num">Teil 3</span>Architektur</h2>
 
-    <div class="arch-grid">
-      <div class="arch-card">
-        <div class="arch-layer">Electron Main</div>
-        <div class="arch-name">Hauptprozess</div>
-        <div class="arch-desc">Lokaler Codex App Server über stdio, Claude Agent SDK über Stream-JSON, SQLite-Event-Log, typisiertes IPC, sandboxed Browser-View.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-layer">Renderer</div>
-        <div class="arch-name">UI-Schicht</div>
-        <div class="arch-desc">SolidJS. Preload exponiert nur eine typisierte <code>window.openbot</code>-API — kein direkter Zugriff auf Node aus dem Renderer.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-layer">Account API</div>
-        <div class="arch-name">Cloud-Backend</div>
-        <div class="arch-desc">TanStack Start auf Cloudflare Workers, mit D1 (SQLite) und R2 (Objekte). Verwaltet Konten, Einladungen, Mitgliedschaften — nicht Chats oder Befehle.</div>
-      </div>
-      <div class="arch-card">
-        <div class="arch-layer">Remote Access</div>
-        <div class="arch-name">WebRTC-Verbindung</div>
-        <div class="arch-desc">Team-API auf Loopback; Clients verbinden via WebRTC. Signal überträgt nur Setup-Nachrichten, coturn ist der TURN-Relay-Fallback. Chats, Dateien, Remote-Desktop-Media bleiben lokal.</div>
-      </div>
+    <div class="role-grid">
+      <div class="role-card"><div class="role-label agent">Electron Main</div><h4>Hauptprozess</h4><p>Lokaler Codex App Server über stdio, Claude Agent SDK über Stream-JSON, SQLite-Event-Log, typisiertes IPC, sandboxed Browser-View.</p></div>
+      <div class="role-card"><div class="role-label agent">Renderer</div><h4>UI-Schicht</h4><p>SolidJS. Preload exponiert nur eine typisierte <code>window.openbot</code>-API, kein direkter Node-Zugriff aus dem Renderer.</p></div>
+      <div class="role-card"><div class="role-label human">Account API</div><h4>Cloud-Backend</h4><p>TanStack Start auf Cloudflare Workers mit D1 (SQLite) und R2 (Objekte). Verwaltet Konten, Einladungen, Mitgliedschaften, nicht Chats oder Befehle.</p></div>
+      <div class="role-card"><div class="role-label human">Remote Access</div><h4>WebRTC-Verbindung</h4><p>Team-API auf Loopback; Clients verbinden sich per WebRTC. Signal überträgt nur Setup-Nachrichten, coturn ist der TURN-Fallback. Chats, Dateien und Remote-Desktop-Media bleiben lokal.</p></div>
     </div>
 
     <h3>Package-Struktur</h3>
-    <ul>
-      <li><code>src/main</code> — Electron-Hauptprozess</li>
-      <li><code>src/backend</code> — Backend-Logik</li>
-      <li><code>src/preload</code> — Preload-Script</li>
-      <li><code>src/renderer</code> — SolidJS-UI</li>
-      <li><code>apps/auth-api</code> — Cloudflare-Workers-API</li>
-      <li><code>apps/status</code> — Statusseite</li>
-      <li><code>packages/contracts</code> — Shared Types</li>
-      <li><code>packages/i18n</code> — 15 Sprachen inkl. RTL (Arabisch, Hebräisch)</li>
-    </ul>
+    <div class="file-tree"><span class="dir">src/main/            </span><span class="note">← Electron-Hauptprozess</span>
+<span class="dir">src/backend/         </span><span class="note">← Backend-Logik</span>
+<span class="dir">src/preload/         </span><span class="note">← Preload-Script</span>
+<span class="dir">src/renderer/        </span><span class="note">← SolidJS-UI</span>
+<span class="dir">apps/auth-api/       </span><span class="note">← Cloudflare-Workers-API</span>
+<span class="dir">apps/status/         </span><span class="note">← Statusseite</span>
+<span class="dir">packages/contracts/  </span><span class="note">← Shared Types</span>
+<span class="dir">packages/i18n/       </span><span class="note">← 15 Sprachen inkl. RTL (Arabisch, Hebräisch)</span></div>
 
     <h3>Dateianhänge</h3>
     <ul>
@@ -367,44 +626,39 @@ openbot login</code></div>
     </ul>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 4 · Daten &amp; Sicherheit</span></div>
 
-  <!-- 5 · Daten & Sicherheit -->
+  <!-- 5 -->
   <section id="daten">
-    <h2><span class="sec-num">05</span>Daten &amp; Sicherheit</h2>
+    <h2><span class="section-num">Teil 4</span>Daten und Sicherheit</h2>
 
     <h3>Verzeichnisstruktur</h3>
-    <table class="env-table">
-      <thead><tr><th>Pfad</th><th>Inhalt</th></tr></thead>
-      <tbody>
-        <tr><td><code>~/OpenBot/Agents/&lt;id&gt;</code></td><td>Workspace jedes Agents</td></tr>
-        <tr><td><code>~/OpenBot/Shared</code></td><td>Gemeinsame Dateien</td></tr>
-        <tr><td><code>~/OpenBot/Shared/Transfers</code></td><td>Übertragene Dateien</td></tr>
-        <tr><td><code>userData/openbot.db</code></td><td>SQLite-Datenbank</td></tr>
-        <tr><td><code>~/.codex</code>, <code>~/.claude</code>, <code>~/.grok</code> …</td><td>Provider-State (jeweils eigenes Home)</td></tr>
-        <tr><td><code>~/Library/Application Support/OpenBot/provider-runtimes</code></td><td>Provider-CLIs (macOS)</td></tr>
-      </tbody>
-    </table>
+    <div class="file-tree"><span class="dir">~/OpenBot/Agents/&lt;id&gt;/          </span><span class="note">← Workspace jedes Agents</span>
+<span class="dir">~/OpenBot/Shared/                </span><span class="note">← gemeinsame Dateien</span>
+<span class="dir">~/OpenBot/Shared/Transfers/      </span><span class="note">← übertragene Dateien</span>
+<span class="file">userData/openbot.db              </span><span class="note">← SQLite-Datenbank</span>
+<span class="dir">~/.codex, ~/.claude, ~/.grok …   </span><span class="note">← Provider-State, jeweils eigenes Home</span>
+<span class="dir">~/Library/Application Support/OpenBot/provider-runtimes/  </span><span class="note">← Provider-CLIs (macOS)</span></div>
 
     <h3>Provider-State</h3>
-    <p>Jeder Provider CLI verwaltet seinen eigenen State in einem eigenen Home-Verzeichnis: <code>~/.codex</code>, <code>~/.claude</code>, <code>~/.grok</code>, <code>~/.gemini</code>, <code>~/.cursor</code>, <code>~/.cline</code>, <code>~/.kimi</code>, <code>~/.copilot</code>, <code>~/.vibe</code>, <code>~/.hermes</code>. OpenBot kopiert keine Credentials zwischen Providers.</p>
+    <p>Jede Provider-CLI verwaltet ihren State in einem eigenen Home-Verzeichnis: <code>~/.codex</code>, <code>~/.claude</code>, <code>~/.grok</code>, <code>~/.gemini</code>, <code>~/.cursor</code>, <code>~/.cline</code>, <code>~/.kimi</code>, <code>~/.copilot</code>, <code>~/.vibe</code>, <code>~/.hermes</code>. OpenBot kopiert keine Credentials zwischen Providern.</p>
 
     <div class="callout warn">
-      <strong>Sicherheitshinweis:</strong> Lokaler Vollzugriff ist eine Produktentscheidung — kein Sicherheitsmodell. Agents können auf Host-Pfade außerhalb ihrer Workspaces zugreifen. Sicherheitslücken bitte über <code>SECURITY.md</code> melden, nicht in öffentlichen Issues.
+      <strong>Sicherheitshinweis:</strong> Lokaler Vollzugriff ist eine Produktentscheidung, kein Sicherheitsmodell. Agents können auf Host-Pfade außerhalb ihrer Workspaces zugreifen. Sicherheitslücken über <code>SECURITY.md</code> melden, nicht in öffentlichen Issues.
     </div>
 
     <h3>Datenschutz</h3>
-    <p>OpenBot exportiert anonymisierte Diagnosedaten — nur mit expliziter Zustimmung. Chats, Dateien und Befehle verlassen den lokalen Server nicht über Cloudflare. Die vollständige Datenschutzrichtlinie ist in <code>PRIVACY.md</code> im Repository dokumentiert.</p>
+    <p>OpenBot exportiert anonymisierte Diagnosedaten nur mit ausdrücklicher Zustimmung. Chats, Dateien und Befehle verlassen den lokalen Server nicht über Cloudflare. Die vollständige Datenschutzrichtlinie steht in <code>PRIVACY.md</code> im Repository.</p>
 
     <h3>Agent-Import</h3>
-    <p>Agents können aus einem Grok-Bot-Export (<code>.zip</code>) importiert werden. Der Import unterstützt: Skills, Routinen, Memories, Workspace-Dateien — aber <strong>keinen Chat-Verlauf</strong>.</p>
+    <p>Agents lassen sich aus einem Grok-Bot-Export (<code>.zip</code>) importieren. Übernommen werden Skills, Routinen, Memories und Workspace-Dateien, aber <strong>kein Chat-Verlauf</strong>. Schritte in Guide 06 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g6">offiziellen Guides</a>.</p>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 5 · Entwicklung</span></div>
 
-  <!-- 6 · Entwicklung -->
+  <!-- 6 -->
   <section id="dev">
-    <h2><span class="sec-num">06</span>Entwicklungs-Setup</h2>
+    <h2><span class="section-num">Teil 5</span>Entwicklungs-Setup</h2>
 
     <h3>Anforderungen</h3>
     <ul>
@@ -414,63 +668,89 @@ openbot login</code></div>
     </ul>
 
     <h3>Starten</h3>
-    <div class="code-block"><code>bun install --frozen-lockfile
-bun run dev</code></div>
+    <div class="file-tree code">bun install --frozen-lockfile
+bun run dev</div>
 
     <h3>Wichtige Dev-Befehle</h3>
-    <table class="env-table">
-      <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
-      <tbody>
-        <tr><td><code>bun run dev</code></td><td>App im Entwicklungsmodus starten</td></tr>
-        <tr><td><code>bun run dev:all</code></td><td>App + API gemeinsam starten</td></tr>
-        <tr><td><code>bun run check</code></td><td>Alle Checks ausführen</td></tr>
-        <tr><td><code>bun run typecheck</code></td><td>TypeScript-Typen prüfen</td></tr>
-        <tr><td><code>bun run test:changed</code></td><td>Tests für geänderte Dateien</td></tr>
-        <tr><td><code>bun run dev:reset</code></td><td>Lokalen State zurücksetzen</td></tr>
-        <tr><td><code>bun run dev:seed</code></td><td>Testdaten einfügen</td></tr>
-        <tr><td><code>bun run package</code></td><td>App paketieren</td></tr>
-      </tbody>
-    </table>
-
-    <h3>Mobile</h3>
-    <div class="code-block"><code>bun run mobile:go      <span class="comment"># Mobile-App starten</span>
-bun run mobile:ios     <span class="comment"># iOS-Simulator</span>
-bun run dev:mobile     <span class="comment"># Dev-Modus mit Mobile</span></code></div>
-
-    <div class="callout info">
-      <strong>Beiträge:</strong> Externe Beitragende müssen die CLA unterzeichnen. Weitere Details in <code>CONTRIBUTING.md</code> im Repository.
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>Befehl</th><th>Beschreibung</th></tr></thead>
+        <tbody>
+          <tr><td><code>bun run dev</code></td><td>App im Entwicklungsmodus starten</td></tr>
+          <tr><td><code>bun run dev:all</code></td><td>App und API gemeinsam starten</td></tr>
+          <tr><td><code>bun run check</code></td><td>Alle Checks ausführen</td></tr>
+          <tr><td><code>bun run typecheck</code></td><td>TypeScript-Typen prüfen</td></tr>
+          <tr><td><code>bun run test:changed</code></td><td>Tests für geänderte Dateien</td></tr>
+          <tr><td><code>bun run dev:reset</code></td><td>Lokalen State zurücksetzen</td></tr>
+          <tr><td><code>bun run dev:seed</code></td><td>Testdaten einfügen</td></tr>
+          <tr><td><code>bun run package</code></td><td>App paketieren</td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <a class="original-link" href="https://github.com/nightly-labs/openbot#readme" target="_blank">↗ README auf GitHub lesen</a>
+    <h3>Mobile</h3>
+    <div class="file-tree code">bun run mobile:go      <span class="note"># Mobile-App starten</span>
+bun run mobile:ios     <span class="note"># iOS-Simulator</span>
+bun run dev:mobile     <span class="note"># Dev-Modus mit Mobile</span></div>
+
+    <div class="callout info">
+      <strong>Beiträge:</strong> Externe Beitragende müssen die CLA unterzeichnen. Details in <code>CONTRIBUTING.md</code> im Repository.
+    </div>
+
+    <div class="callout tip" style="margin-top: 32px;">
+      <strong>Original:</strong> <a href="https://github.com/nightly-labs/openbot#readme" target="_blank">README auf GitHub lesen ↗</a>
+    </div>
   </section>
 
 </div>
 
 <script>
-function showTab(id, btn) {
-  document.querySelectorAll('.platform-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.pt').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-}
 (function () {
-  const links = Array.from(document.querySelectorAll('.toc-link[href^="#"]'));
-  const sections = links.map(l => document.getElementById(l.getAttribute('href').slice(1)));
+  // Theme Toggle
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function isDark() {
+    const t = root.getAttribute('data-theme');
+    return t === 'dark' || (!t && mq.matches);
+  }
+  function updateBtn() {
+    btn.textContent = isDark() ? '☀ Hell' : '☾ Dunkel';
+  }
+  btn.addEventListener('click', function () {
+    root.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+    updateBtn();
+  });
+  updateBtn();
+
+  // Aktive Toc-Links beim Scrollen
+  const tocLinks = document.querySelectorAll('.toc-link[href^="#"]');
+  const sections = Array.from(tocLinks).map(l => document.getElementById(l.getAttribute('href').slice(1))).filter(Boolean);
+
   function onScroll() {
     const y = window.scrollY + 72;
     let active = sections[0];
-    for (const s of sections) { if (s && s.offsetTop <= y) active = s; }
-    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
+    for (const s of sections) {
+      if (s.offsetTop <= y) active = s;
+    }
+    tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-  const btn = document.getElementById('themeBtn');
-  const mq  = window.matchMedia('(prefers-color-scheme: dark)');
-  function applyTheme(dark) { document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light'); btn.textContent = dark ? '☀ Hell' : '☾ Dunkel'; }
-  function isDark() { const t = document.documentElement.getAttribute('data-theme'); return t === 'dark' || (!t && mq.matches); }
-  btn.addEventListener('click', () => applyTheme(!isDark()));
-  applyTheme(isDark());
 })();
 </script>
 
-</body></html>
+<script>
+(function () {
+  // Klick auf die Marke springt zum Dokumentanfang.
+  var brand = document.querySelector('.topbar-brand');
+  if (brand) brand.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
+</body>
+</html>

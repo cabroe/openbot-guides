@@ -1,54 +1,71 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<!----><title>OpenBot Teams</title>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OpenBot Teams</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-
 <style>
-/*
-  Layout: Sticky Topbar + zentrierter Guide (760 px).
-  Palette: Cyan — kollaborativ, professionell; unterscheidet sich von allen anderen Guides.
-*/
+/* Design-Referenz: OpenBot_Firmen_und_Projekte.html. Pro Guide ändern sich nur die Farben. */
 :root {
-  --bg:       #f0f9fb;
-  --surface:  #ffffff;
-  --surface2: #e3f4f7;
-  --fg:       #0a1f24;
-  --fg-muted: #3d7080;
-  --border:   #c8e8ef;
-  --accent:   #0891b2;
-  --accent-bg:#ecfeff;
-  --code-bg:  #dff2f7;
+  --bg:        #f3f5f8;
+  --surface:   #ffffff;
+  --surface2:  #edf0f5;
+  --fg:        #16202e;
+  --fg-muted:  #526070;
+  --border:    #dce1ea;
+  --accent:    #0891b2;
+  --accent-bg: #ecfeff;
+  --accent2:   #1d6ea8;
+  --accent2-bg:#e8f1f9;
+  --warn-bg:   #fdf5e8;
+  --warn-border:#e8b84b;
+  --code-bg:   #ebeff5;
+  --tag-bg:    #e4ebf5;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:       #030f12;
-    --surface:  #0a1f26;
-    --surface2: #0f2d35;
-    --fg:       #d0eff5;
-    --fg-muted: #5b9eb0;
-    --border:   #0d3040;
-    --accent:   #22d3ee;
-    --accent-bg:#0a2030;
-    --code-bg:  #0f2d35;
+  --bg:        #0e1118;
+  --surface:   #161c27;
+  --surface2:  #1b2232;
+  --fg:        #dde3ef;
+  --fg-muted:  #7488a2;
+  --border:    #252e3f;
+  --accent:    #22d3ee;
+  --accent-bg: #0a2030;
+  --accent2:   #4b9ed4;
+  --accent2-bg:#0e1f30;
+  --warn-bg:   #1e180a;
+  --warn-border:#9c7a1a;
+  --code-bg:   #1d2436;
+  --tag-bg:    #1a2438;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg:       #030f12;
-  --surface:  #0a1f26;
-  --surface2: #0f2d35;
-  --fg:       #d0eff5;
-  --fg-muted: #5b9eb0;
-  --border:   #0d3040;
-  --accent:   #22d3ee;
-  --accent-bg:#0a2030;
-  --code-bg:  #0f2d35;
+  --bg:        #0e1118;
+  --surface:   #161c27;
+  --surface2:  #1b2232;
+  --fg:        #dde3ef;
+  --fg-muted:  #7488a2;
+  --border:    #252e3f;
+  --accent:    #22d3ee;
+  --accent-bg: #0a2030;
+  --accent2:   #4b9ed4;
+  --accent2-bg:#0e1f30;
+  --warn-bg:   #1e180a;
+  --warn-border:#9c7a1a;
+  --code-bg:   #1d2436;
+  --tag-bg:    #1a2438;
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+
 html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -60,7 +77,7 @@ body {
   padding-right: max(0px, env(safe-area-inset-right, 0px));
 }
 
-/* ── Topbar ── */
+/* ── Oben-Leiste ── */
 .topbar {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
@@ -69,37 +86,39 @@ body {
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
+  gap: 0;
   overflow-x: auto;
   scrollbar-width: none;
   padding: 0 max(20px, env(safe-area-inset-left, 0px));
-  gap: 2px;
-  white-space: nowrap;
 }
 .topbar::-webkit-scrollbar { display: none; }
+
 .topbar-brand {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 13px;
   font-weight: 700;
   color: var(--fg);
-  padding: 13px 16px 13px 0;
+  white-space: nowrap;
+  padding: 13px 20px 13px 0;
   border-right: 1px solid var(--border);
-  margin-right: 10px;
+  margin-right: 16px;
   flex-shrink: 0;
 }
+
 .toc-link {
+  display: inline-block;
   font-size: 12.5px;
-  font-weight: 500;
   color: var(--fg-muted);
   text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  flex-shrink: 0;
-  transition: color .12s, background .12s;
+  padding: 13px 12px;
+  white-space: nowrap;
   border-bottom: 2px solid transparent;
-  margin: 7px 1px;
+  transition: color 0.12s, border-color 0.12s;
+  flex-shrink: 0;
 }
-.toc-link:hover { color: var(--fg); background: var(--surface2); }
-.toc-link.active { color: var(--accent); background: var(--accent-bg); border-bottom-color: var(--accent); font-weight: 600; }
+.toc-link:hover { color: var(--fg); }
+.toc-link.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+
 .theme-btn {
   margin-left: auto;
   flex-shrink: 0;
@@ -111,8 +130,8 @@ body {
   cursor: pointer;
   color: var(--fg-muted);
   font-family: 'Inter', sans-serif;
-  transition: background .12s, color .12s;
-  margin-left: 10px;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
 }
 .theme-btn:hover { background: var(--surface2); color: var(--fg); }
 
@@ -123,322 +142,483 @@ body {
   padding: 52px max(28px, env(safe-area-inset-right, 0px)) 100px max(28px, env(safe-area-inset-left, 0px));
 }
 
-/* ── Header ── */
-.page-header { margin-bottom: 44px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
-.sec-eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-.page-header h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); font-weight: 700; margin: 0 0 12px; line-height: 1.18; text-wrap: balance; }
-.page-header p { color: var(--fg-muted); margin: 0; font-size: 15.5px; }
+/* ── Artikel-Kopf ── */
+.article-eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.article-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.article-lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+  margin: 0 0 36px;
+  max-width: 60ch;
+}
+.article-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.tag {
+  font-size: 11.5px;
+  background: var(--tag-bg);
+  color: var(--fg-muted);
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.tag.green { background: var(--accent-bg); color: var(--accent); }
+.tag.blue  { background: var(--accent2-bg); color: var(--accent2); }
 
-/* ── Sections ── */
-section { scroll-margin-top: 56px; margin-bottom: 44px; }
-section > h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(18px, 3vw, 22px); font-weight: 700; margin: 0 0 20px; display: flex; align-items: center; gap: 10px; }
-.sec-num { font-size: 11.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--accent); background: var(--accent-bg); padding: 3px 8px; border-radius: 4px; flex-shrink: 0; }
-section h3 { font-family: 'Space Grotesk', sans-serif; font-size: 15.5px; font-weight: 600; margin: 24px 0 8px; }
-section p  { margin: 0 0 13px; }
-section ul, section ol { margin: 0 0 13px; padding-left: 22px; }
-section li { margin-bottom: 5px; }
-section strong { font-weight: 600; }
-section code { font-family: 'SF Mono','Fira Code',monospace; font-size: 12.5px; background: var(--code-bg); padding: 2px 5px; border-radius: 4px; }
+/* ── Sektionen ── */
+section { scroll-margin-top: 56px; margin-bottom: 60px; }
 
-/* ── Callouts ── */
-.callout { padding: 13px 17px; border-radius: 8px; margin: 14px 0; font-size: 14px; line-height: 1.6; }
-.callout.tip  { background: var(--accent-bg); border-left: 3px solid var(--accent); }
-.callout.info { background: var(--surface2); border-left: 3px solid var(--border); color: var(--fg-muted); }
-.callout strong { color: var(--fg); font-weight: 600; }
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  margin: 0 0 20px;
+  text-wrap: balance;
+  line-height: 1.3;
+}
+h2 .section-num {
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 4px;
+}
 
-/* ── Setup-Karten ── */
-.setup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
-@media (max-width: 580px) { .setup-grid { grid-template-columns: 1fr; } }
-.setup-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
-.setup-card.featured { border-color: var(--accent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent); }
-.setup-icon { font-size: 22px; margin-bottom: 10px; }
-.setup-name { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-.setup-badge { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); background: var(--accent-bg); padding: 2px 7px; border-radius: 4px; margin-bottom: 10px; }
-.setup-desc { font-size: 13.5px; color: var(--fg-muted); line-height: 1.55; }
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15.5px;
+  font-weight: 600;
+  margin: 28px 0 8px;
+  color: var(--fg);
+}
 
-/* ── Feature-Raster ── */
-.feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
-@media (max-width: 520px) { .feat-grid { grid-template-columns: 1fr; } }
-.feat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
-.feat-icon { font-size: 18px; margin-bottom: 8px; }
-.feat-name { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 5px; }
-.feat-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.5; }
+p  { margin: 0 0 14px; }
+ul, ol { margin: 0 0 14px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 600; }
 
-/* ── Service-Liste ── */
-.service-list { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
-.service-item { display: grid; grid-template-columns: 32px 1fr; gap: 14px; align-items: start; padding: 14px 0; border-top: 1px solid var(--border); }
-.service-item:first-child { border-top: none; padding-top: 0; }
-.service-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-bg); color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-variant-numeric: tabular-nums; }
-.service-body { padding-top: 5px; }
-.service-title { font-weight: 600; font-size: 14.5px; margin-bottom: 3px; }
-.service-desc { font-size: 13.5px; color: var(--fg-muted); line-height: 1.5; }
+code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
 
-/* ── Changelog-Highlights ── */
-.release-list { display: flex; flex-direction: column; gap: 0; }
-.rl-item { display: grid; grid-template-columns: 100px 1fr; gap: 0 20px; padding: 14px 0; border-top: 1px solid var(--border); font-size: 13.5px; align-items: start; }
-.rl-item:first-child { border-top: none; padding-top: 0; }
-.rl-ver { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--accent); font-size: 12.5px; padding-top: 2px; }
-.rl-desc { color: var(--fg-muted); line-height: 1.55; }
-.rl-desc strong { color: var(--fg); font-weight: 500; }
+/* ── Spezial-Blöcke ── */
+.callout {
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.callout.tip {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  color: var(--fg);
+}
+.callout.warn {
+  background: var(--warn-bg);
+  border-left: 3px solid var(--warn-border);
+  color: var(--fg);
+}
+.callout.info {
+  background: var(--accent2-bg);
+  border-left: 3px solid var(--accent2);
+  color: var(--fg);
+}
+.callout strong { font-weight: 600; }
 
-.divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+/* ── Ordnerstruktur / Code-Block ── */
+.file-tree {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--fg);
+}
+.file-tree .dir  { color: var(--accent2); }
+.file-tree .file { color: var(--fg-muted); }
+.file-tree .note { color: var(--fg-muted); font-style: italic; opacity: 0.7; }
 
-.original-link { display: inline-flex; align-items: center; gap: 5px; color: var(--accent); text-decoration: none; font-size: 12.5px; margin-top: 20px; padding: 6px 12px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 6px; transition: background .12s; }
-.original-link:hover { background: var(--accent-bg); }
+/* ── Rollen-Karten ── */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.role-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.role-card .role-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.role-card .role-label.human  { color: var(--accent2); }
+.role-card .role-label.agent  { color: var(--accent);  }
+.role-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.role-card p  { font-size: 13px; color: var(--fg-muted); margin: 0; line-height: 1.5; }
+
+/* ── Workflow-Schritte ── */
+.steps { margin: 20px 0; }
+.step {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  font-variant-numeric: tabular-nums;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-bg);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-body h4 { font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
+.step-body p  { font-size: 13.5px; color: var(--fg-muted); margin: 0; }
+
+/* ── Vergleichs-Tabelle ── */
+.compare-table-wrap { overflow-x: auto; margin: 20px 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  min-width: 420px;
+}
+th {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  background: var(--surface2);
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+td:first-child { font-weight: 500; }
+
+/* ── Beispiel-Box ── */
+.example-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.example-header {
+  background: var(--surface2);
+  padding: 10px 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  border-bottom: 1px solid var(--border);
+}
+.example-body { padding: 20px; }
+.example-body p:last-child { margin-bottom: 0; }
+
+/* ── Trennlinie zwischen Hauptteilen ── */
+.part-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 56px 0 40px;
+}
+.part-divider::before, .part-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.part-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
 
 @media (max-width: 600px) {
-  .wrapper { padding: 24px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
-  .rl-item { grid-template-columns: 1fr; gap: 2px; }
+  .wrapper { padding: 32px max(16px, env(safe-area-inset-right, 0px)) 60px max(16px, env(safe-area-inset-left, 0px)); }
+  .role-grid { grid-template-columns: 1fr; }
+  .article-lead { font-size: 15px; }
 }
-</style>
 
+/* ── Ergänzungen für die ganze Guide-Serie ── */
+a.topbar-brand { text-decoration: none; cursor: pointer; }
+a.topbar-brand:hover { color: var(--accent); }
+.wrapper a { color: var(--accent2); text-underline-offset: 2px; }
+.checklist { list-style: none; padding-left: 0; }
+.checklist li { padding-left: 26px; position: relative; }
+.checklist li::before { content: "☐"; position: absolute; left: 2px; color: var(--accent); }
+.file-tree.code { white-space: pre; }
+.wrapper p code, .wrapper li code, .wrapper td code { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+
+<!-- Oben-Leiste mit Inhaltsverzeichnis -->
 <nav class="topbar">
-  <span class="topbar-brand">OpenBot</span>
+  <a class="topbar-brand" href="#" title="Zum Anfang">OpenBot Guide</a>
   <a class="toc-link active" href="#setups">Setup-Optionen</a>
   <a class="toc-link" href="#features">Team-Features</a>
   <a class="toc-link" href="#services">Implementation</a>
-  <a class="toc-link" href="#releases">Relevantreleases</a>
+  <a class="toc-link" href="#releases">Releases</a>
   <a class="toc-link" href="#start">Erste Schritte</a>
   <button class="theme-btn" id="themeBtn">☾ Dunkel</button>
 </nav>
 
 <div class="wrapper">
 
-  <div class="page-header">
-    <div class="sec-eyebrow">openbot.run/teams</div>
-    <h1>OpenBot für Teams</h1>
-    <p>Gemeinsame Agent-Umgebungen für Firmen, Agenturen und Remote-Teams — von der einfachen Shared-Server-Einrichtung bis zur vollständig individuell konfigurierten Deployment-Lösung.</p>
+  <!-- Artikelkopf -->
+  <div class="article-eyebrow">openbot.run/teams</div>
+  <h1 class="article-title">OpenBot für Teams</h1>
+  <p class="article-lead">Gemeinsame Agent-Umgebungen für Firmen, Agenturen und Remote-Teams: von der einfachen Shared-Server-Einrichtung bis zur individuell konfigurierten Deployment-Lösung.</p>
+  <div class="article-meta">
+    <span class="tag green">Team-Guide</span>
+    <span class="tag blue">Managed Server</span>
+    <span class="tag">Rollen &amp; Rechte</span>
+    <span class="tag">Kollaboration</span>
   </div>
 
-  <!-- 1 · Setups -->
+  <!-- 1 -->
   <section id="setups">
-    <h2><span class="sec-num">01</span>Drei Setup-Optionen</h2>
-
-    <p>OpenBot bietet Teams drei Wege, eine gemeinsame Umgebung zu betreiben. Der Unterschied liegt im Hosting und im Support-Umfang:</p>
-
-    <div class="setup-grid">
-      <div class="setup-card">
-        <div class="setup-icon">🏠</div>
-        <div class="setup-name">Lokal</div>
-        <div class="setup-desc">Einzelne Personen oder kleine Teams betreiben OpenBot auf ihrer eigenen Infrastruktur. Vollständige Kontrolle, keine monatlichen Hosting-Kosten, aber eigene Wartung.</div>
-      </div>
-      <div class="setup-card featured">
-        <div class="setup-icon">☁️</div>
-        <div class="setup-name">Managed Server</div>
-        <div class="setup-badge">Empfohlen für Teams</div>
-        <div class="setup-desc">Der Anbieter hostet und wartet den Server. Agents, Automatisierungen und Personen teilen sich eine gemeinsame Umgebung — rund um die Uhr verfügbar, ohne eigene Infrastruktur.</div>
-      </div>
-      <div class="setup-card">
-        <div class="setup-icon">🏢</div>
-        <div class="setup-name">Custom Deployment</div>
-        <div class="setup-desc">Das Unternehmen konfiguriert Umgebungen, Agents, Berechtigungen und Integrationen individuell rund um bestehende Workflows. Für Firmen mit speziellen Anforderungen.</div>
-      </div>
+    <h2><span class="section-num">Grundlage</span>Drei Setup-Optionen</h2>
+    <p>OpenBot bietet Teams drei Wege, eine gemeinsame Umgebung zu betreiben. Der Unterschied liegt im Hosting und im Support-Umfang.</p>
+    <div class="role-grid">
+      <div class="role-card"><div class="role-label human">Selbst betrieben</div><h4>Lokal</h4><p>Einzelne Personen oder kleine Teams betreiben OpenBot auf eigener Infrastruktur. Volle Kontrolle, keine Hosting-Kosten, aber eigene Wartung.</p></div>
+      <div class="role-card"><div class="role-label agent">Empfohlen für Teams</div><h4>Managed Server</h4><p>Der Anbieter hostet und wartet den Server. Agents, Automatisierungen und Personen teilen sich eine Umgebung, rund um die Uhr verfügbar.</p></div>
+      <div class="role-card"><div class="role-label human">Für Unternehmen</div><h4>Custom Deployment</h4><p>Umgebungen, Agents, Berechtigungen und Integrationen werden individuell um bestehende Workflows konfiguriert.</p></div>
     </div>
-
     <div class="callout tip">
-      <strong>Wichtig:</strong> Beim Managed Server laufen Agents, Automatisierungen und Personen in einer gemeinsamen Umgebung. Cloudflare verwaltet Konten und Einladungen — Chats, Dateien und Befehle bleiben ausschließlich auf dem lokalen Server.
+      <strong>Wichtig:</strong> Beim Managed Server laufen Agents, Automatisierungen und Personen in einer gemeinsamen Umgebung. Cloudflare verwaltet Konten und Einladungen; Chats, Dateien und Befehle bleiben ausschließlich auf dem Server. Pläne und Preise stehen in Guide 10 der <a href="OpenBot_Guides_14_offizielle_Guides_DE.html#g10">offiziellen Guides</a>.
     </div>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 1 · Features</span></div>
 
-  <!-- 2 · Features -->
+  <!-- 2 -->
   <section id="features">
-    <h2><span class="sec-num">02</span>Team-Features im Überblick</h2>
-
-    <p>Diese Kernfunktionen machen OpenBot für Teams attraktiv:</p>
-
-    <div class="feat-grid">
-      <div class="feat-card">
-        <div class="feat-icon">🕐</div>
-        <div class="feat-name">24/7-Agents</div>
-        <div class="feat-desc">Auf Managed-Infrastruktur laufen Agents kontinuierlich — auch nachts, an Wochenenden und wenn das Team offline ist.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">🔄</div>
-        <div class="feat-name">Geplante Automatisierungen</div>
-        <div class="feat-desc">Routinen können zeitgesteuert ausgeführt werden — zu definierten Zeiten oder mit festgelegten Intervallen, ohne manuelle Auslösung.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">👥</div>
-        <div class="feat-name">Multiplayer-Kollaboration</div>
-        <div class="feat-desc">Personen und KI-Mitarbeiter teilen sich einen Server. Channels, Threads und Delegierung ermöglichen koordinierte Team-Arbeit.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">📱</div>
-        <div class="feat-name">Remote-Zugriff</div>
-        <div class="feat-desc">Verbindung vom Desktop oder Mobilgerät. Owner und Admins können Agent-Einstellungen direkt aus der Mobile-App verwalten.</div>
-      </div>
+    <h2><span class="section-num">Teil 1</span>Team-Features im Überblick</h2>
+    <div class="role-grid">
+      <div class="role-card"><div class="role-label agent">Betrieb</div><h4>24/7-Agents</h4><p>Auf Managed-Infrastruktur laufen Agents durchgehend, auch nachts, am Wochenende und wenn das Team offline ist.</p></div>
+      <div class="role-card"><div class="role-label agent">Automatisierung</div><h4>Geplante Routinen</h4><p>Routinen laufen zu festen Zeiten oder in Intervallen, ohne manuelle Auslösung.</p></div>
+      <div class="role-card"><div class="role-label human">Zusammenarbeit</div><h4>Multiplayer</h4><p>Personen und KI-Mitarbeiter teilen sich einen Server. Channels, Threads und Delegierung koordinieren die Arbeit.</p></div>
+      <div class="role-card"><div class="role-label human">Zugriff</div><h4>Remote und mobil</h4><p>Verbindung vom Desktop oder Mobilgerät. Owner und Admins verwalten Agent-Einstellungen direkt aus der Mobile-App.</p></div>
     </div>
 
-    <h3>Zugriffs- und Sicherheitsfeatures für Teams</h3>
-    <ul>
-      <li><strong>Rollen:</strong> Owner, Admin und Mitglied mit unterschiedlichen Berechtigungen</li>
-      <li><strong>MCP-Zugriff per Agent:</strong> Jeder Agent bekommt nur die MCP-Server und Apps, die er braucht</li>
-      <li><strong>Vault:</strong> Verschlüsselter Speicher für Logins, API-Keys, Zahlungskarten und Kontakte — Zugriff per Agent konfigurierbar</li>
-      <li><strong>Audit-Log:</strong> Nachvollziehbares Protokoll aller Server-Aktionen für Owner und Admins</li>
-      <li><strong>OpenID Connect:</strong> Firmen-Anmeldung über bestehende Identity-Provider</li>
-      <li><strong>Thread-Parallelitätslimits:</strong> Pro Server und pro Agent konfigurierbar</li>
-      <li><strong>Channel-Browserrechte:</strong> Welche Mitglieder den eingebetteten Browser nutzen dürfen</li>
-    </ul>
-
+    <h3>Zugriffs- und Sicherheitsfeatures</h3>
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>Feature</th><th>Was es leistet</th></tr></thead>
+        <tbody>
+          <tr><td>Rollen</td><td>Owner, Admin und Mitglied mit unterschiedlichen Berechtigungen</td></tr>
+          <tr><td>MCP-Zugriff pro Agent</td><td>Jeder Agent bekommt nur die MCP-Server und Apps, die er braucht</td></tr>
+          <tr><td>Vault</td><td>Verschlüsselter Speicher für Logins, API-Keys, Zahlungskarten und Kontakte; Zugriff pro Agent konfigurierbar</td></tr>
+          <tr><td>Audit-Log</td><td>Protokoll der Server-Aktionen für Owner und Admins</td></tr>
+          <tr><td>OpenID Connect</td><td>Firmen-Anmeldung über bestehende Identity-Provider</td></tr>
+          <tr><td>Thread-Parallelitätslimits</td><td>Pro Server und pro Agent konfigurierbar</td></tr>
+          <tr><td>Channel-Browserrechte</td><td>Welche Mitglieder den eingebetteten Browser nutzen dürfen</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <strong>Grenzen kennen:</strong> Der Audit-Log protokolliert Beitritte, Rollen und Agentenstufen, aber keine Agentenaktionen. API-Keys im Vault können Agents auf demselben Systembenutzer gegenseitig lesen. Details im <a href="OpenBot_Komplett_Setup_mehrere_Firmen.html#sicherheit">Komplett-Setup-Guide</a>.
+    </div>
     <div class="callout info">
       <strong>Team-Einladungen:</strong> Personen werden über WebRTC zu einem bestehenden Server eingeladen. Die Team-API bleibt auf Loopback; Cloudflare überträgt nur Setup-Nachrichten, keine Chats oder Befehle.
     </div>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 2 · Implementation</span></div>
 
-  <!-- 3 · Implementation Services -->
+  <!-- 3 -->
   <section id="services">
-    <h2><span class="sec-num">03</span>Implementation Services (Custom)</h2>
-
-    <p>Für Unternehmen mit komplexen Anforderungen bietet OpenBot einen vollständig begleiteten Deployment-Prozess:</p>
-
-    <div class="service-list">
-      <div class="service-item">
-        <div class="service-num">1</div>
-        <div class="service-body">
-          <div class="service-title">Infrastruktur-Setup und Konfiguration</div>
-          <div class="service-desc">Einrichtung der Server-Umgebung auf eigener oder verwalteter Infrastruktur, abgestimmt auf bestehende IT-Landschaft und Sicherheitsanforderungen.</div>
-        </div>
-      </div>
-      <div class="service-item">
-        <div class="service-num">2</div>
-        <div class="service-body">
-          <div class="service-title">Initiale Agent-Konfiguration</div>
-          <div class="service-desc">Agents werden für spezifische Rollen, Workflows und Zugriffsrechte konfiguriert — mit passenden Skills, Apps und Instruktionen.</div>
-        </div>
-      </div>
-      <div class="service-item">
-        <div class="service-num">3</div>
-        <div class="service-body">
-          <div class="service-title">Integration mit bestehenden Tools</div>
-          <div class="service-desc">Anbindung an interne Systeme, Datenquellen und bestehende Toolchains — über die Marketplace-Apps oder Custom-Integrationen.</div>
-        </div>
-      </div>
-      <div class="service-item">
-        <div class="service-num">4</div>
-        <div class="service-body">
-          <div class="service-title">Custom Features und Workflows</div>
-          <div class="service-desc">Entwicklung individueller Workflows, Automatisierungen und Features, die über den Standard-Funktionsumfang hinausgehen.</div>
-        </div>
-      </div>
-      <div class="service-item">
-        <div class="service-num">5</div>
-        <div class="service-body">
-          <div class="service-title">Laufende Wartung und Weiterentwicklung</div>
-          <div class="service-desc">Kontinuierlicher Support, Updates und Anpassungen nach dem initialen Deployment — für Unternehmen, die keine eigene OpenBot-Expertise aufbauen wollen.</div>
-        </div>
-      </div>
+    <h2><span class="section-num">Teil 2</span>Implementation Services (Custom)</h2>
+    <p>Für Unternehmen mit komplexen Anforderungen bietet OpenBot einen begleiteten Deployment-Prozess:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Infrastruktur-Setup und Konfiguration</h4><p>Server-Umgebung auf eigener oder verwalteter Infrastruktur, abgestimmt auf IT-Landschaft und Sicherheitsanforderungen.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Initiale Agent-Konfiguration</h4><p>Agents für bestimmte Rollen, Workflows und Zugriffsrechte, mit passenden Skills, Apps und Instruktionen.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Integration mit bestehenden Tools</h4><p>Anbindung an interne Systeme, Datenquellen und Toolchains über Marketplace-Apps oder eigene Integrationen.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Custom Features und Workflows</h4><p>Individuelle Workflows, Automatisierungen und Features über den Standardumfang hinaus.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Laufende Wartung und Weiterentwicklung</h4><p>Support, Updates und Anpassungen nach dem Deployment, für Unternehmen ohne eigene OpenBot-Expertise.</p></div></div>
     </div>
-
-    <p>Das Custom-Deployment-Modell richtet sich an Unternehmen, die Agents abteilungsübergreifend einsetzen, Agenturen, die Agent-Umgebungen für Kunden aufbauen, sowie Organisationen mit spezifischen Datenschutz- oder Compliance-Anforderungen.</p>
+    <p>Das Modell richtet sich an Unternehmen, die Agents abteilungsübergreifend einsetzen, an Agenturen, die Agent-Umgebungen für Kunden aufbauen, und an Organisationen mit besonderen Datenschutz- oder Compliance-Anforderungen.</p>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 3 · Releases</span></div>
 
-  <!-- 4 · Relevantreleases -->
+  <!-- 4 -->
   <section id="releases">
-    <h2><span class="sec-num">04</span>Team-relevante Features aus den letzten Releases</h2>
-
-    <p>Diese Releases haben team-relevante Features gebracht — nach Datum, neueste zuerst:</p>
-
-    <div class="release-list">
-      <div class="rl-item">
-        <div class="rl-ver">0.72.0<br><span style="font-size:11px;color:var(--fg-muted);font-weight:400">16. Nov.</span></div>
-        <div class="rl-desc"><strong>CRM-Seite</strong> für Owner/Admins, <strong>geteilte Browser-Profile</strong> mit Freigabe-Karten, AppSignal/Cloud66/HubSpot/Stripe-Connectors, größere VPS-Storage-Tiers</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-ver">0.70.0<br><span style="font-size:11px;color:var(--fg-muted);font-weight:400">13. Nov.</span></div>
-        <div class="rl-desc"><strong>Thread-Parallelitätslimits</strong> pro Server und Agent, <strong>Vault-Zugriff per Agent</strong>, Server-Neustart aus der App, Agent-Defaults in Server-Einstellungen</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-ver">0.69.0<br><span style="font-size:11px;color:var(--fg-muted);font-weight:400">12. Nov.</span></div>
-        <div class="rl-desc"><strong>MCP-Zugriff per Agent und Rolle</strong>, Server-Export/-Import komplett (Chats, Channels, Workflows), Account-Pooling für Provider, Server auf anderen Server kopieren</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-ver">0.68.0<br><span style="font-size:11px;color:var(--fg-muted);font-weight:400">11. Nov.</span></div>
-        <div class="rl-desc"><strong>Channel-Browser-Einstellungen</strong>: welche Mitglieder den Browser nutzen dürfen; Wiederherstellungsfenster nach Startfehlern</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-ver">0.60.0<br><span style="font-size:11px;color:var(--fg-muted);font-weight:400">3. Nov.</span></div>
-        <div class="rl-desc"><strong>Audit-Log</strong> für Owner/Admins, <strong>OpenID Connect</strong> für Firmen-Sign-in, WhatsApp-Verknüpfung, Slack/Telegram/Discord Workflow-Trigger</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-ver">0.57.0<br><span style="font-size:11px;color:var(--fg-muted);font-weight:400">31. Okt.</span></div>
-        <div class="rl-desc">Owner/Admins verwalten <strong>Agent-Einstellungen aus der Mobile-App</strong>; Konversations-Branches in neue Threads</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-ver">0.52.0<br><span style="font-size:11px;color:var(--fg-muted);font-weight:400">27. Okt.</span></div>
-        <div class="rl-desc"><strong>Mehrere Threads pro Agent</strong> mit paralleler Ausführung, Marketplace-Redesign, Owner/Admins verbundener Server haben Vault-Zugriff</div>
-      </div>
-      <div class="rl-item">
-        <div class="rl-ver">0.50.0<br><span style="font-size:11px;color:var(--fg-muted);font-weight:400">25. Okt.</span></div>
-        <div class="rl-desc"><strong>Vault</strong>, <strong>Workflow-Engine</strong> mit Bedingungen/Schleifen/Freigaben/Zeitplänen, Steuerung für Grok-Agents, Koreanisch/Chinesisch UI</div>
-      </div>
+    <h2><span class="section-num">Teil 3</span>Team-relevante Features aus den letzten Releases</h2>
+    <p>Neueste zuerst. Alle Releases im <a href="OpenBot_Changelog.html">Changelog</a>.</p>
+    <div class="compare-table-wrap">
+      <table>
+        <thead><tr><th>Version</th><th>Datum</th><th>Team-relevante Änderungen</th></tr></thead>
+        <tbody>
+          <tr><td>0.72.0</td><td>16. Nov.</td><td><strong>CRM-Seite</strong> für Owner/Admins, <strong>geteilte Browser-Profile</strong> mit Freigabe-Karten, AppSignal-, Cloud-66-, HubSpot- und Stripe-Connectors, größere VPS-Storage-Tiers</td></tr>
+          <tr><td>0.70.0</td><td>13. Nov.</td><td><strong>Thread-Parallelitätslimits</strong> pro Server und Agent, <strong>Vault-Zugriff pro Agent</strong>, Server-Neustart aus der App, Agent-Defaults in den Server-Einstellungen</td></tr>
+          <tr><td>0.69.0</td><td>12. Nov.</td><td><strong>MCP-Zugriff pro Agent und Rolle</strong>, kompletter Server-Export/-Import (Chats, Channels, Workflows), Account-Pooling für Provider, Server auf anderen Server kopieren</td></tr>
+          <tr><td>0.68.0</td><td>11. Nov.</td><td><strong>Channel-Browser-Einstellungen</strong>: welche Mitglieder den Browser nutzen dürfen; Wiederherstellungsfenster nach Startfehlern</td></tr>
+          <tr><td>0.60.0</td><td>3. Nov.</td><td><strong>Audit-Log</strong> für Owner/Admins, <strong>OpenID Connect</strong> für Firmen-Sign-in, WhatsApp-Verknüpfung, Slack/Telegram/Discord-Workflow-Trigger</td></tr>
+          <tr><td>0.57.0</td><td>31. Okt.</td><td>Owner/Admins verwalten <strong>Agent-Einstellungen aus der Mobile-App</strong>; Konversations-Branches in neue Threads</td></tr>
+          <tr><td>0.52.0</td><td>27. Okt.</td><td><strong>Mehrere Threads pro Agent</strong> mit paralleler Ausführung, Marketplace-Redesign, Owner/Admins verbundener Server haben Vault-Zugriff</td></tr>
+          <tr><td>0.50.0</td><td>25. Okt.</td><td><strong>Vault</strong>, <strong>Workflow-Engine</strong> mit Bedingungen, Schleifen, Freigaben und Zeitplänen, Steuerung für Grok-Agents, koreanische und chinesische UI</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
-  <hr class="divider">
+  <div class="part-divider"><span class="part-label">Teil 4 · Erste Schritte</span></div>
 
-  <!-- 5 · Erste Schritte -->
+  <!-- 5 -->
   <section id="start">
-    <h2><span class="sec-num">05</span>Erste Schritte für Teams</h2>
+    <h2><span class="section-num">Teil 4</span>Erste Schritte für Teams</h2>
 
     <h3>Option A: Managed Server einrichten</h3>
-    <ol>
-      <li>Öffne <strong>Settings → Server</strong> und wähle <em>Hosted Server erstellen</em></li>
-      <li>Wähle einen Hosting-Standort und einen Speichertier</li>
-      <li>Lade Teammitglieder über <strong>Settings → Mitglieder → Einladen</strong> ein</li>
-      <li>Vergib Rollen: Owner, Admin oder Mitglied</li>
-      <li>Konfiguriere Agent-Defaults unter <strong>Server-Einstellungen → Agents</strong></li>
-    </ol>
-
-    <h3>Option B: Eigenem Server beitreten</h3>
-    <ol>
-      <li>Der Server-Owner schickt einen Einladungslink</li>
-      <li>Öffne OpenBot → <em>Server beitreten</em> und gib den Einladungscode ein</li>
-      <li>Verbindung läuft über WebRTC — kein direkter Netzwerkzugang zum Server nötig</li>
-    </ol>
-
-    <h3>Empfohlene Ersteinrichtung für Teams</h3>
-    <ul>
-      <li>Richte einen <strong>Firmen-Agent</strong> ein, der als Kontext-Halter für firma-weite Informationen dient</li>
-      <li>Aktiviere den <strong>Audit-Log</strong> von Anfang an — rückwirkende Logs gibt es nicht</li>
-      <li>Konfiguriere <strong>MCP-Zugriffsrechte</strong> pro Agent, bevor du produktive Agents startest</li>
-      <li>Lege API-Keys im <strong>Vault</strong> ab statt in Agent-Instruktionen</li>
-      <li>Nutze <strong>Channels</strong> für abteilungsübergreifende Kommunikation mit Agents</li>
-    </ul>
-
-    <div class="callout tip">
-      Bis zum 1. Dezember 2026 ist die kommerzielle Nutzung von OpenBot kostenlos. Danach gilt die Lizenz, die unter openbot.run/pricing beschrieben ist.
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Server erstellen</h4><p><strong>Settings → Server</strong> öffnen und <em>Hosted Server erstellen</em> wählen.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Standort und Speicher</h4><p>Hosting-Standort und Speichertier auswählen.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Mitglieder einladen</h4><p>Über <strong>Settings → Mitglieder → Einladen</strong>.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Rollen vergeben</h4><p>Owner, Admin oder Mitglied.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Agent-Defaults</h4><p>Unter <strong>Server-Einstellungen → Agents</strong> konfigurieren.</p></div></div>
     </div>
 
-    <a class="original-link" href="https://openbot.run/teams" target="_blank">↗ openbot.run/teams</a>
+    <h3>Option B: Einem Server beitreten</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Einladung erhalten</h4><p>Der Server-Owner schickt einen Einladungslink.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Beitreten</h4><p>OpenBot → <em>Server beitreten</em> öffnen und den Einladungscode eingeben.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Verbinden</h4><p>Die Verbindung läuft über WebRTC; ein direkter Netzwerkzugang zum Server ist nicht nötig.</p></div></div>
+    </div>
+
+    <h3>Empfohlene Ersteinrichtung</h3>
+    <ul>
+      <li>Einen <strong>Firmen-Agent</strong> als Kontext-Halter für firmenweite Informationen einrichten (Modell aus <a href="OpenBot_Firmen_und_Projekte.html#firmen">Firmen &amp; Projekte</a>).</li>
+      <li>Den <strong>Audit-Log</strong> von Anfang an nutzen; rückwirkende Logs gibt es nicht.</li>
+      <li><strong>MCP-Zugriffsrechte</strong> pro Agent setzen, bevor produktive Agents starten.</li>
+      <li>API-Keys im <strong>Vault</strong> ablegen statt in Agent-Instruktionen.</li>
+      <li><strong>Channels</strong> für abteilungsübergreifende Kommunikation mit Agents nutzen.</li>
+      <li><strong>Permissions</strong> für Everyone schließen, bevor du jemanden einlädst; neue Agents sind sonst für alle Mitglieder verwaltbar (siehe <a href="OpenBot_Komplett_Setup_mehrere_Firmen.html#sicherheit">Komplett-Setup</a>).</li>
+    </ul>
+
+    <div class="callout tip" style="margin-top: 32px;">
+      Bis zum 1. Dezember 2026 ist die kommerzielle Nutzung von OpenBot kostenlos. Danach gilt die Lizenz unter openbot.run/pricing. Original: <a href="https://openbot.run/teams" target="_blank">openbot.run/teams ↗</a>
+    </div>
   </section>
 
 </div>
 
 <script>
 (function () {
-  const links = Array.from(document.querySelectorAll('.toc-link[href^="#"]'));
-  const sections = links.map(l => document.getElementById(l.getAttribute('href').slice(1)));
+  // Theme Toggle
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function isDark() {
+    const t = root.getAttribute('data-theme');
+    return t === 'dark' || (!t && mq.matches);
+  }
+  function updateBtn() {
+    btn.textContent = isDark() ? '☀ Hell' : '☾ Dunkel';
+  }
+  btn.addEventListener('click', function () {
+    root.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+    updateBtn();
+  });
+  updateBtn();
+
+  // Aktive Toc-Links beim Scrollen
+  const tocLinks = document.querySelectorAll('.toc-link[href^="#"]');
+  const sections = Array.from(tocLinks).map(l => document.getElementById(l.getAttribute('href').slice(1))).filter(Boolean);
+
   function onScroll() {
     const y = window.scrollY + 72;
     let active = sections[0];
-    for (const s of sections) { if (s && s.offsetTop <= y) active = s; }
-    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
+    for (const s of sections) {
+      if (s.offsetTop <= y) active = s;
+    }
+    tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + (active ? active.id : '')));
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-  const btn = document.getElementById('themeBtn');
-  const mq  = window.matchMedia('(prefers-color-scheme: dark)');
-  function applyTheme(dark) { document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light'); btn.textContent = dark ? '☀ Hell' : '☾ Dunkel'; }
-  function isDark() { const t = document.documentElement.getAttribute('data-theme'); return t === 'dark' || (!t && mq.matches); }
-  btn.addEventListener('click', () => applyTheme(!isDark()));
-  applyTheme(isDark());
 })();
 </script>
 
-</body></html>
+<script>
+(function () {
+  // Klick auf die Marke springt zum Dokumentanfang.
+  var brand = document.querySelector('.topbar-brand');
+  if (brand) brand.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,14 +1,13 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>OpenBot Firmen & Projekte</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-
 <style>
-/*
-  Layout: Sticky Inhaltsverzeichnis oben, dann langer Einzel-Artikel mit klaren Sektionen.
-  Farben: Tiefes Schieferdunkelblau / warmes Off-White, Teal als Akzent — bewusst von
-  der Guides-Sammlung abgesetzt, aber im selben Sprachraum.
-*/
+/* Design-Referenz: OpenBot_Firmen_und_Projekte.html. Pro Guide ändern sich nur die Farben. */
 :root {
   --bg:        #f3f5f8;
   --surface:   #ffffff;
@@ -28,20 +27,20 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:        #0e1118;
-    --surface:   #161c27;
-    --surface2:  #1b2232;
-    --fg:        #dde3ef;
-    --fg-muted:  #7488a2;
-    --border:    #252e3f;
-    --accent:    #25b898;
-    --accent-bg: #0d2820;
-    --accent2:   #4b9ed4;
-    --accent2-bg:#0e1f30;
-    --warn-bg:   #1e180a;
-    --warn-border:#9c7a1a;
-    --code-bg:   #1d2436;
-    --tag-bg:    #1a2438;
+  --bg:        #0e1118;
+  --surface:   #161c27;
+  --surface2:  #1b2232;
+  --fg:        #dde3ef;
+  --fg-muted:  #7488a2;
+  --border:    #252e3f;
+  --accent:    #25b898;
+  --accent-bg: #0d2820;
+  --accent2:   #4b9ed4;
+  --accent2-bg:#0e1f30;
+  --warn-bg:   #1e180a;
+  --warn-border:#9c7a1a;
+  --code-bg:   #1d2436;
+  --tag-bg:    #1a2438;
     color-scheme: dark;
   }
 }
@@ -408,11 +407,23 @@ td:first-child { font-weight: 500; }
   .role-grid { grid-template-columns: 1fr; }
   .article-lead { font-size: 15px; }
 }
+
+/* ── Ergänzungen für die ganze Guide-Serie ── */
+a.topbar-brand { text-decoration: none; cursor: pointer; }
+a.topbar-brand:hover { color: var(--accent); }
+.wrapper a { color: var(--accent2); text-underline-offset: 2px; }
+.checklist { list-style: none; padding-left: 0; }
+.checklist li { padding-left: 26px; position: relative; }
+.checklist li::before { content: "☐"; position: absolute; left: 2px; color: var(--accent); }
+.file-tree.code { white-space: pre; }
+.wrapper p code, .wrapper li code, .wrapper td code { overflow-wrap: anywhere; }
 </style>
+</head>
+<body>
 
 <!-- Oben-Leiste mit Inhaltsverzeichnis -->
 <nav class="topbar">
-  <span class="topbar-brand">OpenBot Guide</span>
+  <a class="topbar-brand" href="#" title="Zum Anfang">OpenBot Guide</a>
   <a class="toc-link active" href="#konzept">Konzept</a>
   <a class="toc-link" href="#firmen">Firmen</a>
   <a class="toc-link" href="#projekte">Projekte</a>
@@ -770,4 +781,16 @@ td:first-child { font-weight: 500; }
 })();
 </script>
 
-</body></html>
+<script>
+(function () {
+  // Klick auf die Marke springt zum Dokumentanfang.
+  var brand = document.querySelector('.topbar-brand');
+  if (brand) brand.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
+</body>
+</html>
