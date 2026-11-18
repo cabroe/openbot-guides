@@ -4,7 +4,7 @@ Sammlung deutschsprachiger Guides zu [OpenBot](https://openbot.run). Alle Guides
 
 | Datei | Inhalt |
 | --- | --- |
-| [OpenBot_Komplett_Setup_mehrere_Firmen.html](guides/OpenBot_Komplett_Setup_mehrere_Firmen.html) | Eigener Gesamt-Guide: Agenten, AGENTS.md, Ordner, Kanäle, Bibliothek, Gedächtnis und Honcho, Skills, Apps, Routinen, Workflows, Projekte, mehrere Firmen, Sicherheit |
+| [OpenBot_Komplett_Setup_mehrere_Firmen.html](guides/OpenBot_Komplett_Setup_mehrere_Firmen.html) | Eigener Gesamt-Guide: Agenten, AGENTS.md, Ordner, Kanäle, Bibliothek, Gedächtnis, Skills, Apps, Routinen, Workflows, Projekte, mehrere Firmen, Sicherheit |
 | [OpenBot_Guides_14_offizielle_Guides_DE.html](guides/OpenBot_Guides_14_offizielle_Guides_DE.html) | Die 14 offiziellen Guides von openbot.run, ins Deutsche übersetzt |
 | [OpenBot_Dokumentation.html](guides/OpenBot_Dokumentation.html) | Technische Dokumentation: Installation, Konfiguration, Architektur, Daten, Entwicklung |
 | [OpenBot_Firmen_und_Projekte.html](guides/OpenBot_Firmen_und_Projekte.html) | Mehrere Firmen und Team-Projekte mit eigenen Agents pro Firma |
